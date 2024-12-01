@@ -1,2 +1,5 @@
-korisnik|korisnik123|Korisnik|Glavni|3|1|01.12.2024.
-nikola23|123|Nikola|Milanovic|1|1|23.10.2023.
+korisnik|korisnik123|Korisnik|Glavni|3|1|1|01.12.2024
+nikola23|123|Nikola|Milanovic|1|1|1|01.12.2024
+dixi|Dimitrije|Jeknic|Jeknic|0|0|0|01.12.2024
+mixa|123|Mihajlo|Rankovic|0|0|0|01.12.2024
+biserko|123|Djoki|Bisercic|0|0|0|01.12.2024

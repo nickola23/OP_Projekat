@@ -1,9 +1,12 @@
+from funkcije.korisnikFunkcije import prijava, registracija
+
 def izlaz():
     print("Izlaz iz programa.")
 
 menii = {
     "pocetni": {
-        "prijava": lambda: print('prijava'),
+        "prijava": prijava,
+        "registracija": registracija,
         "pregledPrograma": lambda: print('pregledPrograma'),
         "pretragaPrograma": lambda: print('pretragaPrograma'),
         "naprednaPretraga": lambda: print('naprednaPretraga'),

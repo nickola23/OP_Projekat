@@ -1,0 +1,10 @@
+1|Yoga Basics|1|60|101|0|Osnovni kurs joge za početnike.
+2|Strength 101|2|120|102|1|Kombinovani trening snage i kardia.
+3|HIIT Burn|3|45|103|0|Visokointenzivni intervalni treninzi.
+4|Advanced Pilates|4|90|104|1|Napredni pilates.
+5|BoxFit|5|75|105|1|Trening boksa i kondicije.
+6|Functional Movement|6|110|106|0|Trening funkcionalnog pokreta.
+7|Zen Yoga|1|50|107|0|Relaksirajući kurs joge.
+8|Powerlifting Essentials|7|140|108|1|Osnovni principi powerliftinga.
+9|Dance Cardio|2|60|109|0|Zabavni kardio treninzi.
+10|CrossFit Challenge|8|130|110|1|Izazovni CrossFit.

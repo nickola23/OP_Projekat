@@ -31,7 +31,9 @@ def ucitajKorisnike(putanja):
 
 korisnici = ucitajKorisnike(putanja)
 
-def dodajKorisnika(korisnickoIme):
+def dodajKorisnika():
+    korisnickoIme = input('Unesite korisnicko ime: ')
+
     if korisnickoIme not in korisnici.keys():
         lozinka = input('Unesite lozinku: ')
         ime = input('Unesite ime: ')
@@ -53,29 +55,31 @@ def dodajKorisnika(korisnickoIme):
         return  False
 
 def prijava():
-    korisnickoIme = input('Unesite korisnicko ime: ')
+    while True:
+        korisnickoIme = input('Unesite korisnicko ime: ')
 
-    if korisnickoIme in korisnici.keys():
-        lozinka = input('Unesite lozinku: ')
-        if lozinka == korisnici[korisnickoIme]['lozinka']:
-            print('Uspesna prijava.')
-            return True
-        else:
-            print('Pogresna lozinka.')
-            return False
-    else:   
-        print('Korisnicko ime ne postoji.')
-        return False
+        if korisnickoIme in korisnici.keys():
+            lozinka = input('Unesite lozinku: ')
+            if lozinka == korisnici[korisnickoIme]['lozinka']:
+                print('Uspesna prijava.')
+                break
+            else:
+                print('Pogresna lozinka.')
+                continue
+        else:   
+            print('Korisnicko ime ne postoji.')
+            continue
+    return True
 
 def registracija():
-    korisnickoIme = input('Unesite korisnicko ime: ')
-
-    if dodajKorisnika(korisnickoIme):
-        print('Uspesna registracija.')
-        zavrsi(putanja, korisnici)    #ukloniti kasnije sada sluzi za upis u fajl
-        return True
-    else: 
-        print('Neuspesna registracija.')
-        return False
+    while True:
+        if dodajKorisnika():
+            print('Uspesna registracija.')
+            zavrsi(putanja, korisnici)    #ukloniti kasnije sada sluzi za upis u fajl
+            break
+        else: 
+            print('Neuspesna registracija.')
+            continue
+    return True
     
     

@@ -15,10 +15,10 @@ def pretvoriuTekst(podaci):
 
 def citajFajl(putanja):
     try:
-        with open(putanja, 'r') as fajl:
+        with open(putanja, 'r', encoding='utf-8') as fajl:
             return fajl.read()
-    except:
-        print('Greska prilikom citanja fajla.')
+    except Exception as e:
+        print('Greska prilikom citanja fajla:\n', e)
         return None
     
 def upisFajl(putanja, podaci):

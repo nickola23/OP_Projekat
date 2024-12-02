@@ -1,13 +1,18 @@
 from funkcije.korisnikFunkcije import prijava, registracija
+from funkcije.programFunkcije import ucitajPrograme 
+from funkcije.tabelaFunkcije import ispisTabele
+
+programi = ucitajPrograme('./data/Program.txt')
 
 def izlaz():
     print("Izlaz iz programa.")
+    exit(0)
 
 menii = {
     "pocetni": {
         "prijava": prijava,
         "registracija": registracija,
-        "pregledPrograma": lambda: print('pregledPrograma'),
+        "pregledPrograma": lambda: ispisTabele(programi),
         "pretragaPrograma": lambda: print('pretragaPrograma'),
         "naprednaPretraga": lambda: print('naprednaPretraga'),
         "pretragaTermina": lambda: print('pretragaTermina'),
@@ -32,8 +37,8 @@ def unosMeni(meni):
         else:
             stavka = list(meni.values())[izbor]
             stavka()
-    except: 
-        print('Morate uneti broj.')
+    except Exception as e: 
+        print('Greska prilikom izbora\n', e)
 
 def main():
     trenutniMeni = menii['pocetni']

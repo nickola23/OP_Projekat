@@ -1,8 +1,26 @@
-from funkcije.korisnikFunkcije import prijava, registracija
-from funkcije.programFunkcije import ucitajPrograme 
+from funkcije.korisnikFunkcije import prijava, registracija, odjava, ucitajKorisnike
+from funkcije.programFunkcije import ucitajPrograme, izmeniProgram
 from funkcije.tabelaFunkcije import ispisTabele
 
-programi = ucitajPrograme('./data/Program.txt')
+putanjaKorisnici = './data/Korisnici.txt'
+putanjaProgrami = './data/Program.txt'
+
+korisnici = ucitajKorisnike(putanjaKorisnici)
+programi = ucitajPrograme(putanjaProgrami)
+
+trenutniKorisnik = None
+
+def prijavaKorisnik(korisnici):
+    global trenutniKorisnik
+    trenutniKorisnik = prijava(korisnici, trenutniKorisnik)
+
+def registracijaKorisnik(korisnici):
+    global trenutniKorisnik
+    trenutniKorisnik = registracija(korisnici)
+
+def odjavaKorisnik():
+    global trenutniKorisnik
+    trenutniKorisnik = odjava()
 
 def izlaz():
     print("Izlaz iz programa.")
@@ -10,13 +28,13 @@ def izlaz():
 
 menii = {
     "pocetni": {
-        "prijava": prijava,
-        "registracija": registracija,
+        "prijava": lambda: prijavaKorisnik(korisnici, trenutniKorisnik),
+        "registracija": lambda: registracijaKorisnik(korisnici),
         "pregledPrograma": lambda: ispisTabele(programi),
         "pretragaPrograma": lambda: print('pretragaPrograma'),
         "naprednaPretraga": lambda: print('naprednaPretraga'),
         "pretragaTermina": lambda: print('pretragaTermina'),
-        "izlaz": izlaz
+        "izlaz": lambda: izlaz
     },
     "neregistrovan": 'ispisiMeni(neregistrovan)',
     "registrovanClan": 'ispisiMeni(registrovanClan)',

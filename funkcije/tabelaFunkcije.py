@@ -14,18 +14,24 @@ def maxDuzina(podaci):
     return maxDuzina
 
 def ispisTabele(podaci):
+    zaglavlje = linija = vrednosti = ''
+
     if not podaci:
         print("Nema podataka za prikaz.")
         return
     
     duzine = maxDuzina(podaci)
 
-    zaglavlje = " | ".join(f"{kljuc:<{duzine[kljuc]}}" for kljuc in duzine.keys())
-    linija = "-+-".join("-" * duzine[kljuc] for kljuc in duzine.keys())
+    for kljuc in duzine.keys():
+        zaglavlje += " | " + f"{kljuc:<{duzine[kljuc]}}" 
+        linija += "-+-" + "-" * duzine[kljuc]
 
+    print('\n')
     print(zaglavlje)
     print(linija)
 
     for red in podaci.values():
-        vrednosti = " | ".join(f"{str(red[kljuc]):<{duzine[kljuc]}}" for kljuc in duzine.keys())
-        print(vrednosti)
+        for kljuc in duzine.keys():
+            vrednosti += " | " + f"{str(red[kljuc]):<{duzine[kljuc]}}"
+        vrednosti += '\n'
+    print(vrednosti)

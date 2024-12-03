@@ -1,4 +1,4 @@
-from funkcije.fajloviFunkcije import citajFajl, upisFajl
+from funkcije.fajlovi import citajFajl, upisFajl
 
 def ucitajPrograme(putanja):
     fajl = citajFajl(putanja)

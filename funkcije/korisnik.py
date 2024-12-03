@@ -1,5 +1,5 @@
 from datetime import datetime
-from funkcije.fajloviFunkcije import citajFajl, upisFajl
+from funkcije.fajlovi import citajFajl, upisFajl
 
 def ucitajKorisnike(putanja):
     fajl = citajFajl(putanja)

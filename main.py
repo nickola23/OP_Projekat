@@ -1,6 +1,6 @@
-from funkcije.korisnikFunkcije import prijava, registracija, odjava, ucitajKorisnike
-from funkcije.programFunkcije import ucitajPrograme, izmeniProgram
-from funkcije.tabelaFunkcije import ispisTabele
+from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
+from funkcije.program import ucitajPrograme, izmeniProgram
+from funkcije.tabela import ispisTabele
 
 putanjaKorisnici = './data/Korisnici.txt'
 putanjaProgrami = './data/Program.txt'

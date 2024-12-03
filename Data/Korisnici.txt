@@ -4,3 +4,12 @@ dixi|Dimitrije|Jeknic|Jeknic|0|0|0|01.12.2024
 mixa|123|Mihajlo|Rankovic|0|0|0|01.12.2024
 biserko|123|Djoki|Bisercic|0|0|0|01.12.2024
 marko|123|Marko|Glolub|0|0|0|02.12.2024
+korisnik01|lozinka123|Marko|Petrović|1|1|1|01.12.2024 
+marija99|pass789|Marija|Jovanović|2|1|1|03.12.2024  
+ana12|tajna101|Ana|Marković|3|1|0|04.12.2024  
+marko77|qwerty|Marko|Nikolić|2|0|1|05.12.2024  
+ivana88|123456|Ivana|Petrović|1|0|0|06.12.2024  
+petar65|abcd123|Petar|Ilić|3|1|1|07.12.2024  
+jelena44|jelena44|Jelena|Popović|2|1|0|08.12.2024  
+dusan33|pass123|Dušan|Stanković|1|0|1|09.12.2024  
+sofia21|sofia21|Sofija|Lukić|3|0|0|10.12.2024  

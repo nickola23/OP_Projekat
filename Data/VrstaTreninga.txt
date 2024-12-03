@@ -1,0 +1,10 @@
+1|Aerobik
+2|Powerlifting
+3|Joga
+4|Pilates
+5|CrossFit
+6|HIIT
+7|Zumba
+8|Boks
+9|Plivanje
+10|Stretching

@@ -8,15 +8,15 @@ def ucitajPrograme(putanja):
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id = red.split('|')[0]
+            id, naziv, idVrsteTreninga, trajanje, idInstruktora, potrebanPaket, opis = red.split('|')
             podaci[id] = {
                 'id': eval(id),
-                'naziv': red.split('|')[1],
-                'idVrsteTreninga': eval(red.split('|')[2]),
-                'trajanje': eval(red.split('|')[3]),
-                'idInstruktora': eval(red.split('|')[4]),
-                'potrebanPaket': eval(red.split('|')[5]),
-                'opis': red.split('|')[6]
+                'naziv': naziv,
+                'idVrsteTreninga': eval(idVrsteTreninga),
+                'trajanje': eval(trajanje),
+                'idInstruktora': eval(idInstruktora),
+                'potrebanPaket': eval(potrebanPaket),
+                'opis': opis
             }
             
     return podaci

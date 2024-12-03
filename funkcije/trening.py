@@ -1,0 +1,1 @@
+#sve ponovo za trening

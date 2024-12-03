@@ -1,7 +1,7 @@
 from datetime import datetime
 from funkcije.fajlovi import citajFajl, upisFajl
 
-def ucitajTermie(putanja):
+def ucitajTermin(putanja):
     fajl = citajFajl(putanja)
     if fajl is None:
         return {}
@@ -10,11 +10,11 @@ def ucitajTermie(putanja):
     for red in fajl.split('\n'):
         if red:
             id, datum, idTreninga = red.split('|')
-            podaci[id]({
+            podaci[id] = {
                 'id': id,
                 'datum': datetime.strptime(datum, '%d.%m.%Y').date().strftime('%d.%m.%Y'),
-                'idTreninga': eval(idTreninga)
-            })
+                'idTreninga': idTreninga
+            }
     
     return podaci
 
@@ -27,7 +27,7 @@ def dodajTermin(termini):
             termini[id] = {
                 'id': id,
                 'datum': datetime.strptime(datum, '%d.%m.%Y').date().strftime('%d.%m.%Y'),
-                'idTreninga': eval(idTreninga)
+                'idTreninga': idTreninga
             }
             return True
         else:
@@ -59,10 +59,9 @@ def izmeniTermin(termini):
                     case '1':
                         termini[id]['datum'] = datetime.strptime(input("Unesite novi datum (dd.mm.yyyy): "), '%d.%m.%Y').date().strftime('%d.%m.%Y')
                     case '2':
-                        termini[id]['idTreninga'] = eval(input("Unesite novi ID treninga: "))
+                        termini[id]['idTreninga'] = input("Unesite novi ID treninga: ")
                     case '0':
                         return True
         else:  
             print("Termin sa unesenim ID-em ne postoji.")
             continue
-

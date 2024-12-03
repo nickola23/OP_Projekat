@@ -1,12 +1,18 @@
+from funkcije.tabela import ispisTabele
 from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
 from funkcije.program import ucitajPrograme, izmeniProgram
-from funkcije.tabela import ispisTabele
+from funkcije.trening import ucitajTrening
+from funkcije.termin import ucitajTermin
 
 putanjaKorisnici = './data/Korisnici.txt'
 putanjaProgrami = './data/Program.txt'
+putanjaTrening = './data/Trening.txt'
+putanjaTermin = './data/Termin.txt'
 
 korisnici = ucitajKorisnike(putanjaKorisnici)
 programi = ucitajPrograme(putanjaProgrami)
+treninzi = ucitajTrening(putanjaTrening)
+termini =  ucitajTermin(putanjaTermin)
 
 trenutniKorisnik = None
 
@@ -30,7 +36,7 @@ menii = {
     "pocetni": {
         "prijava": lambda: prijavaKorisnik(korisnici, trenutniKorisnik),
         "registracija": lambda: registracijaKorisnik(korisnici),
-        "pregledPrograma": lambda: ispisTabele(programi),
+        "pregledPrograma": lambda: ispisTabele(termini),
         "pretragaPrograma": lambda: print('pretragaPrograma'),
         "naprednaPretraga": lambda: print('naprednaPretraga'),
         "pretragaTermina": lambda: print('pretragaTermina'),

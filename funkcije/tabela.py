@@ -1,3 +1,5 @@
+from datetime import time, date
+
 def maxDuzina(podaci):
     maxDuzina = {}
     prvi_unos = next(iter(podaci))
@@ -32,6 +34,12 @@ def ispisTabele(podaci):
 
     for red in podaci.values():
         for kljuc in duzine.keys():
-            vrednosti += " | " + f"{str(red[kljuc]):<{duzine[kljuc]}}"
+            if isinstance(red[kljuc], list):
+                spojeni_podaci = ", ".join(map(str, red[kljuc]))
+                vrednosti += " | " + f"{spojeni_podaci.capitalize():<{duzine[kljuc]}}"
+            elif isinstance(red[kljuc], time):
+                vrednosti += " | " + f"{str(red[kljuc].strftime("%H:%M")):<{duzine[kljuc]}}"
+            else:
+                vrednosti += " | " + f"{str(red[kljuc]):<{duzine[kljuc]}}"
         vrednosti += '\n'
     print(vrednosti)

@@ -1,6 +1,6 @@
 from funkcije.tabela import ispisTabele
 from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
-from funkcije.program import ucitajPrograme, izmeniProgram
+from funkcije.program import ucitajPrograme, izmeniProgram, pretraziProgram, pretraziProgramKriterijum
 from funkcije.trening import ucitajTrening
 from funkcije.termin import ucitajTermin
 
@@ -36,9 +36,9 @@ menii = {
     "pocetni": {
         "prijava": lambda: prijavaKorisnik(korisnici, trenutniKorisnik),
         "registracija": lambda: registracijaKorisnik(korisnici),
-        "pregledPrograma": lambda: ispisTabele(termini),
-        "pretragaPrograma": lambda: print('pretragaPrograma'),
-        "naprednaPretraga": lambda: print('naprednaPretraga'),
+        "pregledPrograma": lambda: ispisTabele(programi),
+        "pretragaPrograma": lambda: ispisTabele(pretraziProgram(programi)),
+        "naprednaPretraga": lambda: ispisTabele(pretraziProgramKriterijum(programi)),
         "pretragaTermina": lambda: print('pretragaTermina'),
         "izlaz": lambda: izlaz
     },

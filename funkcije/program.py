@@ -92,3 +92,66 @@ def izmeniProgram(programi):
         else:
             print("Program sa ovim ID ne postoji.")
             continue
+
+def pretraziProgram(programi, kriterijum = ''):
+    pretraga = {}
+    kljuc = input('Unesite kljucnu rec za pretragu: ').lower()
+
+    for id, podaci in programi.items():
+        for vrednost in podaci.values():
+            if kriterijum:
+                if kriterijum == 'naziv' and kljuc in str(podaci['naziv']).lower():
+                    pretraga[id] = podaci
+                    break
+                elif kriterijum == 'idVrsteTreninga' and str(podaci['idVrsteTreninga']).lower() == kljuc:
+                    pretraga[id] = podaci
+                    break
+                elif kriterijum == 'trajanje' and str(podaci['trajanje']).lower() == kljuc:
+                    pretraga[id] = podaci
+                    break
+                elif kriterijum == 'idInstruktora' and str(podaci['idInstruktora']).lower() == kljuc:
+                    pretraga[id] = podaci
+                    break
+                elif kriterijum == 'potrebanPaket' and str(podaci['potrebanPaket']).lower() == kljuc:
+                    pretraga[id] = podaci
+                    break
+                else:
+                    break
+            else:
+                if kljuc in str(vrednost).lower():
+                    pretraga[id] = podaci
+    
+    if not pretraga:
+        return {}
+    else:
+        return pretraga
+
+def pretraziProgramKriterijum(programi):
+    while True:
+        pretraga = {}
+        kriterijum = input("Odaberite kriterijum pretrage:\n1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n0. Izlaz\nIzaberite kriterijum: ")
+        
+        match kriterijum:
+            case '1':
+                pretraga |= pretraziProgram(programi, 'naziv')
+                break
+            case '2':
+                pretraga |= pretraziProgram(programi, 'idVrsteTreninga')
+                break
+            case '3':
+                pretraga |= pretraziProgram(programi, 'trajanje')
+                break
+            case '4':
+                pretraga |= pretraziProgram(programi, 'idInstruktora')
+                break
+            case '5':
+                pretraga |= pretraziProgram(programi, 'potrebanPaket')
+                break
+            case _:
+                print("Neispravan unos. Ponovite.")
+                continue
+        
+    if not pretraga:
+        return {}
+    else:
+        return pretraga

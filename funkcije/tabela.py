@@ -8,7 +8,6 @@ def maxDuzina(podaci):
     
     for red in podaci.values():
         for kljuc, vrednost in red.items():
-
             trenutna_duzina = len(str(vrednost))
             if trenutna_duzina > maxDuzina[kljuc]:
                 maxDuzina[kljuc] = trenutna_duzina

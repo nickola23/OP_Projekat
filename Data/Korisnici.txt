@@ -1,9 +1,9 @@
 korisnik|korisnik123|Korisnik|Glavni|3|1|1|01.12.2024
 nikola23|123|Nikola|Milanovic|1|1|1|01.12.2024
-dixi|Dimitrije|Jeknic|Jeknic|0|0|0|01.12.2024
-mixa|123|Mihajlo|Rankovic|0|0|0|01.12.2024
-biserko|123|Djoki|Bisercic|0|0|0|01.12.2024
-marko|123|Marko|Glolub|0|0|0|02.12.2024
+dixi|Dimitrije|Jeknic|Jeknic|1|0|0|01.12.2024
+mixa|123|Mihajlo|Rankovic|1|0|0|01.12.2024
+biserko|123|Djoki|Bisercic|1|0|0|01.12.2024
+marko|123|Marko|Glolub|1|0|0|02.12.2024
 korisnik01|lozinka123|Marko|Petrović|1|1|1|01.12.2024
 marija99|pass789|Marija|Jovanović|2|1|1|03.12.2024
 ana12|tajna101|Ana|Marković|3|1|0|04.12.2024

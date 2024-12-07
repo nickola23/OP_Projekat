@@ -35,9 +35,9 @@ def dodajKorisnika(korisnici):
                 'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
-                'uloga': 0,
-                'status': 0,
-                'uplaceniPaket': 0,
+                'uloga': 1,                 #registrovan, instruktor, admin - 1, 2, 3 - ne moze biti 0
+                'status': 0,                #neaktivan, aktivan - 0, 1
+                'uplaceniPaket': 0,         #standard, premium  - 0, 1
                 'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
             } 
 

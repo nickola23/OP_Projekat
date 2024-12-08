@@ -1,13 +1,18 @@
+from datetime import date, time
+
 def pretvoriuTekst(podaci):
     if podaci:
         tekst = ''
         for kljuc, podatak in podaci.items():
-            linija = list(podatak.values())
-            for i, vrednost in enumerate(linija):
-                if i > 0:
-                    tekst += '|'
-                tekst += str(vrednost).strip()
-            tekst += '\n'
+            linija = []
+            for vrednost in podatak.values():
+                if isinstance(vrednost, list):
+                    linija.append(','.join(vrednost))
+                elif isinstance(vrednost, time):
+                    linija.append(vrednost.strftime('%H:%M')) 
+                else:
+                    linija.append(str(vrednost).strip())
+            tekst += '|'.join(linija) + '\n'
         return tekst
     else:
         print('Nema podataka za upis')
@@ -23,7 +28,7 @@ def citajFajl(putanja):
     
 def upisFajl(putanja, podaci):
     try:
-        with open(putanja, 'w') as fajl:
+        with open(putanja, 'w', encoding='utf-8') as fajl:
             fajl.write(pretvoriuTekst(podaci))
     except:
         print('Greska prilikom upisa u fajl.')

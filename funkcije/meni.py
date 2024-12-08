@@ -3,6 +3,7 @@ from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
 from funkcije.program import ucitajPrograme, izmeniProgram, pretraziProgram, pretraziProgramKriterijum
 from funkcije.trening import ucitajTrening
 from funkcije.termin import ucitajTermin
+from funkcije.fajlovi import upisFajl
 
 putanjaKorisnici = './data/Korisnici.txt'
 putanjaProgrami = './data/Program.txt'
@@ -15,6 +16,7 @@ treninzi = ucitajTrening(putanjaTrening)
 termini =  ucitajTermin(putanjaTermin)
 
 trenutniKorisnik = None
+menii = {}
 
 def prijavaKorisnik(korisnici):
     global trenutniKorisnik
@@ -31,10 +33,15 @@ def odjavaKorisnik():
     trenutniKorisnik = odjava()
     glavniMeni()
 
-def izlaz():
-    print('Izlaz iz programa')
+def upisiFajlove():
+    upisFajl(putanjaKorisnici, korisnici)
+    upisFajl(putanjaProgrami, programi)
+    upisFajl(putanjaTrening, treninzi)
+    upisFajl(putanjaTermin, termini)
 
-menii = {}
+def izlaz():
+    upisiFajlove()
+    print('Izlaz iz programa')
 
 def pokreniMeni(trenutniMeni):
     meni = menii[trenutniMeni]
@@ -180,9 +187,9 @@ def glavniMeni():
 
     if trenutniKorisnik is None:                #nije prijavljen
         pokreniMeni('meniNeregistrovan')
-    elif trenutniKorisnik['uloga'] == 1:        #registrovan
+    elif trenutniKorisnik['uloga'] == 0:        #registrovan
         pokreniMeni('meniRegistrovan')
-    elif trenutniKorisnik['uloga'] == 2:        #instruktor
+    elif trenutniKorisnik['uloga'] == 1:        #instruktor
         pokreniMeni('meniInstruktor')
-    elif trenutniKorisnik['uloga'] == 3:        #admin
+    elif trenutniKorisnik['uloga'] == 2:        #admin
         pokreniMeni('meniAdmin')

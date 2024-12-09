@@ -65,3 +65,27 @@ def izmeniTermin(termini):
         else:  
             print("Termin sa unesenim ID-em ne postoji.")
             continue
+
+def pretraziTermin(termini, kriterijum = ''):
+    pretraga = {}
+    kljuc = input('Unesite kljucnu rec za pretragu: ').lower()
+
+    for id, podaci in termini.items():
+        for vrednost in podaci.values():
+            if kriterijum:
+                if kriterijum == 'id' and str(podaci['id']).lower() == kljuc:
+                    pretraga[id] = podaci
+                elif kriterijum == 'datum' and str(datetime.strptime(podaci['datum'], '%d.%m.%Y')) == kljuc:    #sta???
+                    pretraga[id] = podaci
+                elif kriterijum == 'idTreninga' and str(podaci['idTreninga']).lower() == kljuc:
+                    pretraga[id] = podaci
+                else:
+                    break
+            else:
+                if kljuc in str(vrednost).lower():
+                    pretraga[id] = podaci
+    
+    if not pretraga:
+        return {}
+    else:
+        return pretraga

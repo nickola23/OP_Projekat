@@ -2,7 +2,7 @@ from funkcije.tabela import ispisTabele
 from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
 from funkcije.program import ucitajPrograme, izmeniProgram, pretraziProgram, pretraziProgramKriterijum
 from funkcije.trening import ucitajTrening
-from funkcije.termin import ucitajTermin
+from funkcije.termin import ucitajTermin, pretraziTermin
 from funkcije.fajlovi import upisFajl
 
 putanjaKorisnici = './data/Korisnici.txt'
@@ -77,14 +77,14 @@ def meniNeregistrovan():
         '3': lambda: ispisTabele(programi),
         '4': lambda: ispisTabele(pretraziProgram(programi)),
         '5': lambda: ispisTabele(pretraziProgramKriterijum(programi)),
-        '6': lambda: print('pretragaTermina'),
+        '6': lambda: ispisTabele(pretraziTermin(termini)),
         '0': lambda: izlaz()
     }
 
     meniOpcije = {
         'naziv': "neregistrovan",
         'nazivIspis': "Neregistrovani Meni",
-        'opcijeIspis': "1. Prijava\n2. Registracija\n3. Ispis tabele\n4. Pretrazi programe\n5. Pretrazi programe po Kriterijumu\n6. Pretrazi termine\n0. Izlaz",
+        'opcijeIspis': "1. Prijava\n2. Registracija\n3. Pregled dostupnih programa treninga\n4. Pretrazi programe\n5. Pretrazi programe po Kriterijumu\n6. Pretrazi termine\n0. Izlaz",
         'opcijeUnos': meniFunkcije,
         'nazad': False,
         'izlaz': True
@@ -109,7 +109,7 @@ def meniRegistrovan():
     meniOpcije = {
         'naziv': "registrovan",
         'nazivIspis': "Registrovan Meni",
-        'opcijeIspis': "1. Odjava\n2. Ispis tabele\n3. Pretrazi programe\n4. Pretrazi programe po Kriterijumu\n5. Pretrazi termine\n6. Rezervisi mesto\n7. Pregled rezervacija\n8. Ponisti rezervaciju\n0. Izlaz",
+        'opcijeIspis': "1. Odjava\n2. Pregled dostupnih programa treninga\n3. Pretrazi programe\n4. Pretrazi programe po Kriterijumu\n5. Pretrazi termine\n6. Rezervisi mesto\n7. Pregled rezervacija\n8. Ponisti rezervaciju\n0. Izlaz",
         'opcijeUnos': meniFunkcije,
         'nazad': False,
         'izlaz': True
@@ -138,7 +138,7 @@ def meniInstruktor():
     meniOpcije = {
         'naziv': "instruktor",
         'nazivIspis': "Instruktor Meni",
-        'opcijeIspis': "1. Odjava\n2. Ispis tabele\n3. Pretrazi programe\n4. Pretrazi programe po Kriterijumu\n5. Pretrazi termine\n6. Rezervisi mesto\n7. Pregled rezervacija\n8. Ponisti rezervaciju\n9. Pretraga rezervacija\n10. Aktivacija clana\n11. Aktivacija premium clana\n12. Izmeni rezervacije\n0. Izlaz",
+        'opcijeIspis': "1. Odjava\n2. Pregled dostupnih programa treninga\n3. Pretrazi programe\n4. Pretrazi programe po Kriterijumu\n5. Pretrazi termine\n6. Rezervisi mesto\n7. Pregled rezervacija\n8. Ponisti rezervaciju\n9. Pretraga rezervacija\n10. Aktivacija clana\n11. Aktivacija premium clana\n12. Izmeni rezervacije\n0. Izlaz",
         'opcijeUnos': meniFunkcije,
         'nazad': False,
         'izlaz': True
@@ -167,7 +167,7 @@ def meniAdmin():
     meniOpcije = {
         'naziv': "admin",
         'nazivIspis': "Admin Meni",
-        'opcijeIspis': "1. Odjava\n2. Ispis tabele\n3. Pretrazi programe\n4. Pretrazi programe po Kriterijumu\n5. Pretrazi termine\n6. Registracija novih instruktora\n7. Izvestavanje\n8. Mesecna nagrada lojalnosti\n9. Prikaz mesta matrica\n10. Promena paketa clana\n11. Unos Izmena Brisanje programa treninga\n12. Unos izmena brisanje treninga\n0. Izlaz",
+        'opcijeIspis': "1. Odjava\n2. Pregled dostupnih programa treninga\n3. Pretrazi programe\n4. Pretrazi programe po Kriterijumu\n5. Pretrazi termine\n6. Registracija novih instruktora\n7. Izvestavanje\n8. Mesecna nagrada lojalnosti\n9. Prikaz mesta matrica\n10. Promena paketa clana\n11. Unos Izmena Brisanje programa treninga\n12. Unos izmena brisanje treninga\n0. Izlaz",
         'opcijeUnos': submenu2_dict,
         'nazad': False,
         'izlaz': True

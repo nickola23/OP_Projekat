@@ -14,7 +14,7 @@ def ucitajPrograme(putanja):
                 'naziv': naziv,
                 'idVrsteTreninga': eval(idVrsteTreninga),
                 'trajanje': eval(trajanje),
-                'idInstruktora': eval(idInstruktora),
+                'idInstruktora': idInstruktora,
                 'potrebanPaket': eval(potrebanPaket),
                 'opis': opis
             }
@@ -28,7 +28,7 @@ def dodajProgram(programi):
             naziv = input("Unesite naziv programa: ")
             idVrsteTreninga = int(input("Unesite ID vrste treninga: "))
             trajanje = int(input("Unesite trajanje programa (u minutima): "))
-            idInstruktora = int(input("Unesite ID instruktora: "))
+            idInstruktora = input("Unesite Korisnicko ime instruktora: ")
             potrebanPaket = int(input("Unesite potreban paket: "))
             opis = input("Unesite opis programa: ")
             
@@ -82,7 +82,7 @@ def izmeniProgram(programi):
                     case '3':
                         programi[id]['trajanje'] = int(input("Unesite novo trajanje (u minutima): "))
                     case '4':
-                        programi[id]['idInstruktora'] = int(input("Unesite novi ID instruktora: "))
+                        programi[id]['idInstruktora'] = input("Unesite Korisnicko ime instruktora: ")
                     case '5':
                         programi[id]['potrebanPaket'] = int(input("Unesite novi potreban paket: "))
                     case '6':

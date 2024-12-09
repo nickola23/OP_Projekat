@@ -1,20 +1,20 @@
-1|Yoga Basics|1|60|101|0|Osnovni kurs joge za početnike.
-2|Strength 101|2|120|102|1|Kombinovani trening snage i kardia.
-3|HIIT Burn|3|45|103|0|Visokointenzivni intervalni treninzi.
-4|Advanced Pilates|4|90|104|1|Napredni pilates.
-5|BoxFit|5|75|105|1|Trening boksa i kondicije.
-6|Functional Movement|6|110|106|0|Trening funkcionalnog pokreta.
-7|Zen Yoga|1|50|107|0|Relaksirajući kurs joge.
-8|Powerlifting Essentials|7|140|108|1|Osnovni principi powerliftinga.
-9|Dance Cardio|2|60|109|0|Zabavni kardio treninzi.
-10|CrossFit Challenge|8|130|110|1|Izazovni CrossFit.
-11|Kardio skulptura|2|50|104|1|Intenzivan kardio trening sa fokusom na oblikovanje tela.
-12|HIIT za početnike|1|30|103|0|Kratki intervalni trening idealan za početnike.
-13|Yoga i fleksibilnost|3|60|105|1|Joga vežbe za povećanje fleksibilnosti i opuštanje.
-14|Snaga i kondicija|4|90|102|1|Program za jačanje mišića i poboljšanje kondicije.
-15|Aerobik uz muziku|5|45|101|0|Energični aerobik trening uz omiljene hitove.
-16|Pilates za početnike|3|40|105|0|Osnovni pilates za jačanje core-a i opuštanje.
-17|Funkcionalni trening|2|70|102|1|Sveobuhvatan trening za poboljšanje svakodnevne funkcionalnosti.
-18|Bootcamp izazov|4|120|104|1|Izazovan trening visokog intenziteta za napredne vežbače.
-19|Trening izdržljivosti|2|75|103|0|Program za povećanje kardiovaskularne i mišićne izdržljivosti.
-20|Core stabilnost|1|50|101|0|Fokus na vežbama za jačanje trupa i stabilizaciju.
+1|Yoga Basics|1|60|korisnik01|0|Osnovni kurs joge za početnike.
+2|Strength 101|2|120|nikola23|1|Kombinovani trening snage i kardia.
+3|HIIT Burn|3|45|dixi|0|Visokointenzivni intervalni treninzi.
+4|Advanced Pilates|4|90|mixa|1|Napredni pilates.
+5|BoxFit|5|75|biserko|1|Trening boksa i kondicije.
+6|Functional Movement|6|110|marko|0|Trening funkcionalnog pokreta.
+7|Zen Yoga|1|50|korisnik01|0|Relaksirajući kurs joge.
+8|Powerlifting Essentials|7|140|marija99|1|Osnovni principi powerliftinga.
+9|Dance Cardio|2|60|nikola23|0|Zabavni kardio treninzi.
+10|CrossFit Challenge|8|130|petar65|1|Izazovni CrossFit.
+11|Kardio skulptura|2|50|mixa|1|Intenzivan kardio trening sa fokusom na oblikovanje tela.
+12|HIIT za početnike|1|30|dixi|0|Kratki intervalni trening idealan za početnike.
+13|Yoga i fleksibilnost|3|60|biserko|1|Joga vežbe za povećanje fleksibilnosti i opuštanje.
+14|Snaga i kondicija|4|90|nikola23|1|Program za jačanje mišića i poboljšanje kondicije.
+15|Aerobik uz muziku|5|45|korisnik|0|Energični aerobik trening uz omiljene hitove.
+16|Pilates za početnike|3|40|biserko|0|Osnovni pilates za jačanje core-a i opuštanje.
+17|Funkcionalni trening|2|70|nikola23|1|Sveobuhvatan trening za poboljšanje svakodnevne funkcionalnosti.
+18|Bootcamp izazov|4|100|mixa|1|Izazovan trening visokog intenziteta za napredne vežbače.
+19|Trening izdržljivosti|2|75|dixi|0|Program za povećanje kardiovaskularne i mišićne izdržljivosti.
+20|Core stabilnost|1|50|korisnik|0|Fokus na vežbama za jačanje trupa i stabilizaciju.

@@ -10,7 +10,7 @@ def ucitajPrograme(putanja):
         if red:
             id, naziv, idVrsteTreninga, trajanje, idInstruktora, potrebanPaket, opis = red.split('|')
             podaci[id] = {
-                'id': eval(id),
+                'id':id,
                 'naziv': naziv,
                 'idVrsteTreninga': eval(idVrsteTreninga),
                 'trajanje': eval(trajanje),

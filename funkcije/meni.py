@@ -6,7 +6,8 @@ from funkcije.termin import ucitajTermin, pretraziTermin
 from funkcije.fajlovi import upisFajl
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
-from funkcije.zaIspis import programiZaIspis
+from funkcije.sala import ucitajSale
+from funkcije.zaIspis import programiZaIspis, treningZaIspis
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaVrstePaketa = './data/VrstaPaketa.txt'
@@ -14,6 +15,7 @@ putanjaKorisnici = './data/Korisnici.txt'
 putanjaProgrami = './data/Program.txt'
 putanjaTrening = './data/Trening.txt'
 putanjaTermin = './data/Termin.txt'
+putanjaSala = './data/Sala.txt'
 
 vrsteTreninga = ucitajVrsteTreninga(putanjaVrsteTreninga)
 vrstePaketa = ucitajVrstePaketa(putanjaVrstePaketa)
@@ -21,6 +23,7 @@ korisnici = ucitajKorisnike(putanjaKorisnici)
 programi = ucitajPrograme(putanjaProgrami)
 treninzi = ucitajTrening(putanjaTrening)
 termini =  ucitajTermin(putanjaTermin)
+sale = ucitajSale(putanjaSala)
 
 trenutniKorisnik = None
 menii = {}

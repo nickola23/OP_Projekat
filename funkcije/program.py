@@ -113,7 +113,4 @@ def pretraziProgram(programi, kriterijum = ''):
                 if kljuc in str(vrednost).lower():
                     pretraga[id] = podaci
     
-    if not pretraga:
-        print('Nema podataka iz pretrage.')
-    else:
-        ispisTabele(pretraga)
+    return pretraga

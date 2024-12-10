@@ -7,7 +7,7 @@ from funkcije.fajlovi import upisFajl
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
 from funkcije.sala import ucitajSale
-from funkcije.zaIspis import programiZaIspis, treningZaIspis
+from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaVrstePaketa = './data/VrstaPaketa.txt'
@@ -191,17 +191,17 @@ def meniAdmin():
 def meniPretraziProgram():
 
     meniFunkcije = {
-        '1': lambda: pretraziProgram(programi, 'naziv'),
-        '2': lambda: pretraziProgram(programi, 'idVrsteTreninga'),
-        '3': lambda: pretraziProgram(programi, 'trajanje'),
-        '4': lambda: pretraziProgram(programi, 'potrebanPaket'),
+        '1': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'naziv'), korisnici, vrsteTreninga, vrstePaketa)),
+        '2': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'idVrsteTreninga'), korisnici, vrsteTreninga, vrstePaketa)),
+        '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'trajanje'), korisnici, vrsteTreninga, vrstePaketa)),
+        '4': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'potrebanPaket'), korisnici, vrsteTreninga, vrstePaketa)),
         'b': lambda: nazad()
     }
 
     meniOpcije = {
         'naziv': "pretraziProgram",
         'nazivIspis': "Pretrazi Program Meni",
-        'opcijeIspis': "1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\nb. Nazad",
+        'opcijeIspis': "1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. Potreban paket\nb. Nazad",
         'opcijeUnos': meniFunkcije,
         'nazad': True,
         'izlaz': False
@@ -212,11 +212,11 @@ def meniPretraziProgram():
 def meniPretraziTermin():
 
     meniFunkcije = {
-        '1': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'idSale'),
-        '2': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'idPrograma'),
-        '3': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'datum'),
-        '4': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'vremePocetka'),
-        '5': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'vremeKraja'),
+        '1': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'idSale'), sale, programi)),
+        '2': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'idPrograma'), sale, programi)),
+        '3': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'datum'), sale, programi)),
+        '4': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'vremePocetka'), sale, programi)),
+        '5': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'vremeKraja'), sale, programi)),
         'b': lambda: nazad()
     }
 

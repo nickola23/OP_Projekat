@@ -91,7 +91,6 @@ def pretraziTermine(termini, kriterijum=''):
 
     for id, podaci in termini.items():
         if kriterijum:
-            # Pretraga po određenim kriterijumima
             if kriterijum == 'idSale' and str(podaci['idSale']).lower() == kljuc:
                 pretraga[id] = podaci
             elif kriterijum == 'idPrograma' and str(podaci['idPrograma']).lower() == kljuc:
@@ -103,7 +102,6 @@ def pretraziTermine(termini, kriterijum=''):
             elif kriterijum == 'vremeKraja' and podaci['vremeKraja'].strftime('%H:%M') == kljuc:
                 pretraga[id] = podaci
         else:
-            # Opšta pretraga
             for vrednost in podaci.values():
                 if isinstance(vrednost, list):
                     if kljuc in [str(v).lower() for v in vrednost]:
@@ -115,5 +113,4 @@ def pretraziTermine(termini, kriterijum=''):
     
     if not pretraga:
         print('Nema podataka iz pretrage.')
-    else:
-        ispisTabele(pretraga)
+    return pretraga

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def programiZaIspis(programi, instruktori, vrsteTreninga, vrstePaketa):
     podaci = {}
     for id, program in programi.items():
@@ -30,5 +32,27 @@ def treningZaIspis(treninzi, sale, programi):
             'vremeKraja': trening['vremeKraja'],
             'daniNedelje': trening['daniNedelje'],
             'idPrograma': program,
+        }
+    return podaci
+
+def spojeniTerminiZaIspis(termini, sale, programi):
+    if not termini or not isinstance(termini, dict):
+        print('Greska: termini nisu validni podaci.')
+        return {}
+
+    podaci = {}
+    for id, trening in termini.items():
+        sala = sale.get(str(trening['idSale']), {}).get('naziv', 'Nepoznato')
+        program = programi.get(str(trening['idPrograma']), {}).get('naziv', 'Nepoznato')
+
+        podaci[id] = {
+            'id': trening['idTermina'],
+            'datum': trening['datum'],
+            'idTreninga': trening['idTreninga'],
+            'idSale': sala,
+            'vremePocetka': trening['vremePocetka'],
+            'vremeKraja': trening['vremeKraja'],
+            'daniNedelje': trening['daniNedelje'],
+            'idPrograma': program
         }
     return podaci

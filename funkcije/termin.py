@@ -66,7 +66,7 @@ def izmeniTermin(termini):
             print("Termin sa unesenim ID-em ne postoji.")
             continue
 
-def pretraziTermin(termini, kriterijum = ''):
+def pretraziTermin(termini, kriterijum = ''):           #izmeni funkciju da radi kao pretraziProgram()
     pretraga = {}
     kljuc = input('Unesite kljucnu rec za pretragu: ').lower()
 
@@ -75,7 +75,7 @@ def pretraziTermin(termini, kriterijum = ''):
             if kriterijum:
                 if kriterijum == 'id' and str(podaci['id']).lower() == kljuc:
                     pretraga[id] = podaci
-                elif kriterijum == 'datum' and str(datetime.strptime(podaci['datum'], '%d.%m.%Y')) == kljuc:    #sta???
+                elif kriterijum == 'datum' and str(datetime.strptime(podaci['datum'], '%d.%m.%Y')) == kljuc:    #radi???
                     pretraga[id] = podaci
                 elif kriterijum == 'idTreninga' and str(podaci['idTreninga']).lower() == kljuc:
                     pretraga[id] = podaci

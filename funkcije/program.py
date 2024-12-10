@@ -1,4 +1,5 @@
 from funkcije.fajlovi import citajFajl, upisFajl
+from funkcije.tabela import ispisTabele
 
 def ucitajPrograme(putanja):
     fajl = citajFajl(putanja)
@@ -122,36 +123,6 @@ def pretraziProgram(programi, kriterijum = ''):
                     pretraga[id] = podaci
     
     if not pretraga:
-        return {}
+        print('Nema podataka iz pretrage.')
     else:
-        return pretraga
-
-def pretraziProgramKriterijum(programi):
-    while True:
-        pretraga = {}
-        kriterijum = input("Odaberite kriterijum pretrage:\n1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n0. Izlaz\nIzaberite kriterijum: ")
-        
-        match kriterijum:
-            case '1':
-                pretraga |= pretraziProgram(programi, 'naziv')
-                break
-            case '2':
-                pretraga |= pretraziProgram(programi, 'idVrsteTreninga')
-                break
-            case '3':
-                pretraga |= pretraziProgram(programi, 'trajanje')
-                break
-            case '4':
-                pretraga |= pretraziProgram(programi, 'idInstruktora')
-                break
-            case '5':
-                pretraga |= pretraziProgram(programi, 'potrebanPaket')
-                break
-            case _:
-                print("Neispravan unos. Ponovite.")
-                continue
-        
-    if not pretraga:
-        return {}
-    else:
-        return pretraga
+        ispisTabele(pretraga)

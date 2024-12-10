@@ -89,3 +89,21 @@ def pretraziTermin(termini, kriterijum = ''):           #izmeni funkciju da radi
         return {}
     else:
         return pretraga
+
+def spojiPodatke(treninzi, termini):
+    spojeniPodaci = {}
+
+    for termin in termini.values():
+        trening = treninzi.get(termin['idTreninga'])
+        if trening:
+            spojeniPodaci[termin['id']] = {
+                'idTermina': termin['id'],
+                'datum': datetime.strptime(termin['datum'], '%d.%m.%Y').date().strftime('%d.%m.%Y'),
+                'idTreninga': termin['idTreninga'],
+                'idSale': trening['idSale'],
+                'vremePocetka': trening['vremePocetka'],
+                'vremeKraja': trening['vremeKraja'],
+                'daniNedelje': trening['daniNedelje'],
+                'idPrograma': trening['idPrograma']
+            }
+    return spojeniPodaci

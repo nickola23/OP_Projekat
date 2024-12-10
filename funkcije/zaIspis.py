@@ -17,7 +17,6 @@ def programiZaIspis(programi, instruktori, vrsteTreninga, vrstePaketa):
         }
     return podaci
 
-#ispisTabele(treningZaIspis(treninzi, sale, programi))
 def treningZaIspis(treninzi, sale, programi):
     podaci = {}
     for id, trening in treninzi.items():

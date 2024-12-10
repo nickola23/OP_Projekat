@@ -1,5 +1,6 @@
 from datetime import datetime
 from funkcije.fajlovi import citajFajl, upisFajl
+from funkcije.tabela import ispisTabele
 
 def ucitajTermin(putanja):
     fajl = citajFajl(putanja)
@@ -66,31 +67,7 @@ def izmeniTermin(termini):
             print("Termin sa unesenim ID-em ne postoji.")
             continue
 
-def pretraziTermin(termini, kriterijum = ''):           #izmeni funkciju da radi kao pretraziProgram()
-    pretraga = {}
-    kljuc = input('Unesite kljucnu rec za pretragu: ').lower()
-
-    for id, podaci in termini.items():
-        for vrednost in podaci.values():
-            if kriterijum:
-                if kriterijum == 'id' and str(podaci['id']).lower() == kljuc:
-                    pretraga[id] = podaci
-                elif kriterijum == 'datum' and str(datetime.strptime(podaci['datum'], '%d.%m.%Y')) == kljuc:    #radi???
-                    pretraga[id] = podaci
-                elif kriterijum == 'idTreninga' and str(podaci['idTreninga']).lower() == kljuc:
-                    pretraga[id] = podaci
-                else:
-                    break
-            else:
-                if kljuc in str(vrednost).lower():
-                    pretraga[id] = podaci
-    
-    if not pretraga:
-        return {}
-    else:
-        return pretraga
-
-def spojiPodatke(treninzi, termini):
+def spojiTermine(treninzi, termini):
     spojeniPodaci = {}
 
     for termin in termini.values():
@@ -107,3 +84,36 @@ def spojiPodatke(treninzi, termini):
                 'idPrograma': trening['idPrograma']
             }
     return spojeniPodaci
+
+def pretraziTermine(termini, kriterijum=''):
+    pretraga = {}
+    kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()
+
+    for id, podaci in termini.items():
+        if kriterijum:
+            # Pretraga po određenim kriterijumima
+            if kriterijum == 'idSale' and str(podaci['idSale']).lower() == kljuc:
+                pretraga[id] = podaci
+            elif kriterijum == 'idPrograma' and str(podaci['idPrograma']).lower() == kljuc:
+                pretraga[id] = podaci
+            elif kriterijum == 'datum' and podaci['datum'] == kljuc:
+                pretraga[id] = podaci
+            elif kriterijum == 'vremePocetka' and podaci['vremePocetka'].strftime('%H:%M') == kljuc:
+                pretraga[id] = podaci
+            elif kriterijum == 'vremeKraja' and podaci['vremeKraja'].strftime('%H:%M') == kljuc:
+                pretraga[id] = podaci
+        else:
+            # Opšta pretraga
+            for vrednost in podaci.values():
+                if isinstance(vrednost, list):
+                    if kljuc in [str(v).lower() for v in vrednost]:
+                        pretraga[id] = podaci
+                        break
+                elif kljuc in str(vrednost).lower():
+                    pretraga[id] = podaci
+                    break
+    
+    if not pretraga:
+        print('Nema podataka iz pretrage.')
+    else:
+        ispisTabele(pretraga)

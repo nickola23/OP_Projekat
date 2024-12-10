@@ -103,21 +103,12 @@ def pretraziProgram(programi, kriterijum = ''):
             if kriterijum:
                 if kriterijum == 'naziv' and kljuc in str(podaci['naziv']).lower():
                     pretraga[id] = podaci
-                    break
                 elif kriterijum == 'idVrsteTreninga' and str(podaci['idVrsteTreninga']).lower() == kljuc:
                     pretraga[id] = podaci
-                    break
                 elif kriterijum == 'trajanje' and str(podaci['trajanje']).lower() == kljuc:
                     pretraga[id] = podaci
-                    break
-                elif kriterijum == 'idInstruktora' and str(podaci['idInstruktora']).lower() == kljuc:
-                    pretraga[id] = podaci
-                    break
                 elif kriterijum == 'potrebanPaket' and str(podaci['potrebanPaket']).lower() == kljuc:
                     pretraga[id] = podaci
-                    break
-                else:
-                    break
             else:
                 if kljuc in str(vrednost).lower():
                     pretraga[id] = podaci

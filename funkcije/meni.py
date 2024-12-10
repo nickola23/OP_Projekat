@@ -2,7 +2,7 @@ from funkcije.tabela import ispisTabele
 from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
 from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
 from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
-from funkcije.termin import ucitajTermin, pretraziTermin, spojiPodatke
+from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
 from funkcije.fajlovi import upisFajl
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
@@ -89,7 +89,7 @@ def meniNeregistrovan():
         '2': lambda: registracijaKorisnik(korisnici),
         '3': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
         '4': lambda: pokreniMeni('meniPretraziProgram'),
-        '5': lambda: ispisTabele(spojiPodatke(treningZaIspis(treninzi, sale, programi), termini)),
+        '5': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '6': lambda: pokreniMeni('meniPretraziTermin'),
         '0': lambda: izlaz()
     }
@@ -111,7 +111,7 @@ def meniRegistrovan():
         '1': lambda: odjavaKorisnik(),
         '2': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
         '3': lambda: pokreniMeni('meniPretraziProgram'),
-        '4': lambda: ispisTabele(spojiPodatke(treningZaIspis(treninzi, sale, programi), termini)),
+        '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: print('rezervacijaMesta'),
         '7': lambda: print('pregledRezervacija'),
@@ -136,7 +136,7 @@ def meniInstruktor():
         '1': lambda: odjavaKorisnik(),
         '2': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
         '3': lambda: pokreniMeni('meniPretraziProgram'),
-        '4': lambda: ispisTabele(spojiPodatke(treningZaIspis(treninzi, sale, programi), termini)),
+        '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: print('rezervacijaMesta'),
         '7': lambda: print('pregledRezervacija'),
@@ -165,7 +165,7 @@ def meniAdmin():
         '1': lambda: odjavaKorisnik(),
         '2': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
         '3': lambda: pokreniMeni('meniPretraziProgram'),
-        '4': lambda: ispisTabele(spojiPodatke(treningZaIspis(treninzi, sale, programi), termini)),
+        '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: print('registracijaNovihInstruktora.'),
         '7': lambda: print('izvestavanje'),
@@ -198,8 +198,7 @@ def meniPretraziProgram():
         '1': lambda: pretraziProgram(programi, 'naziv'),
         '2': lambda: pretraziProgram(programi, 'idVrsteTreninga'),
         '3': lambda: pretraziProgram(programi, 'trajanje'),
-        '4': lambda: pretraziProgram(programi, 'idInstruktora'),
-        '5': lambda: pretraziProgram(programi, 'potrebanPaket'),
+        '4': lambda: pretraziProgram(programi, 'potrebanPaket'),
         'b': lambda: nazad()
     }
 
@@ -217,18 +216,18 @@ def meniPretraziProgram():
 def meniPretraziTermin():
 
     meniFunkcije = {
-        '1': lambda: pretraziTermin(termini, 'naziv'),
-        '2': lambda: pretraziTermin(termini, 'idVrsteTreninga'),
-        '3': lambda: pretraziTermin(termini, 'trajanje'),
-        '4': lambda: pretraziTermin(termini, 'idInstruktora'),
-        '5': lambda: pretraziTermin(termini, 'potrebanPaket'),
+        '1': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'idSale'),
+        '2': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'idPrograma'),
+        '3': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'datum'),
+        '4': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'vremePocetka'),
+        '5': lambda: pretraziTermine(spojiTermine(treninzi, termini), 'vremeKraja'),
         'b': lambda: nazad()
     }
 
     meniOpcije = {
         'naziv': "pretraziTermin",
         'nazivIspis': "Pretrazi Termin Meni",
-        'opcijeIspis': "1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\nb. Nazad",
+        'opcijeIspis': "1. ID Sale\n2. ID programa\n3. Datum\n4. Vreme pocetka\n5. Vreme kraja\nb. Nazad",
         'opcijeUnos': meniFunkcije,
         'nazad': True,
         'izlaz': False

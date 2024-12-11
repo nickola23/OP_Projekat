@@ -191,10 +191,10 @@ def meniAdmin():
 def meniPretraziProgram():
 
     meniFunkcije = {
-        '1': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'naziv'), korisnici, vrsteTreninga, vrstePaketa)),
-        '2': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'idVrsteTreninga'), korisnici, vrsteTreninga, vrstePaketa)),
-        '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'trajanje'), korisnici, vrsteTreninga, vrstePaketa)),
-        '4': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, 'potrebanPaket'), korisnici, vrsteTreninga, vrstePaketa)),
+        '1': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa, 'naziv'), korisnici, vrsteTreninga, vrstePaketa)),
+        '2': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa, 'idVrsteTreninga'), korisnici, vrsteTreninga, vrstePaketa)),
+        '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa, 'trajanje'), korisnici, vrsteTreninga, vrstePaketa)),
+        '4': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa, 'potrebanPaket'), korisnici, vrsteTreninga, vrstePaketa)),
         'b': lambda: nazad()
     }
 

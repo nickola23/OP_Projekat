@@ -94,9 +94,25 @@ def izmeniProgram(programi):
             print("Program sa ovim ID ne postoji.")
             continue
 
-def pretraziProgram(programi, kriterijum = ''):
+def pretraziProgram(programi, vrsteTreninga, vrstePaketa, kriterijum = ''):
     pretraga = {}
-    kljuc = input('Unesite kljucnu rec za pretragu: ').lower()
+    if kriterijum == 'idVrsteTreninga':
+        print("Dostupne vrste treninga:")
+        for id, podaci in vrsteTreninga.items():
+            print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
+        
+        kljuc = input('Unesite ID vrste treninga za pretragu: ').strip().lower()
+    elif kriterijum == 'potrebanPaket':
+        print("Dostupni paketi:")
+        for id, podaci in vrstePaketa.items():
+            print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
+        
+        kljuc = input('Unesite ID paketa za pretragu: ').strip().lower()
+    elif kriterijum == 'trajanje':
+        min = eval(input('Unesite minimalno trajanje treninga u minutima: '))
+        max = eval(input('Unesite maksimalno trajanje treninga u minutima: '))
+    else:
+        kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()
 
     for id, podaci in programi.items():
         for vrednost in podaci.values():
@@ -105,7 +121,7 @@ def pretraziProgram(programi, kriterijum = ''):
                     pretraga[id] = podaci
                 elif kriterijum == 'idVrsteTreninga' and str(podaci['idVrsteTreninga']).lower() == kljuc:
                     pretraga[id] = podaci
-                elif kriterijum == 'trajanje' and str(podaci['trajanje']).lower() == kljuc:
+                elif kriterijum == 'trajanje' and podaci['trajanje'] >= min and podaci['trajanje'] <= max:
                     pretraga[id] = podaci
                 elif kriterijum == 'potrebanPaket' and str(podaci['potrebanPaket']).lower() == kljuc:
                     pretraga[id] = podaci

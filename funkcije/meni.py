@@ -212,11 +212,11 @@ def meniPretraziProgram():
 def meniPretraziTermin():
 
     meniFunkcije = {
-        '1': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'idSale'), sale, programi)),
-        '2': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'idPrograma'), sale, programi)),
-        '3': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'datum'), sale, programi)),
-        '4': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'vremePocetka'), sale, programi)),
-        '5': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), 'vremeKraja'), sale, programi)),
+        '1': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'idSale'), sale, programi)),
+        '2': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'idPrograma'), sale, programi)),
+        '3': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'datum'), sale, programi)),
+        '4': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'vremePocetka'), sale, programi)),
+        '5': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'vremeKraja'), sale, programi)),
         'b': lambda: nazad()
     }
 

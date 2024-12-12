@@ -85,8 +85,18 @@ def spojiTermine(treninzi, termini):
             }
     return spojeniPodaci
 
-def pretraziTermine(termini, kriterijum=''):
+def pretraziTermine(termini, sale, programi, kriterijum=''):
     pretraga = {}
+    if kriterijum == 'idSale':
+        print("Dostupni ID sale:")
+        for id, podaci in sale.items():
+            print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
+        
+    elif kriterijum == 'idPrograma':
+        print("Dostupni ID programa:")
+        for id, podaci in programi.items():
+            print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
+        
     kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()
 
     for id, podaci in termini.items():

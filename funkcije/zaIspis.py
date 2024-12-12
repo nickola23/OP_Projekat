@@ -36,6 +36,8 @@ def treningZaIspis(treninzi, sale, programi):
     return podaci
 
 def spojeniTerminiZaIspis(termini, sale, programi):
+    dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
+
     if not termini or not isinstance(termini, dict):
         print('Greska: termini nisu validni podaci.')
         return {}
@@ -44,6 +46,12 @@ def spojeniTerminiZaIspis(termini, sale, programi):
     for id, trening in termini.items():
         sala = sale.get(str(trening['idSale']), {}).get('naziv', 'Nepoznato')
         program = programi.get(str(trening['idPrograma']), {}).get('naziv', 'Nepoznato')
+        danUNedelji = dani[datetime.strptime(trening['datum'], '%d.%m.%Y').date().weekday()]
+
+        if danUNedelji in trening['daniNedelje']:
+            treningDan = danUNedelji
+        else:
+            treningDan = 'Neodgovarajuci dan'
 
         podaci[id] = {
             'id': trening['idTermina'],
@@ -52,7 +60,7 @@ def spojeniTerminiZaIspis(termini, sale, programi):
             'idSale': sala,
             'vremePocetka': trening['vremePocetka'],
             'vremeKraja': trening['vremeKraja'],
-            'daniNedelje': trening['daniNedelje'],
+            'daniNedelje': treningDan,
             'idPrograma': program
         }
     return podaci

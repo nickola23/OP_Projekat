@@ -64,16 +64,10 @@ def izmeniProgram(programi):
     while True:
         id = input("Unesite ID programa za izmenu: ")
         if id in programi.keys():
-            print(f"Trenutni podaci za program sa ID {id}:")
-            print(f"Naziv: {programi[id]['naziv']}")
-            print(f"ID vrste treninga: {programi[id]['idVrsteTreninga']}")
-            print(f"Trajanje (u minutima): {programi[id]['trajanje']}")
-            print(f"ID instruktora: {programi[id]['idInstruktora']}")
-            print(f"Potreban paket: {programi[id]['potrebanPaket']}")
-            print(f"Opis: {programi[id]['opis']}")
+            ispisTabele({id: programi[id]})
             
             while True:
-                odgovor = input("1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\n0. Izlaz\nIzaberite podatak koji zelite da izmenite: ")
+                odgovor = input("1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nIzaberite podatak koji zelite da izmenite: ")
                 
                 match odgovor:
                     case '1':
@@ -88,7 +82,7 @@ def izmeniProgram(programi):
                         programi[id]['potrebanPaket'] = int(input("Unesite novi potreban paket: "))
                     case '6':
                         programi[id]['opis'] = input("Unesite novi opis: ")
-                    case '0':
+                    case 'b':
                         return True
         else:
             print("Program sa ovim ID ne postoji.")

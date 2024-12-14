@@ -49,19 +49,17 @@ def izmeniTermin(termini):
     while True:
         id = input("Unesite ID termina za izmenu: ")
         if id in termini.keys():
-            print(f"Trenutni podaci za termin sa ID {id}:")
-            print(f"Datum: {termini[id]['datum']}")
-            print(f"ID treninga: {termini[id]['idTreninga']}")
+            ispisTabele({id: termini[id]})
             
             while True:
-                odgovor = input("1. Datum\n2. ID treninga\n0. Izlaz\nIzaberite podatak koji zelite da izmenite: ")
+                odgovor = input("1. Datum\n2. ID treninga\nb. Nazad\nIzaberite podatak koji zelite da izmenite: ")
                 
                 match odgovor:
                     case '1':
                         termini[id]['datum'] = datetime.strptime(input("Unesite novi datum (dd.mm.yyyy): "), '%d.%m.%Y').date().strftime('%d.%m.%Y')
                     case '2':
                         termini[id]['idTreninga'] = input("Unesite novi ID treninga: ")
-                    case '0':
+                    case 'b':
                         return True
         else:  
             print("Termin sa unesenim ID-em ne postoji.")

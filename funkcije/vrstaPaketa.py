@@ -10,7 +10,7 @@ def ucitajVrstePaketa(putanja):
         if red:
             id, naziv = red.split('|')
             podaci[id] = {
-                'id': eval(id),
+                'id': id,
                 'naziv': naziv
             }
             

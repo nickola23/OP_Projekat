@@ -234,8 +234,8 @@ def meniPretraziTermin():
 def meniUnosIzmenaBrisanjeProgram():
 
     meniFunkcije = {
-        '1': lambda: dodajProgram(programi),
-        '2': lambda: izmeniProgram(programi),
+        '1': lambda: dodajProgram(programi, vrsteTreninga, korisnici, vrstePaketa),
+        '2': lambda: izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa),
         '3': lambda: brisiProgram(programi),
         'b': lambda: nazad()
     }

@@ -22,3 +22,10 @@ def dodajInstruktora(korisnici):
 
             print("Uspesno ste dodali instruktora.")
             return True
+        
+def promeniStatusClana(podaci, korisnickoIme, noviStatus):
+    if korisnickoIme in podaci:
+        podaci[korisnickoIme]['status'] = noviStatus
+        print(f"Status korisnika '{korisnickoIme}' je uspešno promenjen.")
+    else:
+        print(f"Korisnik sa korisničkim imenom '{korisnickoIme}' ne postoji.")

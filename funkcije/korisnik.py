@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 from funkcije.fajlovi import citajFajl, upisFajl
 
 def ucitajKorisnike(putanja):
@@ -27,7 +28,12 @@ def dodajKorisnika(korisnici):
     while True:
         korisnickoIme = input('Unesite korisnicko ime: ')
         if korisnickoIme not in korisnici.keys():
-            lozinka = input('Unesite lozinku: ')
+            while True:
+                lozinka = input('Unesite lozinku (barem 6 karaktera i 1 cifra): ').strip()
+                if len(lozinka) < 6 or not re.search(r'\d', lozinka):
+                    print('Greška: Lozinka nije validna. Pokušajte ponovo.')
+                else:
+                    break
             ime = input('Unesite ime: ')
             prezime = input('Unesite prezime: ')
             korisnici[korisnickoIme] = {

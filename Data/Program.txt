@@ -18,5 +18,5 @@
 18|Bootcamp izazov|4|100|mixa|1|Izazovan trening visokog intenziteta za napredne vežbače.
 19|Trening izdržljivosti|2|75|dixi|0|Program za povećanje kardiovaskularne i mišićne izdržljivosti.
 20|Core stabilnost|1|50|korisnik|0|Fokus na vežbama za jačanje trupa i stabilizaciju.
-21|Fitness 24/7|1001|55|tax|1|Ide gas
+21|Fitness KV 24/7|4|40|tax|1|Fitness non-stop
 22|Pro Fitness 10/10|6|55|tax|0|Najbolji fitnes u Kraljevu

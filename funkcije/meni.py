@@ -254,8 +254,8 @@ def meniUnosIzmenaBrisanjeProgram():
 def meniUnosIzmenaBrisanjeTrening():
 
     meniFunkcije = {
-        '1': lambda: dodajTrening(treninzi),
-        '2': lambda: izmeniTrening(treninzi),
+        '1': lambda: dodajTrening(treninzi, sale, programi),
+        '2': lambda: izmeniTrening(treninzi, sale, programi),
         '3': lambda: brisiTrening(treninzi),
         'b': lambda: nazad()
     }

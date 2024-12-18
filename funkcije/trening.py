@@ -90,20 +90,50 @@ def izmeniTrening(treninzi, sale, programi):
     ispisTabele({id: treninzi[id]})
 
     while True:
-        odgovor = input("1. ID sale\n2. Vreme pocetka\n3. Vreme kraja\n4. Dani u nedelji\n5. ID programa\n0. Izlaz\nIzaberite podatak koji zelite da izmenite: ")
-        #zavrsiti validaciju do kraja kao u programi.py
+        odgovor = input("1. ID sale\n2. Vreme pocetka\n3. Vreme kraja\n4. Dani u nedelji\n5. ID programa\nb. Nazad\nIzaberite podatak koji zelite da izmenite: ")
         match odgovor:
             case '1':
-                treninzi[id]['idSale'] = input("Unesite novi ID sale: ")
+                
+                while True:
+                    idSale = input("Unesite novi ID sale: ")
+                    if idSale in sale:
+                        treninzi[id]['idSale'] = idSale
+                        break
+                    else:
+                        print(f'Sala sa ovim ID ne postoji. Pokusajte ponovo.')
             case '2':
-                treninzi[id]['vremePocetka'] = datetime.strptime(input("Unesite novo vreme početka (HH:MM): "), '%H:%M').time()
+                while True:
+                    try:
+                        vremePocetka = datetime.strptime(input("Unesite novo vreme početka (HH:MM): "), '%H:%M').time()
+                        treninzi[id]['vremePocetka'] = vremePocetka
+                        break
+                    except Exception:
+                        print("Pogresan format vremena. Pokusajte ponovo.")
             case '3':
-                treninzi[id]['vremeKraja'] = datetime.strptime(input("Unesite novo vreme kraja (HH:MM): "), '%H:%M').time()
+                while True:
+                    try:
+                        vremeKraja = datetime.strptime(input("Unesite novo vreme kraja (HH:MM): "), '%H:%M').time()
+                        treninzi[id]['vremeKraja'] = vremeKraja
+                        break
+                    except Exception:
+                        print("Pogresan format vremena. Pokusajte ponovo.")
             case '4':
-                treninzi[id]['daniNedelje'] = input("Unesite nove dane u nedelji (ponedeljak,sreda): ").split(',')
+                while True:
+                    daniNedelje = input("Unesite nove dane u nedelji (ponedeljak,sreda) sa zarezom bez razmaka: ").split(',')
+                    if all(dan in dani for dan in daniNedelje):
+                        treninzi[id]['daniNedelje'] = daniNedelje
+                        break
+                    else:
+                        print("Niste uneli validne dane u nedelji. Pokušajte ponovo.")
             case '5':
-                treninzi[id]['idPrograma'] = input("Unesite novi ID programa: ")
-            case 0:
+                while True:
+                    idPrograma = input("Unesite novi ID programa: ")
+                    if idPrograma in programi:
+                        treninzi[id]['idPrograma'] = idPrograma
+                        break
+                    else:
+                        print(f'Program sa ovim ID ne postoji. Pokusajte ponovo.')
+            case 'b':
                 return True
 
 def brisiTrening(treninzi):

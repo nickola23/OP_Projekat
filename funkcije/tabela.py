@@ -1,7 +1,12 @@
 from datetime import time, date
 
 def maxDuzina(podaci):
+
+    if not podaci or not isinstance(podaci, dict):
+        return {}
+    
     maxDuzina = {}
+
     prvi_unos = next(iter(podaci))
     for kljuc in podaci[prvi_unos].keys():
         maxDuzina[kljuc] = len(kljuc)
@@ -15,13 +20,18 @@ def maxDuzina(podaci):
     return maxDuzina
 
 def ispisTabele(podaci):
+    
     zaglavlje = linija = vrednosti = ''
 
-    if not podaci:
-        print("Nema podataka za prikaz.")
+    if not podaci or not isinstance(podaci, dict):
+        print("Nema podataka za prikaz. ili podaci nisu u obliku recnika")
         return
     
     duzine = maxDuzina(podaci)
+
+    if not duzine:
+        print("Nema podataka za prikaz. ili podaci nisu u obliku recnika")
+        return
 
     for kljuc in duzine.keys():
         zaglavlje += " | " + f"{kljuc:<{duzine[kljuc]}}" 

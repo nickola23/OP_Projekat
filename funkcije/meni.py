@@ -7,9 +7,11 @@ from funkcije.fajlovi import upisFajl
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
 from funkcije.sala import ucitajSale
-from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis
+from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacijeKorisnik
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
+putanjaRezervacije = './data/Rezervacija.txt'
 putanjaVrstePaketa = './data/VrstaPaketa.txt'
 putanjaKorisnici = './data/Korisnici.txt'
 putanjaProgrami = './data/Program.txt'
@@ -18,6 +20,7 @@ putanjaTermin = './data/Termin.txt'
 putanjaSala = './data/Sala.txt'
 
 vrsteTreninga = ucitajVrsteTreninga(putanjaVrsteTreninga)
+rezervacije = ucitajRezervacije(putanjaRezervacije)
 vrstePaketa = ucitajVrstePaketa(putanjaVrstePaketa)
 korisnici = ucitajKorisnike(putanjaKorisnici)
 programi = ucitajPrograme(putanjaProgrami)
@@ -114,7 +117,7 @@ def meniRegistrovan():
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: print('rezervacijaMesta'),
-        '7': lambda: print('pregledRezervacija'),
+        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: print('ponistavanjeRezervacije'),
         '0': lambda: izlaz()
     }

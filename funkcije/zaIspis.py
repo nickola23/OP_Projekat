@@ -64,3 +64,41 @@ def spojeniTerminiZaIspis(termini, sale, programi):
             'idPrograma': program
         }
     return podaci
+
+def rezervacijeZaIspis(rezervacije, termini, treninzi, programi):
+    spojeniPodaci = {}
+
+    for idRezervacije, rezervacija in rezervacije.items():
+        idTermina = rezervacija['idTermina']
+        idKorisnika = rezervacija['idKorisnika']
+
+        termin = termini.get(idTermina)
+        if not termin:
+            continue
+
+        idTreninga = termin['idTreninga']
+
+        trening = treninzi.get(idTreninga)
+        if not trening:
+            continue
+
+        idPrograma = trening['idPrograma']
+
+        program = programi.get(idPrograma)
+        if not program:
+            continue
+
+        spojeniPodaci[idRezervacije] = {
+            'idRezervacije': idRezervacije,
+            'idKorisnika': idKorisnika,
+            'datumRezervacije': rezervacija['datum'],
+            'idTermina': idTermina,
+            'datumTermina': termin['datum'],
+            'vremePocetka': trening['vremePocetka'].strftime('%H:%M'),
+            'vremeKraja': trening['vremeKraja'].strftime('%H:%M'),
+            'daniNedelje': ', '.join(trening['daniNedelje']),
+            'nazivPrograma': program['naziv'],
+            'opisPrograma': program['opis']
+        }
+
+    return spojeniPodaci

@@ -8,7 +8,7 @@ from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
 from funkcije.sala import ucitajSale
 from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacijeKorisnik
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
@@ -47,10 +47,14 @@ def odjavaKorisnik():
     glavniMeni()
 
 def upisiFajlove():
+    upisFajl(putanjaVrsteTreninga, vrsteTreninga)
+    upisFajl(putanjaRezervacije, rezervacije)
+    upisFajl(putanjaVrstePaketa, vrstePaketa)
     upisFajl(putanjaKorisnici, korisnici)
     upisFajl(putanjaProgrami, programi)
     upisFajl(putanjaTrening, treninzi)
     upisFajl(putanjaTermin, termini)
+    upisFajl(putanjaSala, sale)
 
 def izlaz():
     upisiFajlove()
@@ -116,7 +120,7 @@ def meniRegistrovan():
         '3': lambda: pokreniMeni('meniPretraziProgram'),
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: print('rezervacijaMesta'),
+        '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: print('ponistavanjeRezervacije'),
         '0': lambda: izlaz()
@@ -142,7 +146,7 @@ def meniInstruktor():
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: print('rezervacijaMesta'),
-        '7': lambda: print('pregledRezervacija'),
+        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: print('ponistavanjeRezervacije'),
         '9': lambda: print('preatragaRezervacija'),
         '10': lambda: print('aktivacijaClana'),

@@ -8,7 +8,7 @@ from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
 from funkcije.sala import ucitajSale
 from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
@@ -122,7 +122,7 @@ def meniRegistrovan():
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
-        '8': lambda: print('ponistavanjeRezervacije'),
+        '8': lambda: ponistiRezervaciju(rezervacije, termini),
         '0': lambda: izlaz()
     }
 

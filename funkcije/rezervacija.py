@@ -119,3 +119,31 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
         nastavak = input("Da li želite da rezervišete još mesta? (da/ne): ").lower()
         if nastavak != 'da':
             break
+
+def ponistiRezervaciju(rezervacije, termini):
+    while True:
+        print("Vaše trenutne rezervacije:")
+    
+        aktivne_rezervacije = {
+            idRezervacije: rezervacija
+            for idRezervacije, rezervacija in rezervacije.items()
+            if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= datetime.now().date()
+        }
+
+        if not aktivne_rezervacije:
+            print("Nemate aktivnih rezervacija za poništavanje.")
+            break
+
+        ispisTabele(aktivne_rezervacije)
+
+        idRezervacije = input("Unesite ID rezervacije koju želite da poništite: ")
+        if idRezervacije not in aktivne_rezervacije:
+            print("Nevažeći ID rezervacije. Pokušajte ponovo.")
+            continue
+
+        del rezervacije[idRezervacije]
+        print(f"Rezervacija {idRezervacije} je uspešno poništena.")
+
+        nastavak = input("Da li želite da poništite još neku rezervaciju? (da/ne): ").lower()
+        if nastavak != 'da':
+            break

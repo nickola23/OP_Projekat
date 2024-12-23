@@ -26,6 +26,10 @@ def dodajInstruktora(korisnici):
 def promeniStatusClana(podaci, korisnickoIme, noviStatus):
     if korisnickoIme in podaci:
         podaci[korisnickoIme]['status'] = noviStatus
-        print(f"Status korisnika '{korisnickoIme}' je uspešno promenjen.")
+        print(f"Status korisnika {korisnickoIme} je uspešno promenjen.")
     else:
         print(f"Korisnik sa korisničkim imenom '{korisnickoIme}' ne postoji.")
+
+def aktivirajClana(podaci):
+    korisnickoIme = input('Unesite korisnicko ime clana za aktivaciju: ')
+    promeniStatusClana(podaci, korisnickoIme, 1)

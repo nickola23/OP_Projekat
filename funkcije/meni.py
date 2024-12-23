@@ -1,14 +1,15 @@
-from funkcije.tabela import ispisTabele
-from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
-from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
-from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
-from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
-from funkcije.fajlovi import upisFajl
-from funkcije.vrstaTreninga import ucitajVrsteTreninga
-from funkcije.vrstaPaketa import ucitajVrstePaketa
-from funkcije.sala import ucitajSale
-from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
 from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju
+from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
+from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
+from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
+from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike
+from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
+from funkcije.upravljanjeKorisnicima import aktivirajClana
+from funkcije.vrstaTreninga import ucitajVrsteTreninga
+from funkcije.vrstaPaketa import ucitajVrstePaketa, aktivacijaPremiumPaketa
+from funkcije.tabela import ispisTabele
+from funkcije.fajlovi import upisFajl
+from funkcije.sala import ucitajSale
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
@@ -149,8 +150,8 @@ def meniInstruktor():
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: print('ponistavanjeRezervacije'),
         '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
-        '10': lambda: print('aktivacijaClana'),
-        '11': lambda: print('aktivacijaPremiumClana'),
+        '10': lambda: aktivirajClana(korisnici),
+        '11': lambda: aktivacijaPremiumPaketa(korisnici),
         '12': lambda: print('izmenaRezervacije'),
         '0': lambda: izlaz()
     }

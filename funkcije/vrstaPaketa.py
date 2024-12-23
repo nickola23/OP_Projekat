@@ -22,3 +22,7 @@ def promeniPaket(podaci, korisnickoIme, noviPaket):
         print(f"Paket za korisnika '{korisnickoIme}' je uspešno promenjen.")
     else:
         print(f"Korisnik sa korisničkim imenom '{korisnickoIme}' ne postoji.")
+
+def aktivacijaPremiumPaketa(podaci):
+    korisnickoIme = input('Unesite korisnicko ime clana za aktivaciju: ')
+    promeniPaket(podaci, korisnickoIme, 1)

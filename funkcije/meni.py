@@ -8,7 +8,7 @@ from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.vrstaPaketa import ucitajVrstePaketa
 from funkcije.sala import ucitajSale
 from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
@@ -148,7 +148,7 @@ def meniInstruktor():
         '6': lambda: print('rezervacijaMesta'),
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: print('ponistavanjeRezervacije'),
-        '9': lambda: print('preatragaRezervacija'),
+        '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
         '10': lambda: print('aktivacijaClana'),
         '11': lambda: print('aktivacijaPremiumClana'),
         '12': lambda: print('izmenaRezervacije'),

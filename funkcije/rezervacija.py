@@ -35,6 +35,92 @@ def pretraziRezervacijeKorisnik(rezervacije, korisnickoIme):
     else:
         print(f"Nema rezervacija za korisnika '{korisnickoIme}'.")
         return pretraga
+    
+def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
+    while True:
+        print("Opcije pretrage rezervacija:\n1. ID treninga\n2. Ime člana\n3. Prezime člana\n4. Datumu rezervacije\n5. Vreme početka treninga\n6. Vreme kraja treninga\nb. Nazad")
+
+        izbor = input("Izaberite opciju za pretragu: ")
+
+        match izbor:
+            case "1":
+                idTreninga = input("Unesite ID treninga: ").strip()
+                pretraga = {
+                    idRezervacije: rezervacija
+                    for idRezervacije, rezervacija in rezervacije.items()
+                    if treninzi[termini[rezervacija['idTermina']]['idTreninga']]['id'] == idTreninga
+                }
+
+            case "2":
+                ime = input("Unesite ime člana: ").strip().lower()
+                pretraga = {
+                    idRezervacije: rezervacija
+                    for idRezervacije, rezervacija in rezervacije.items()
+                    if any(korisnik['ime'].lower() == ime for korisnik in korisnici.values() if korisnik['korisnickoIme'] == rezervacija['idKorisnika'])
+                }
+
+            case "3":
+                prezime = input("Unesite prezime člana: ").strip().lower()
+                pretraga = {
+                    idRezervacije: rezervacija
+                    for idRezervacije, rezervacija in rezervacije.items()
+                    if any(korisnik['prezime'].lower() == prezime for korisnik in korisnici.values() if korisnik['korisnickoIme'] == rezervacija['idKorisnika'])
+                }
+
+            case "4":
+                datum = input("Unesite datum rezervacije: ").strip()
+                try:
+                    datetime.strptime(datum, '%d.%m.%Y')
+                    pretraga = {
+                        idRezervacije: rezervacija
+                        for idRezervacije, rezervacija in rezervacije.items()
+                        if rezervacija['datum'] == datum
+                    }
+                except Exception:
+                    print("Uneli ste nevažeći datum. Pokušajte ponovo.")
+                    continue
+
+            case "5":
+                vremePocetka = input("Unesite vreme početka treninga (hh:mm): ").strip()
+                try:
+                    pocetak = datetime.strptime(vremePocetka, '%H:%M').time()
+                    pretraga = {
+                        idRezervacije: rezervacija
+                        for idRezervacije, rezervacija in rezervacije.items()
+                        if treninzi[termini[rezervacija['idTermina']]['idTreninga']]['vremePocetka'] == pocetak
+                    }
+                except ValueError:
+                    print("Uneli ste nevažeće vreme. Pokušajte ponovo.")
+                    continue
+
+            case "6":
+                vreme_kraja = input("Unesite vreme kraja treninga (hh:mm): ").strip()
+                try:
+                    kraj = datetime.strptime(vreme_kraja, '%H:%M').time()
+                    pretraga = {
+                        idRezervacije: rezervacija
+                        for idRezervacije, rezervacija in rezervacije.items()
+                        if treninzi[termini[rezervacija['idTermina']]['idTreninga']]['vremeKraja'] == kraj
+                    }
+                except ValueError:
+                    print("Uneli ste nevažeće vreme. Pokušajte ponovo.")
+                    continue
+
+            case "b":
+                print("Izlaz iz pretrage.")
+                break
+
+            case _:
+                print("Nevažeća opcija. Pokušajte ponovo.")
+                continue
+
+        if pretraga:
+            print("Rezultati pretrage:")
+            ispisTabele(pretraga)
+        else:
+            print("Nema rezultata za zadatu pretragu.")
+
+
 
 def prikazMestaUMatrici(idTermina, rezervacije): 
     sviRedovi = "ABCDEF"
@@ -49,9 +135,9 @@ def prikazMestaUMatrici(idTermina, rezervacije):
         for red in sviRedovi:
             mesto = f"{red}{kolona}"
             if mesto in zauzetaMesta:
-                trenutniRed.append("X")  # Zauzeto mesto
+                trenutniRed.append("X")         # Zauzeto mesto
             else:
-                trenutniRed.append(mesto[0])  # Slobodno mesto
+                trenutniRed.append(mesto[0])    # Slobodno mesto
         matrica.append(trenutniRed)
 
     print(f"Raspored mesta za termin {idTermina}:")

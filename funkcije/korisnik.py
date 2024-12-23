@@ -31,7 +31,7 @@ def dodajKorisnika(korisnici):
             while True:
                 lozinka = input('Unesite lozinku (barem 6 karaktera i 1 cifra): ').strip()
                 if len(lozinka) < 6 or not re.search(r'\d', lozinka):
-                    print('Greška: Lozinka nije validna. Pokušajte ponovo.')
+                    print('Lozinka nije validna. Pokušajte ponovo.')
                 else:
                     break
             ime = input('Unesite ime: ')
@@ -47,6 +47,46 @@ def dodajKorisnika(korisnici):
                 'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
             } 
 
+            return True
+        else:
+            print('Korisnicko ime je vec zauzeto.')
+            continue
+
+def registracijaInstruktora(korisnici):
+    while True:
+        korisnickoIme = input('Unesite korisnicko ime instruktora: ')
+        if korisnickoIme not in korisnici.keys():
+            while True:
+                lozinka = input('Unesite lozinku (barem 6 karaktera i 1 cifra): ').strip()
+                if len(lozinka) < 6 or not re.search(r'\d', lozinka):
+                    print('Lozinka nije validna. Pokušajte ponovo.')
+                else:
+                    break
+            ime = input('Unesite ime: ')
+            prezime = input('Unesite prezime: ')
+            while True:
+                try:
+                    uloga = input('1. Instruktor\n2. Admin\nUnesite ulogu: ').strip()
+                    match uloga:
+                        case '1' | '2':
+                            break
+                        case _: 
+                            print('Pogrešan unos. Unesite broj 1 ili 2.')
+                            continue
+                except Exception as e:
+                    print(f"Došlo je do greške:\n{e}")
+
+            korisnici[korisnickoIme] = {
+                'korisnickoIme': korisnickoIme,
+                'lozinka': lozinka,
+                'ime': ime,
+                'prezime': prezime,
+                'uloga': uloga,
+                'status': 0,                
+                'uplaceniPaket': 0,         
+                'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
+            }
+            
             return True
         else:
             print('Korisnicko ime je vec zauzeto.')

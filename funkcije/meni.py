@@ -1,4 +1,4 @@
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju, mesecnaNagradaLojalnosti
 from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
 from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
 from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
@@ -177,8 +177,8 @@ def meniAdmin():
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: registracijaInstruktora(korisnici),
         '7': lambda: print('izvestavanje'),
-        '8': lambda: print('mesecnNagradaLojalnosti'),
-        '9': lambda: print('prikazMestaMatrica'),
+        '8': lambda: mesecnaNagradaLojalnosti(rezervacije, korisnici),
+        '9': lambda: print('prikazMestaMatrica'),       #ukloniti
         '10': lambda: print('promenaPaketaClana'),
         '11': lambda: pokreniMeni('meniUnosIzmenaBrisanjeProgram'),
         '12': lambda: pokreniMeni('meniUnosIzmenaBrisanjeTrening'),

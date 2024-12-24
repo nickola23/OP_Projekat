@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from funkcije.fajlovi import citajFajl, upisFajl
 from funkcije.tabela import ispisTabele
 from funkcije.zaIspis import rezervacijeZaIspis
@@ -173,7 +173,9 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
             print("Program za izabrani trening nije pronađen.")
             continue
 
-        if program['potrebanPaket'] == 1 and korisnik['uplaceniPaket'] != 1:
+        danTreninga = datetime.strptime(termin['datum'], '%d.%m.%Y').weekday()
+
+        if danTreninga != 4 and program['potrebanPaket'] == 1 and korisnik['uplaceniPaket'] != 1: 
             print("Ovaj program zahteva premium članstvo. Ne možete rezervisati mesto.")
             continue
         
@@ -233,3 +235,26 @@ def ponistiRezervaciju(rezervacije, termini):
         nastavak = input("Da li želite da poništite još neku rezervaciju? (da/ne): ").lower()
         if nastavak != 'da':
             break
+
+def mesecnaNagradaLojalnosti(rezervacije, korisnici):
+    danas = datetime.now().date()
+    prosliMesec = danas - timedelta(days=30)
+    
+    mesecneRezervacije = {}
+    for rezervacija in rezervacije.values():
+        datumRezervacije = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
+        if datumRezervacije > prosliMesec:
+            idKorisnika = rezervacija['idKorisnika']
+            if idKorisnika not in mesecneRezervacije:
+                mesecneRezervacije[idKorisnika] = []
+            mesecneRezervacije[idKorisnika].append(rezervacija)
+    
+    for idKorisnika, rezervacijeKorisnika in mesecneRezervacije.items():
+        if len(rezervacijeKorisnika) > 27:
+            korisnik = korisnici.get(idKorisnika)
+            if korisnik:
+                korisnik['status'] = 1
+                korisnik['uplaceniPaket'] = 1
+                print(f"Korisniku {korisnik['korisnickoIme']} dodeljen je premium paket za naredni mesec.")             #ukloniti
+    
+    print("Raspodela mesečnih nagrada lojalnosti je završena.")

@@ -25,16 +25,35 @@ def ucitajRezervacije(putanja):
 
 def pretraziRezervacijeKorisnik(rezervacije, korisnickoIme):
     pretraga = {}
+
     if korisnickoIme:
         for podaci in rezervacije.values():
             if podaci['idKorisnika'] == korisnickoIme:
                 pretraga[podaci['id']] = podaci
 
-    if podaci:
+    if pretraga:
         return pretraga
     else:
         print(f"Nema rezervacija za korisnika '{korisnickoIme}'.")
         return pretraga
+    
+def pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, korisnickoIme):
+    pretraga = {}
+    
+    for podaci in rezervacije.values():
+        idTermina = podaci['idTermina']
+        trening = treninzi.get(termini.get(idTermina, {}).get('idTreninga', ''))
+        if trening:
+            idPrograma = trening.get('idPrograma')
+            if idPrograma and programi.get(idPrograma, {}).get('idInstruktora') == korisnickoIme:
+                pretraga[podaci['id']] = podaci
+
+    if pretraga:
+        return pretraga
+    else:
+        print(f"Nema rezervacija za instruktora '{korisnickoIme}'.")
+        return pretraga
+
     
 def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
     while True:
@@ -150,7 +169,7 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
 
     korisnik = korisnici.get(korisnickoIme)
     if korisnik['status'] != 1:
-        print("Vaš status aktivnosti je 'neaktivan'. Ne možete rezervisati mesta.")
+        print(f"{korisnik['korisnickoIme']} status je 'neaktivan'. Ne možete rezervisati mesta.")
         return
 
     while True:
@@ -190,7 +209,7 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
 
         oznakaRedaKolone = input("Unesite oznaku reda i kolone željenog mesta (npr. A1): ")
         if oznakaRedaKolone not in slobodnaMesta:
-            print("Uneto mesto nije slobodno ili ne postoji. Pokušajte ponovo.")
+            print("Uneto mesto nije slobodno ili ne postoji. Pokusajte ponovo.")
             continue
 
         noviID = str(len(rezervacije) + 1)
@@ -207,6 +226,26 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
         nastavak = input("Da li želite da rezervišete još mesta? (da/ne): ").lower()
         if nastavak != 'da':
             break
+
+def rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnickoImeInstruktora):
+    while True:
+        terminiInstruktora = {
+            idTermina: termin
+            for idTermina, termin in termini.items()
+            if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnickoImeInstruktora
+        }
+
+        if not terminiInstruktora:
+            print("Nemate termine za koje možete rezervisati mesta.")
+            break
+
+        korisnickoImeClana = input("Unesite korisničko ime člana za kojeg rezervišete mesto: ").strip()
+        if korisnickoImeClana not in korisnici:
+            print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
+            continue
+
+        rezervacijaMesta(rezervacije, terminiInstruktora, treninzi, programi, korisnici, korisnickoImeClana)
+        break
 
 def ponistiRezervaciju(rezervacije, termini):
     while True:

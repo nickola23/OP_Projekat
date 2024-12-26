@@ -24,122 +24,123 @@ def ucitajPrograme(putanja):
 
 def dodajProgram(programi, vrsteTreninga, korisnici, paketi):
     while True:
-        id = input("Unesite ID programa: ")
-        if id not in programi.keys():
-            break
-        else:
-            print("Program sa ovim ID vec postoji. Pokusajte ponovo.")
+        id = str(max([int(idPrograma) for idPrograma in programi.keys()], default=0) + 1)
 
-    naziv = input("Unesite naziv programa: ")
+        naziv = input("Unesite naziv programa: ")
 
-    while True:
-        idVrsteTreninga = input("Unesite ID vrste treninga: ")
-        if idVrsteTreninga in vrsteTreninga:
-            break
-        else:
-            print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
-
-    while True:
-        try:
-            trajanje = int(input("Unesite trajanje programa (u minutima): "))
-            if trajanje > 0:
+        while True:
+            idVrsteTreninga = input("Unesite ID vrste treninga: ")
+            if idVrsteTreninga in vrsteTreninga:
                 break
             else:
-                print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
-        except Exception:
-            print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
-            continue
+                print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
 
-    while True:
-        idInstruktora = input("Unesite Korisnicko ime instruktora: ")
-        if idInstruktora in korisnici:
-            break
-        else:
-            print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
-    
-    while True:
-        potrebanPaket = input("Unesite ID potrebnog paketa: ")
-        if potrebanPaket in paketi:
-            break
-        else:
-            print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
+        while True:
+            try:
+                trajanje = int(input("Unesite trajanje programa (u minutima): "))
+                if trajanje > 0:
+                    break
+                else:
+                    print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
+            except Exception:
+                print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
+                continue
 
-    opis = input("Unesite opis programa: ")
-    
-    programi[id] = {
-        'id': id,
-        'naziv': naziv,
-        'idVrsteTreninga': idVrsteTreninga,
-        'trajanje': trajanje,
-        'idInstruktora': idInstruktora,
-        'potrebanPaket': potrebanPaket,
-        'opis': opis
-    }
+        while True:
+            idInstruktora = input("Unesite Korisnicko ime instruktora: ")
+            if idInstruktora in korisnici:
+                break
+            else:
+                print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
+        
+        while True:
+            potrebanPaket = input("Unesite ID potrebnog paketa: ")
+            if potrebanPaket in paketi:
+                break
+            else:
+                print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
 
-    print("Uspesno ste dodali program.")
-    return True
+        opis = input("Unesite opis programa: ")
+        
+        programi[id] = {
+            'id': id,
+            'naziv': naziv,
+            'idVrsteTreninga': idVrsteTreninga,
+            'trajanje': trajanje,
+            'idInstruktora': idInstruktora,
+            'potrebanPaket': potrebanPaket,
+            'opis': opis
+        }
+
+        print("Uspesno ste dodali program.")
+        return True
+    return False
 
 def izmeniProgram(programi, vrsteTreninga, korisnici, paketi):
     while True:
-        id = input("Unesite ID programa za izmenu: ")
-        if id in programi.keys():
+        id = input("Unesite ID programa za izmenu (b. za Nazad): ")
+        if id == 'b':
             break
-        else:
+        elif id not in programi.keys():
             print("Program sa ovim ID ne postoji.")
+            continue
 
-    ispisTabele({id: programi[id]})
+        ispisTabele({id: programi[id]})
+                
+        while True:
+            odgovor = input("1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nIzaberite podatak koji zelite da izmenite: ")
             
-    while True:
-        odgovor = input("1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nIzaberite podatak koji zelite da izmenite: ")
-        
-        match odgovor:
-            case '1':
-                programi[id]['naziv'] = input("Unesite novi naziv: ")
-            case '2':
-                while True:
-                    idVrsteTreninga = input("Unesite novi ID vrste treninga: ")
-                    if idVrsteTreninga in vrsteTreninga:
-                        programi[id]['idVrsteTreninga'] = idVrsteTreninga
-                        break
-                    else:
-                        print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
-            case '3':
-                while True:
-                    try:
-                        trajanje = int(input("Unesite novo trajanje programa (u minutima): "))
-                        if trajanje > 0:
-                            programi[id]['trajanje'] = trajanje
+            match odgovor:
+                case '1':
+                    programi[id]['naziv'] = input("Unesite novi naziv: ")
+                case '2':
+                    while True:
+                        idVrsteTreninga = input("Unesite novi ID vrste treninga: ")
+                        if idVrsteTreninga in vrsteTreninga:
+                            programi[id]['idVrsteTreninga'] = idVrsteTreninga
                             break
                         else:
-                            print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
-                    except Exception:
-                        print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
-                
-            case '4':
-                while True:
-                    idInstruktora = input("Unesite novo Korisnicko ime instruktora: ")
-                    if idInstruktora in korisnici:
-                        programi[id]['idInstruktora'] = idInstruktora
-                        break
-                    else:
-                        print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
-            case '5':
-                while True:
-                    potrebanPaket = input("Unesite novi ID potrebnog paketa: ")
-                    if potrebanPaket in paketi:
-                        programi[id]['potrebanPaket'] = potrebanPaket
-                        break
-                    else:
-                        print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
-            case '6':
-                programi[id]['opis'] = input("Unesite novi opis: ")
-            case 'b':
-                return True
+                            print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
+                case '3':
+                    while True:
+                        try:
+                            trajanje = int(input("Unesite novo trajanje programa (u minutima): "))
+                            if trajanje > 0:
+                                programi[id]['trajanje'] = trajanje
+                                break
+                            else:
+                                print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
+                        except Exception:
+                            print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
+                    
+                case '4':
+                    while True:
+                        idInstruktora = input("Unesite novo Korisnicko ime instruktora: ")
+                        if idInstruktora in korisnici:
+                            programi[id]['idInstruktora'] = idInstruktora
+                            break
+                        else:
+                            print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
+                case '5':
+                    while True:
+                        potrebanPaket = input("Unesite novi ID potrebnog paketa: ")
+                        if potrebanPaket in paketi:
+                            programi[id]['potrebanPaket'] = potrebanPaket
+                            break
+                        else:
+                            print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
+                case '6':
+                    programi[id]['opis'] = input("Unesite novi opis: ")
+                case 'b':
+                    return True
+    return False
 
 def brisiProgram(programi):
     while True:
-        id = input("Unesite ID programa za brisanje: ")
-        if id in programi.keys():
+        id = input("Unesite ID programa za brisanje (b. za Nazad): ")
+        if id == 'b':
+            return False
+        elif id in programi.keys():
             del programi[id]
             print("Uspesno ste izbrisali program.")
             return True

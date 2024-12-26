@@ -24,13 +24,13 @@ def ispisTabele(podaci):
     zaglavlje = linija = vrednosti = ''
 
     if not podaci or not isinstance(podaci, dict):
-        print("Nema podataka za prikaz. ili podaci nisu u obliku recnika")
+        print("Nema podataka za prikaz.")
         return
     
     duzine = maxDuzina(podaci)
 
     if not duzine:
-        print("Nema podataka za prikaz. ili podaci nisu u obliku recnika")
+        print("Nema podataka za prikaz.")
         return
 
     for kljuc in duzine.keys():

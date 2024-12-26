@@ -39,7 +39,6 @@ def spojeniTerminiZaIspis(termini, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
     if not termini or not isinstance(termini, dict):
-        print('Greska: termini nisu validni podaci.')
         return {}
 
     podaci = {}

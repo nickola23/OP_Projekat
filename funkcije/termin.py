@@ -121,4 +121,6 @@ def pretraziTermine(termini, sale, programi, kriterijum=''):
     
     if not pretraga:
         print('Nema podataka iz pretrage.')
-    return pretraga
+        return {}
+    else:
+        return pretraga

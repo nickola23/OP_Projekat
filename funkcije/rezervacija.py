@@ -263,8 +263,10 @@ def ponistiRezervaciju(rezervacije, termini):
 
         ispisTabele(aktivneRezeracije)
 
-        idRezervacije = input("Unesite ID rezervacije koju želite da poništite: ")
-        if idRezervacije not in aktivneRezeracije:
+        idRezervacije = input("Unesite ID rezervacije koju želite da poništite (b. za Nazad): ")
+        if idRezervacije == 'b':
+            break
+        elif idRezervacije not in aktivneRezeracije:
             print("Nevažeći ID rezervacije. Pokušajte ponovo.")
             continue
 

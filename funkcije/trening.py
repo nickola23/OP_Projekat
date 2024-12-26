@@ -25,12 +25,7 @@ def ucitajTrening(putanja):
 def dodajTrening(treninzi, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
-    while True:
-        id = input("Unesite ID treninga: ")
-        if id not in treninzi.keys():
-            break
-        else:
-           print("ID treninga vec postoji. Pokusajte ponovo.")
+    id = str(max([int(idTreninga) for idTreninga in treninzi.keys()], default=0) + 1)
     
     while True:
         idSale = input("Unesite ID sale: ")

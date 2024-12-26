@@ -251,20 +251,20 @@ def ponistiRezervaciju(rezervacije, termini):
     while True:
         print("Vaše trenutne rezervacije:")
     
-        aktivne_rezervacije = {
+        aktivneRezeracije = {
             idRezervacije: rezervacija
             for idRezervacije, rezervacija in rezervacije.items()
             if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= datetime.now().date()
         }
 
-        if not aktivne_rezervacije:
+        if not aktivneRezeracije:
             print("Nemate aktivnih rezervacija za poništavanje.")
             break
 
-        ispisTabele(aktivne_rezervacije)
+        ispisTabele(aktivneRezeracije)
 
         idRezervacije = input("Unesite ID rezervacije koju želite da poništite: ")
-        if idRezervacije not in aktivne_rezervacije:
+        if idRezervacije not in aktivneRezeracije:
             print("Nevažeći ID rezervacije. Pokušajte ponovo.")
             continue
 
@@ -274,6 +274,31 @@ def ponistiRezervaciju(rezervacije, termini):
         nastavak = input("Da li želite da poništite još neku rezervaciju? (da/ne): ").lower()
         if nastavak != 'da':
             break
+
+def ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnickoIme):
+    while True:
+        terminiInstruktora = {
+                idTermina: termin
+                for idTermina, termin in termini.items()
+                if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnickoIme
+            }
+
+        if not terminiInstruktora:
+            print("Nemate termine za koje možete poništiti rezervaciju.")
+            break
+
+        aktivneRezeracije = {
+            idRezervacije: rezervacija
+            for idRezervacije, rezervacija in rezervacije.items()
+            if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= datetime.now().date()
+        }
+
+        if not aktivneRezeracije:
+            print("Nemate aktivnih rezervacija za poništavanje.")
+            break
+
+        ponistiRezervaciju(rezervacije, termini)
+        break
 
 def mesecnaNagradaLojalnosti(rezervacije, korisnici):
     danas = datetime.now().date()

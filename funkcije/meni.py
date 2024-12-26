@@ -1,4 +1,4 @@
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju, mesecnaNagradaLojalnosti, rezervacijaMestaInstruktor, pretraziRezervacijeInstruktor
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju, mesecnaNagradaLojalnosti, rezervacijaMestaInstruktor, pretraziRezervacijeInstruktor, ponistiRezervacijuInstruktor
 from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
 from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
 from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
@@ -148,7 +148,7 @@ def meniInstruktor():
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
-        '8': lambda: print('ponistavanjeRezervacije'),
+        '8': lambda: ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
         '10': lambda: aktivirajClana(korisnici),
         '11': lambda: aktivacijaPremiumPaketa(korisnici),

@@ -300,6 +300,120 @@ def ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, koris
         ponistiRezervaciju(rezervacije, termini)
         break
 
+def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnickoImeInstruktora):
+    while True:
+        terminiInstruktora = {
+            idTermina: termin
+            for idTermina, termin in termini.items()
+            if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnickoImeInstruktora
+        }
+
+        if not terminiInstruktora:
+            print("Nemate termine za koje možete menjati rezervacije.")
+            break
+
+        print("Dostupni termini za koje ste odgovorni:")
+        ispisTabele(terminiInstruktora)
+        idTermina = input("Unesite šifru termina treninga (b. za Nazad): ").strip()
+        if idTermina == 'b':
+            break
+        elif idTermina not in terminiInstruktora:
+            print("Uneti termin nije vaš. Pokušajte ponovo.")
+            continue
+
+        korisniciSaRezervacijama = {
+            rezervacija['idKorisnika']
+            for rezervacija in rezervacije.values()
+            if rezervacija['idTermina'] == idTermina
+        }
+
+        if korisniciSaRezervacijama:
+            print(f"Korisnici sa rezervacijama za termin {idTermina}:")
+            print(", ".join(korisniciSaRezervacijama))
+        else:
+            print("Nema korisnika sa rezervacijama za ovaj termin.")
+            continue
+
+        korisnickoImeClana = input("Unesite korisničko ime člana: ").strip()
+        if korisnickoImeClana not in korisnici:
+            print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
+            continue
+
+        zauzetaMestaKorisnika = {
+            rezervacija['oznakaRedaKolone']
+            for rezervacija in rezervacije.values()
+            if rezervacija['idTermina'] == idTermina and rezervacija['idKorisnika'] == korisnickoImeClana
+        }
+
+        if zauzetaMestaKorisnika:
+            print(f"Korisnik {korisnickoImeClana} je rezervisao sledeća mesta za termin {idTermina}:")
+            print(", ".join(zauzetaMestaKorisnika))
+        else:
+            print(f"Korisnik '{korisnickoImeClana}' nema rezervisana mesta za ovaj termin.")
+            continue
+
+        oznakaRedaKolone = input("Unesite oznaku mesta koje želite da izmenite: ").strip()
+        rezervacijaZaIzmenu = None
+        for rezervacija in rezervacije.values():
+            if (
+                rezervacija['idTermina'] == idTermina
+                and rezervacija['idKorisnika'] == korisnickoImeClana
+                and rezervacija['oznakaRedaKolone'] == oznakaRedaKolone
+            ):
+                rezervacijaZaIzmenu = rezervacija
+                break
+
+        if not rezervacijaZaIzmenu:
+            print("Rezervacija nije pronađena. Pokušajte ponovo.")
+            continue
+
+        print(f"Pronađena rezervacija: ")
+        ispisTabele({rezervacijaZaIzmenu['id']: rezervacijaZaIzmenu})
+        print("Opcije izmene:\n1. Promena termina\n2. Promena korisnika\n3. Promena mesta\nb. Nazad")
+
+        izbor = input("Unesite opciju za izmenu: ").strip()
+        if izbor == "1":
+            print("Dostupni termini za koje ste odgovorni:")
+            ispisTabele(terminiInstruktora)
+
+            noviIdTermina = input("Unesite novi termin: ").strip()
+            if noviIdTermina not in terminiInstruktora:
+                print("Novi termin nije validan za vas. Pokušajte ponovo.")
+                continue
+            rezervacijaZaIzmenu['idTermina'] = noviIdTermina
+            print("Termin uspešno izmenjen.")
+        elif izbor == "2":
+            noviKorisnik = input("Unesite korisničko ime novog korisnika: ").strip()
+            if noviKorisnik not in korisnici:
+                print("Novi korisnik ne postoji. Pokušajte ponovo.")
+                continue
+            rezervacijaZaIzmenu['idKorisnika'] = noviKorisnik
+            print("Korisnik uspešno izmenjen.")
+        elif izbor == "3":
+            print("Dostupna mesta za dati termin:")
+            prikazMestaUMatrici(idTermina, rezervacije)
+
+            novaOznaka = input("Unesite novu oznaku mesta: ").strip()
+            zauzetaMesta = {
+                rezervacija['oznakaRedaKolone']
+                for rezervacija in rezervacije.values()
+                if rezervacija['idTermina'] == idTermina
+            }
+            if novaOznaka in zauzetaMesta:
+                print("Novo mesto je već zauzeto. Pokušajte ponovo.")
+                continue
+            rezervacijaZaIzmenu['oznakaRedaKolone'] = novaOznaka
+            print("Mesto uspešno izmenjeno.")
+        elif izbor == "b":
+            break
+        else:
+            print("Pogresan unos. Pokušajte ponovo.")
+            continue
+
+        nastavak = input("Da li želite da izmenite još neku rezervaciju? (da/ne): ").strip().lower()
+        if nastavak != "da":
+            break
+
 def mesecnaNagradaLojalnosti(rezervacije, korisnici):
     danas = datetime.now().date()
     prosliMesec = danas - timedelta(days=30)
@@ -319,6 +433,5 @@ def mesecnaNagradaLojalnosti(rezervacije, korisnici):
             if korisnik:
                 korisnik['status'] = 1
                 korisnik['uplaceniPaket'] = 1
-                print(f"Korisniku {korisnik['korisnickoIme']} dodeljen je premium paket za naredni mesec.")             #ukloniti
     
     print("Raspodela mesečnih nagrada lojalnosti je završena.")

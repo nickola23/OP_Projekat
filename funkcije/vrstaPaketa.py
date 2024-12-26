@@ -19,7 +19,7 @@ def ucitajVrstePaketa(putanja):
 def promeniPaket(podaci, korisnickoIme, noviPaket):
     if korisnickoIme in podaci:
         podaci[korisnickoIme]['uplaceniPaket'] = noviPaket
-        print(f"Paket za korisnika '{korisnickoIme}' je uspešno promenjen.")
+        print(f"Paket za korisnika {korisnickoIme} je uspešno promenjen.")
     else:
         print(f"Korisnik sa korisničkim imenom '{korisnickoIme}' ne postoji.")
 

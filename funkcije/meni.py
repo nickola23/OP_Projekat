@@ -1,12 +1,12 @@
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju, mesecnaNagradaLojalnosti, rezervacijaMestaInstruktor, pretraziRezervacijeInstruktor, ponistiRezervacijuInstruktor
-from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
+from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju, mesecnaNagradaLojalnosti, rezervacijaMestaInstruktor, pretraziRezervacijeInstruktor, ponistiRezervacijuInstruktor, izmeniRezervacijuInstruktor
 from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
-from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
+from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
 from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike, registracijaInstruktora
+from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
+from funkcije.vrstaPaketa import ucitajVrstePaketa, aktivacijaPremiumPaketa
 from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
 from funkcije.upravljanjeKorisnicima import aktivirajClana
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
-from funkcije.vrstaPaketa import ucitajVrstePaketa, aktivacijaPremiumPaketa
 from funkcije.tabela import ispisTabele
 from funkcije.fajlovi import upisFajl
 from funkcije.sala import ucitajSale
@@ -152,7 +152,7 @@ def meniInstruktor():
         '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
         '10': lambda: aktivirajClana(korisnici),
         '11': lambda: aktivacijaPremiumPaketa(korisnici),
-        '12': lambda: print('izmenaRezervacije'),
+        '12': lambda: izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '0': lambda: izlaz()
     }
 

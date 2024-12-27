@@ -23,10 +23,12 @@ def ucitajPrograme(putanja):
     return podaci
 
 def dodajProgram(programi, vrsteTreninga, korisnici, paketi):
+    id = str(max([int(idPrograma) for idPrograma in programi.keys()], default=0) + 1)
+    
     while True:
-        id = str(max([int(idPrograma) for idPrograma in programi.keys()], default=0) + 1)
-
-        naziv = input("Unesite naziv programa: ")
+        naziv = input("Unesite naziv programa (b. za Nazad): ")
+        if naziv == 'b':
+            break
 
         while True:
             idVrsteTreninga = input("Unesite ID vrste treninga: ")

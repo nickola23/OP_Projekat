@@ -156,6 +156,7 @@ def izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
                 case '6':
                     programi[id]['opis'] = input("Unesite novi opis: ")
                 case 'b':
+                    print('Program uspesno izmenjen.')
                     return True
     return False
 

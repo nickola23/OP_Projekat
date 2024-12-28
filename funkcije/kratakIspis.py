@@ -22,3 +22,11 @@ def ispisVrstePaketa(vrstePaketa):
 def ispisProgrami(programi):
     for id, podaci in programi.items():
         print(f"ID: {podaci['id']} - {podaci['naziv']}")
+
+def ispisSale(sale):
+    for id, podaci in sale.items():
+        print(f"ID: {podaci['id']} - {podaci['naziv']}")
+
+def ispisTreninzi(treninzi):
+    for id, podaci in treninzi.items():
+        print(f"ID: {podaci['id']} - od {podaci['vremePocetka'].strftime('%H:%M')} do {podaci['vremeKraja'].strftime('%H:%M')}")

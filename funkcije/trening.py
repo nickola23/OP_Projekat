@@ -1,6 +1,7 @@
 from datetime import datetime
 from funkcije.fajlovi import citajFajl, upisFajl
 from funkcije.tabela import ispisTabele
+from funkcije.kratakIspis import ispisSale, ispisProgrami, ispisTreninzi
 
 def ucitajTrening(putanja):
     fajl = citajFajl(putanja)
@@ -27,6 +28,9 @@ def dodajTrening(treninzi, sale, programi):
     id = str(max([int(idTreninga) for idTreninga in treninzi.keys()], default=0) + 1)
 
     while True:
+        print('Opcije za sale:')
+        ispisSale(sale)
+        
         idSale = input("Unesite ID sale (b. za Nazad): ")
         if idSale == 'b':
             break
@@ -56,6 +60,9 @@ def dodajTrening(treninzi, sale, programi):
                 print("Niste uneli validne dane u nedelji. Pokušajte ponovo.")
 
         while True:
+            print('Opcije za programe:')
+            ispisProgrami(programi)
+
             idPrograma = input("Unesite ID programa: ")
             if idPrograma in programi:
                 break
@@ -70,7 +77,8 @@ def dodajTrening(treninzi, sale, programi):
             'daniNedelje': daniNedelje,
             'idPrograma': idPrograma
         }
-        print('Trening uspesno dodat.')
+        print("Uspesno ste dodali trening sa sledecim podacima:")
+        ispisTabele({id: treninzi[id]})
         return True
     return False
 
@@ -78,6 +86,9 @@ def izmeniTrening(treninzi, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
     while True:
+        print('Opcije za treninge:')
+        ispisTreninzi(treninzi)
+
         id = input("Unesite ID treninga za izmenu (b. za Nazad): ")
         if id == 'b':
             break
@@ -85,14 +96,17 @@ def izmeniTrening(treninzi, sale, programi):
            print("ID treninga ne postoji. Pokusajte ponovo.")
            continue
 
-        ispisTabele({id: treninzi[id]})
-
         while True:
+            print('Trenutni trening za izmenu:')
+            ispisTabele({id: treninzi[id]})
+
             odgovor = input("Ponuđene opcije za izmenu:\n1. ID sale\n2. Vreme pocetka\n3. Vreme kraja\n4. Dani u nedelji\n5. ID programa\nb. Nazad\nUnesite zeljenu opciju: ")
             match odgovor:
                 case '1':
-                    
                     while True:
+                        print('Opcije za sale:')
+                        ispisSale(sale)
+
                         idSale = input("Unesite novi ID sale: ")
                         if idSale in sale:
                             treninzi[id]['idSale'] = idSale
@@ -125,6 +139,9 @@ def izmeniTrening(treninzi, sale, programi):
                             print("Niste uneli validne dane u nedelji. Pokušajte ponovo.")
                 case '5':
                     while True:
+                        print('Opcije za programe:')
+                        ispisProgrami(programi)
+
                         idPrograma = input("Unesite novi ID programa: ")
                         if idPrograma in programi:
                             treninzi[id]['idPrograma'] = idPrograma
@@ -138,6 +155,9 @@ def izmeniTrening(treninzi, sale, programi):
 
 def brisiTrening(treninzi):
     while True:
+        print('Opcije postojecih treninga za brisanje:')
+        ispisTreninzi(treninzi)
+
         id = input("Unesite ID treninga za brisanje (b. za Nazad): ")
         if id == 'b':
             break

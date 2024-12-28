@@ -30,3 +30,7 @@ def ispisSale(sale):
 def ispisTreninzi(treninzi):
     for id, podaci in treninzi.items():
         print(f"ID: {podaci['id']} - od {podaci['vremePocetka'].strftime('%H:%M')} do {podaci['vremeKraja'].strftime('%H:%M')}")
+
+def ispisMesta(rezervacije):
+    for id, podaci in rezervacije.items():
+        print(f"ID: {podaci['oznakaRedaKolone']} - {podaci['idKorisnika']} - {podaci['idTermina']} - {podaci['datum']}")

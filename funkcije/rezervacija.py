@@ -3,6 +3,7 @@ from funkcije.fajlovi import citajFajl, upisFajl
 from funkcije.tabela import ispisTabele
 from funkcije.zaIspis import rezervacijeZaIspis
 from funkcije.termin import spojiTermine
+from funkcije.kratakIspis import ispisKorisnika, ispisVrstePaketa, ispisVrsteTreninga, ispisProgrami, ispisTreninzi, ispisSale, ispisMesta
 
 def ucitajRezervacije(putanja):
     fajl = citajFajl(putanja)
@@ -57,12 +58,15 @@ def pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, kori
     
 def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
     while True:
-        print("Opcije pretrage rezervacija:\n1. ID treninga\n2. Ime člana\n3. Prezime člana\n4. Datumu rezervacije\n5. Vreme početka treninga\n6. Vreme kraja treninga\nb. Nazad")
+        print("Ponuđene opcije:\n1. ID treninga\n2. Ime člana\n3. Prezime člana\n4. Datumu rezervacije\n5. Vreme početka treninga\n6. Vreme kraja treninga\nb. Nazad")
 
-        izbor = input("Izaberite opciju za pretragu: ")
+        izbor = input("Unesite zeljenu opciju: ")
 
         match izbor:
             case "1":
+                print('Opcije postojecih treninga:')
+                ispisTreninzi(treninzi)
+
                 idTreninga = input("Unesite ID treninga: ").strip()
                 pretraga = {
                     idRezervacije: rezervacija
@@ -138,8 +142,6 @@ def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
             ispisTabele(pretraga)
         else:
             print("Nema rezultata za zadatu pretragu.")
-
-
 
 def prikazMestaUMatrici(idTermina, rezervacije): 
     sviRedovi = "ABCDEF"
@@ -316,6 +318,7 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
 
         print("Dostupni termini za koje ste odgovorni:")
         ispisTabele(terminiInstruktora)
+
         idTermina = input("Unesite šifru termina treninga (b. za Nazad): ").strip()
         if idTermina == 'b':
             break
@@ -329,9 +332,15 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
             if rezervacija['idTermina'] == idTermina
         }
 
+        filtriraniKorisnici = {
+            korisnickoIme: korisnici[korisnickoIme]
+            for korisnickoIme in korisniciSaRezervacijama
+            if korisnickoIme in korisnici
+        }
+
         if korisniciSaRezervacijama:
-            print(f"Korisnici sa rezervacijama za termin {idTermina}:")
-            print(", ".join(korisniciSaRezervacijama))
+            print('Opcije korisnika sa rezervacijama:')
+            ispisKorisnika(filtriraniKorisnici)
         else:
             print("Nema korisnika sa rezervacijama za ovaj termin.")
             continue
@@ -341,20 +350,20 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
             print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
             continue
 
-        zauzetaMestaKorisnika = {
-            rezervacija['oznakaRedaKolone']
-            for rezervacija in rezervacije.values()
+        izabraneRezervacije = {
+            idRezervacije: rezervacija
+            for idRezervacije, rezervacija in rezervacije.items()
             if rezervacija['idTermina'] == idTermina and rezervacija['idKorisnika'] == korisnickoImeClana
         }
 
-        if zauzetaMestaKorisnika:
-            print(f"Korisnik {korisnickoImeClana} je rezervisao sledeća mesta za termin {idTermina}:")
-            print(", ".join(zauzetaMestaKorisnika))
+        if izabraneRezervacije:
+            print('Opcije rezervisanih mesta korisnika:')
+            ispisMesta(izabraneRezervacije)
         else:
             print(f"Korisnik '{korisnickoImeClana}' nema rezervisana mesta za ovaj termin.")
             continue
 
-        oznakaRedaKolone = input("Unesite oznaku mesta koje želite da izmenite: ").strip()
+        oznakaRedaKolone = input("Unesite ID mesta koje želite da izmenite: ").strip()
         rezervacijaZaIzmenu = None
         for rezervacija in rezervacije.values():
             if (
@@ -436,4 +445,4 @@ def mesecnaNagradaLojalnosti(rezervacije, korisnici):
                 korisnik['status'] = 1
                 korisnik['uplaceniPaket'] = 1
     
-    print("Raspodela mesečnih nagrada lojalnosti je završena.")
+    print("Raspodela mesečnih nagrada lojalnosti je uspešno završena.")

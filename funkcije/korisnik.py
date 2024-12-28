@@ -86,7 +86,7 @@ def registracijaInstruktora(korisnici):
                 'uplaceniPaket': 0,         
                 'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
             }
-            
+            print(f'Uspesno ste registrovali korisnika {korisnickoIme}')
             return True
         else:
             print('Korisnicko ime je vec zauzeto.')

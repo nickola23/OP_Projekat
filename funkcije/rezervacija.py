@@ -143,9 +143,17 @@ def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
         else:
             print("Nema rezultata za zadatu pretragu.")
 
-def prikazMestaUMatrici(idTermina, rezervacije): 
-    sviRedovi = "ABCDEF"
-    brojKolona = 6
+def prikazMestaUMatrici(idTermina, rezervacije, termini, treninzi, sale):
+    idTreninga = termini[idTermina]['idTreninga']
+    idSale = treninzi[idTreninga]['idSale']
+    sala = sale[idSale]
+    oznakaMesta = sala['oznakaMesta']
+    brojKolona = sala['brojRedova']
+
+    sviRedovi = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    indeks = sviRedovi.index(oznakaMesta) + 1
+    sviRedovi = sviRedovi[:indeks]
+
     svaMesta = {f"{red}{kolona}" for kolona in range(1, brojKolona + 1) for red in sviRedovi}
 
     zauzetaMesta = {rezervacija['oznakaRedaKolone'] for rezervacija in rezervacije.values() if rezervacija['idTermina'] == idTermina}
@@ -165,10 +173,7 @@ def prikazMestaUMatrici(idTermina, rezervacije):
     for i, red in enumerate(matrica, 1):
         print(f"Red {i}: {' '.join(red)}")
     
-def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisnickoIme):
-    sviRedovi = "ABCDEF"
-    brojKolona = 6
-
+def rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, korisnickoIme):
     korisnik = korisnici.get(korisnickoIme)
     if korisnik['status'] != 1:
         print(f"{korisnik['korisnickoIme']} status je 'neaktivan'. Ne možete rezervisati mesta.")
@@ -178,8 +183,10 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
         print("Dostupni termini:")
         ispisTabele(spojiTermine(treninzi, termini))
         
-        idTermina = input("Unesite ID željenog termina: ")
-        if idTermina not in termini:
+        idTermina = input("Unesite ID željenog termina (b. za Nazad): ")
+        if idTermina == 'b':
+            break
+        elif idTermina not in termini:
             print("Uneti termin ne postoji. Pokušajte ponovo.")
             continue
         
@@ -199,6 +206,30 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
         if danTreninga != 4 and program['potrebanPaket'] == 1 and korisnik['uplaceniPaket'] != 1: 
             print("Ovaj program zahteva premium članstvo. Ne možete rezervisati mesto.")
             continue
+
+        if idTermina not in termini:
+            print(f"Termin sa ID {idTermina} nije pronađen.")
+            return
+
+        idTreninga = termini[idTermina]['idTreninga']
+
+        if idTreninga not in treninzi:
+            print(f"Trening sa ID {idTreninga} nije pronađen.")
+            return
+
+        idSale = treninzi[idTreninga]['idSale']
+
+        if idSale not in sale:
+            print(f"Sala sa ID {idSale} nije pronađena.")
+            return
+
+        sala = sale[idSale]
+        oznakaMesta = sala['oznakaMesta']
+        brojKolona = sala['brojRedova']
+
+        sviRedovi = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        indeks = sviRedovi.index(oznakaMesta) + 1
+        sviRedovi = sviRedovi[:indeks]
         
         zauzetaMesta = {rezervacija['oznakaRedaKolone'] for rezervacija in rezervacije.values() if rezervacija['idTermina'] == idTermina}
         slobodnaMesta = {f"{red}{kolona}" for kolona in range(1, brojKolona + 1) for red in sviRedovi} - zauzetaMesta
@@ -207,7 +238,7 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
             print("Nema slobodnih mesta za izabrani termin.")
             continue
 
-        prikazMestaUMatrici(idTermina, rezervacije)
+        prikazMestaUMatrici(idTermina, rezervacije, termini, treninzi, sale)
 
         oznakaRedaKolone = input("Unesite oznaku reda i kolone željenog mesta (npr. A1): ")
         if oznakaRedaKolone not in slobodnaMesta:
@@ -229,7 +260,7 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, korisn
         if nastavak != 'da':
             break
 
-def rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnickoImeInstruktora):
+def rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, korisnickoImeInstruktora):
     while True:
         terminiInstruktora = {
             idTermina: termin
@@ -246,7 +277,7 @@ def rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, korisni
             print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
             continue
 
-        rezervacijaMesta(rezervacije, terminiInstruktora, treninzi, programi, korisnici, korisnickoImeClana)
+        rezervacijaMesta(rezervacije, terminiInstruktora, treninzi, programi, sale, korisnici, korisnickoImeClana)
         break
 
 def ponistiRezervaciju(rezervacije, termini):

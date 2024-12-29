@@ -12,8 +12,8 @@ def ucitajSale(putanja):
             podaci[id] = {
                 'id': eval(id),
                 'naziv': naziv,
-                'brojRedova': brojRedova,
-                'oznakaMesta': oznakaMesta.split(',')
+                'brojRedova': eval(brojRedova),
+                'oznakaMesta': oznakaMesta.strip()
             }
             
     return podaci

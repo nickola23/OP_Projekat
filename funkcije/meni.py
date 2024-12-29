@@ -121,7 +121,7 @@ def meniRegistrovan():
         '3': lambda: pokreniMeni('meniPretraziProgram'),
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
+        '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnickoIme']),
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: ponistiRezervaciju(rezervacije, termini),
         '0': lambda: izlaz()
@@ -146,7 +146,7 @@ def meniInstruktor():
         '3': lambda: pokreniMeni('meniPretraziProgram'),
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
+        '6': lambda: rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnickoIme']),
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),

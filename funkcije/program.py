@@ -176,42 +176,69 @@ def brisiProgram(programi):
             print("Program sa ovim ID ne postoji.")
             continue
 
-def pretraziProgram(programi, vrsteTreninga, vrstePaketa, kriterijum = ''):
-    pretraga = {}
-    if kriterijum == 'idVrsteTreninga':
-        print("Dostupne vrste treninga:")
-        ispisVrsteTreninga(vrsteTreninga)
-        
-        kljuc = input('Unesite ID vrste treninga za pretragu: ').strip().lower()
-    elif kriterijum == 'potrebanPaket':
-        print("Dostupni paketi:")
-        ispisVrstePaketa(vrstePaketa)
-        
-        kljuc = input('Unesite ID paketa za pretragu: ').strip().lower()
-    elif kriterijum == 'trajanje':
-        while True:
-            try:
-                min = int(input('Unesite minimalno trajanje treninga u minutima: '))
-                max = int(input('Unesite maksimalno trajanje treninga u minutima: '))
-                break
-            except Exception:
-                print(f'Morate uneti ceo broj. Pokusajte ponovo.')
-    else:
-        kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()
+def pretraziProgram(programi, vrsteTreninga, vrstePaketa):
+    pretraga = programi
 
-    for id, podaci in programi.items():
-        for vrednost in podaci.values():
-            if kriterijum:
-                if kriterijum == 'naziv' and kljuc in str(podaci['naziv']).lower():
-                    pretraga[id] = podaci
-                elif kriterijum == 'idVrsteTreninga' and str(podaci['idVrsteTreninga']).lower() == kljuc:
-                    pretraga[id] = podaci
-                elif kriterijum == 'trajanje' and podaci['trajanje'] >= min and podaci['trajanje'] <= max:
-                    pretraga[id] = podaci
-                elif kriterijum == 'potrebanPaket' and str(podaci['potrebanPaket']).lower() == kljuc:
-                    pretraga[id] = podaci
-            else:
-                if kljuc in str(vrednost).lower():
-                    pretraga[id] = podaci
-    
+    kriterijumi = input("Ponuđene opcije:\n1. Vrsta treninga\n2. Trajanje treninga (u minutama)\n3. Potreban paket\n4. Naziv programa\nUnesite jedan ili više kriterijuma za pretragu (odvojeni zarezom, npr. 1,3):").strip().split(',')
+
+    for kriterijum in kriterijumi:
+        kriterijum = kriterijum.strip()
+        
+        if kriterijum == '1':
+            print("Dostupne vrste treninga:")
+            ispisVrsteTreninga(vrsteTreninga)
+            while True:
+                idVrsteTreninga = input("Unesite ID vrste treninga: ").strip()
+                if idVrsteTreninga not in vrsteTreninga:
+                    print(f"Vrsta treninga sa ID {idVrsteTreninga} ne postoji. Pokušajte ponovo.")
+                    continue
+                pretraga = {
+                    id: podaci
+                    for id, podaci in pretraga.items()
+                    if str(podaci['idVrsteTreninga']) == idVrsteTreninga
+                }
+                break
+
+        elif kriterijum == '2':
+            while True:
+                try:
+                    minTrajanje = int(input("Unesite minimalno trajanje treninga u minutima: "))
+                    maxTrajanje = int(input("Unesite maksimalno trajanje treninga u minutima: "))
+                    if minTrajanje < 0 or maxTrajanje < 0:
+                        print('Trajanje mora biti vece od 0. Pokusajte ponovo.')
+                        continue 
+                    break 
+                except ValueError: print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
+            pretraga = {
+            id: podaci
+            for id, podaci in pretraga.items()
+            if minTrajanje <= podaci['trajanje'] <= maxTrajanje
+        }
+
+        elif kriterijum == '3':
+            print("Dostupni paketi:")
+            ispisVrstePaketa(vrstePaketa)
+            while True:
+                idPaketa = input("Unesite ID paketa: ").strip()
+                if idPaketa not in vrstePaketa:
+                    print(f"Paket sa ID {idPaketa} ne postoji. Pokušajte ponovo.")
+                    continue
+                pretraga = {
+                    id: podaci
+                    for id, podaci in pretraga.items()
+                    if str(podaci['potrebanPaket']) == idPaketa
+                }
+                break
+
+        elif kriterijum == '4':
+            naziv = input("Unesite ključnu reč za pretragu u nazivu programa: ").strip().lower()
+            pretraga = {
+                id: podaci
+                for id, podaci in pretraga.items()
+                if naziv in podaci['naziv'].lower()
+            }
+
+        else:
+            print(f"Kriterijum '{kriterijum}' nije validan. Preskačem ga.")
+
     return pretraga

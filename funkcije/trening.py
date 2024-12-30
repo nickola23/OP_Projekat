@@ -51,13 +51,19 @@ def dodajTrening(treninzi, sale, programi):
                 break
             except Exception:
                 print("Pogresan format vremena. Pokusajte ponovo.")
-        
+
         while True:
-            daniNedelje = input("Unesite dane u nedelji (ponedeljak,sreda) sa zarezom bez razmaka: ").split(',')
-            if all(dan in dani for dan in daniNedelje):
-                break
+            daniNedelje = input("Unesite dane u nedelji (odvojeni zarezom, npr. ponedeljak,sreda): ").strip().split(',')
+
+            daniNedelje = [dan.strip().lower() for dan in daniNedelje]
+            nevalidniDani = [dan for dan in daniNedelje if dan not in dani]
+
+            if nevalidniDani:
+                print(f"Niste uneli validne dane u nedelji. Pokušajte ponovo.")
+                continue
             else:
-                print("Niste uneli validne dane u nedelji. Pokušajte ponovo.")
+                break
+
 
         while True:
             print('Opcije za programe:')

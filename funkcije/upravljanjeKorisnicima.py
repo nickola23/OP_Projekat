@@ -1,4 +1,5 @@
 from datetime import datetime
+from funkcije.clanarina import dodajClanarinu
 
 def dodajInstruktora(korisnici):
     while True:
@@ -23,13 +24,14 @@ def dodajInstruktora(korisnici):
             print("Uspesno ste dodali instruktora.")
             return True
         
-def promeniStatusClana(podaci, korisnickoIme, noviStatus):
-    if korisnickoIme in podaci:
-        podaci[korisnickoIme]['status'] = noviStatus
+def promeniStatusClana(korisnici, clanarine, korisnickoIme, noviStatus):
+    if korisnickoIme in korisnici:
+        dodajClanarinu(korisnici, clanarine, korisnickoIme)
+        korisnici[korisnickoIme]['status'] = noviStatus
         print(f"Status korisnika {korisnickoIme} je uspešno promenjen.")
     else:
-        print(f"Korisnik sa korisničkim imenom '{korisnickoIme}' ne postoji.")
+        print(f"Korisnik sa korisničkim imenom {korisnickoIme} ne postoji.")
 
-def aktivirajClana(podaci):
+def aktivacijaClana(korisnici, clanarine):
     korisnickoIme = input('Unesite korisnicko ime clana za aktivaciju: ')
-    promeniStatusClana(podaci, korisnickoIme, 1)
+    promeniStatusClana(korisnici, clanarine, korisnickoIme, 1)

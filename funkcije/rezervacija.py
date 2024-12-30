@@ -19,7 +19,7 @@ def ucitajRezervacije(putanja):
                 'idKorisnika': idKorisnika,
                 'idTermina': idTermina,
                 'oznakaRedaKolone': oznakaRedaKolone,
-                'datum': datetime.strptime(datum.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y'),
+                'datum': datetime.strptime(datum.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y')
             }
     
     return podaci

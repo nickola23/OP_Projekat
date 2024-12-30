@@ -5,7 +5,8 @@ from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike, re
 from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
 from funkcije.vrstaPaketa import ucitajVrstePaketa, aktivacijaPremiumPaketa
 from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
-from funkcije.upravljanjeKorisnicima import aktivirajClana
+from funkcije.clanarina import ucitajClanarine, validacijaClanarina
+from funkcije.upravljanjeKorisnicima import aktivacijaClana
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.tabela import ispisTabele
 from funkcije.fajlovi import upisFajl
@@ -15,6 +16,7 @@ putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
 putanjaVrstePaketa = './data/VrstaPaketa.txt'
 putanjaKorisnici = './data/Korisnici.txt'
+putanjaClanarine = './data/Clanarina.txt'
 putanjaProgrami = './data/Program.txt'
 putanjaTrening = './data/Trening.txt'
 putanjaTermin = './data/Termin.txt'
@@ -24,6 +26,7 @@ vrsteTreninga = ucitajVrsteTreninga(putanjaVrsteTreninga)
 rezervacije = ucitajRezervacije(putanjaRezervacije)
 vrstePaketa = ucitajVrstePaketa(putanjaVrstePaketa)
 korisnici = ucitajKorisnike(putanjaKorisnici)
+clanarine = ucitajClanarine(putanjaClanarine)
 programi = ucitajPrograme(putanjaProgrami)
 treninzi = ucitajTrening(putanjaTrening)
 termini =  ucitajTermin(putanjaTermin)
@@ -52,6 +55,7 @@ def upisiFajlove():
     upisFajl(putanjaRezervacije, rezervacije)
     upisFajl(putanjaVrstePaketa, vrstePaketa)
     upisFajl(putanjaKorisnici, korisnici)
+    upisFajl(putanjaClanarine, clanarine)
     upisFajl(putanjaProgrami, programi)
     upisFajl(putanjaTrening, treninzi)
     upisFajl(putanjaTermin, termini)
@@ -150,7 +154,7 @@ def meniInstruktor():
         '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
         '8': lambda: ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
-        '10': lambda: aktivirajClana(korisnici),
+        '10': lambda: aktivacijaClana(korisnici, clanarine),
         '11': lambda: aktivacijaPremiumPaketa(korisnici),
         '12': lambda: izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
         '0': lambda: izlaz()
@@ -266,8 +270,9 @@ def initiate():
     meniUnosIzmenaBrisanjeTrening()
 
 def glavniMeni():
-    initiate()
     global trenutniKorisnik
+    initiate()
+    validacijaClanarina(korisnici, clanarine)   #azuriraj clanarine
 
     if trenutniKorisnik is None:                #nije prijavljen
         pokreniMeni('meniNeregistrovan')

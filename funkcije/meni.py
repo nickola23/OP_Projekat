@@ -11,6 +11,7 @@ from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.tabela import ispisTabele
 from funkcije.fajlovi import upisFajl
 from funkcije.sala import ucitajSale
+from funkcije.izvestaji import izvestajA, izvestajB
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
@@ -180,7 +181,7 @@ def meniAdmin():
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
         '6': lambda: registracijaInstruktora(korisnici),
-        '7': lambda: print('izvestavanje'),
+        '7': lambda: pokreniMeni('meniIzvestaji'),
         '8': lambda: mesecnaNagradaLojalnosti(rezervacije, korisnici),
         '9': lambda: pokreniMeni('meniUnosIzmenaBrisanjeProgram'),
         '10': lambda: pokreniMeni('meniUnosIzmenaBrisanjeTrening'),
@@ -260,6 +261,31 @@ def meniUnosIzmenaBrisanjeTrening():
 
     menii['meniUnosIzmenaBrisanjeTrening'] = meniOpcije
 
+def meniIzvestaji():
+
+    meniFunkcije = {
+        '1': lambda: izvestajA(rezervacije),
+        '2': lambda: izvestajB(rezervacije, termini),
+        '3': lambda: print('izvestaj'),
+        '4': lambda: print('izvestaj'),
+        '5': lambda: print('izvestaj'),
+        '6': lambda: print('izvestaj'),
+        '7': lambda: print('izvestaj'),
+        '8': lambda: print('izvestaj'),
+        'b': lambda: nazad()
+    }
+
+    meniOpcije = {
+        'naziv': "meniIzvestaji",
+        'nazivIspis': "Izvestaji Meni",
+        'opcijeIspis': "1. Lista rezervacija za odabran datum rezervacije\n2. Lista rezervacija za odabran datum termina treninga\n3. Lista rezervacija za odabran datum rezervacije i odabranog instruktora\n4. Ukupan broj rezervacija za izabran dan (u nedelji) održavanja treninga\n5. Ukupan broj rezervacije po instruktorima u poslednjih 30 dana\n6. Ukupan broj rezervacija realizovanih (Standard i Premium) u poslednjih 30 dana.\n7. Najpopularniji programi treninga.\n8. Najpopularniji dan u nedelji.\nb. Nazad",
+        'opcijeUnos': meniFunkcije,
+        'nazad': True,
+        'izlaz': False
+    }
+
+    menii['meniIzvestaji'] = meniOpcije
+
 def initiate():
     meniNeregistrovan()
     meniRegistrovan()
@@ -268,6 +294,7 @@ def initiate():
     meniPretraziTermin()
     meniUnosIzmenaBrisanjeProgram()
     meniUnosIzmenaBrisanjeTrening()
+    meniIzvestaji()
 
 def glavniMeni():
     global trenutniKorisnik

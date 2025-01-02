@@ -1,0 +1,9 @@
+ | Instruktor | Broj rezervacija
+-+------------+-----------------
+ | mixa       | 14              
+ | korisnik01 | 4               
+ | nikola23   | 4               
+ | dixi       | 4               
+ | biserko    | 2               
+ | petar65    | 2               
+ | marko      | 1               

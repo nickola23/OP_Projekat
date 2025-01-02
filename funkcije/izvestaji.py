@@ -1,6 +1,7 @@
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timedelta
 from funkcije.tabela import maxDuzina
 from funkcije.tabela import ispisTabele
+from funkcije.kratakIspis import ispisKorisnika
 
 def sacuvajIzvestaj(podaci, nazivFajla):
     while True:
@@ -97,3 +98,122 @@ def izvestajB(rezervacije, termini):
         ispisTabele(pretraga)
         sacuvajIzvestaj(pretraga, 'izvestaji/izvestajB.txt')
         return pretraga
+
+def izvestajC(rezervacije, korisnici, programi, termini, treninzi):
+    while True:
+        odabraniDatum = input("Unesite datum rezervacije: ").strip()
+        try:
+            datum = datetime.strptime(odabraniDatum, '%d.%m.%Y').date()
+        except ValueError:
+            print("Neispravan format datuma. Pokušajte ponovo.")
+            continue
+        
+        while True:
+            print('Opcije za instruktore:')
+            ispisKorisnika(korisnici, 1)
+
+            odabraniInstruktor = input("Unesite korisnicko ime instruktora: ").strip()
+            if odabraniInstruktor not in korisnici:
+                print("Ne postoji instruktor sa datim korisnickim imenom. Pokušajte ponovo.")
+                continue
+            else: break
+
+        pretraga = {}
+        for idx, rezervacija in enumerate(rezervacije.values(), start=1):
+            idTermina = rezervacija['idTermina']
+            idTreninga = termini[idTermina]['idTreninga']
+            idInstruktora = programi[treninzi[idTreninga]['idPrograma']]['idInstruktora']
+
+            if rezervacija['datum'] == odabraniDatum and idInstruktora.lower() == odabraniInstruktor.lower():
+                pretraga[idx] = {
+                    'ID Rezervacije': rezervacija['id'],
+                    'Korisnicko ime': rezervacija['idKorisnika'],
+                    'ID Termina': idTermina,
+                    'Instruktor': idInstruktora,
+                    'Oznaka Mesta': rezervacija['oznakaRedaKolone'],
+                    'Datum': rezervacija['datum']
+                }
+
+                if not pretraga:
+                    print("Nema rezervacija za odabrani datum i instruktora.")
+                    continue
+
+        ispisTabele(pretraga)
+        sacuvajIzvestaj(pretraga, 'izvestaji/izvestajC.txt')
+        return pretraga
+    
+def izvestajD(rezervacije):
+    while True:
+        validniDani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
+        odabraniDan = input("Unesite dan u nedelji (npr. ponedeljak): ").strip().lower()
+        engleskiUDani = {
+            'monday': 'ponedeljak',
+            'tuesday': 'utorak',
+            'wednesday': 'sreda',
+            'thursday': 'cetvrtak',
+            'friday': 'petak',
+            'saturday': 'subota',
+            'sunday': 'nedelja'
+        }
+
+        if odabraniDan not in validniDani:
+            print("Neispravan unos. Pokušajte ponovo.")
+            continue
+
+        pretraga = {}
+        brojac = 0
+        for idx, rezervacija in enumerate(rezervacije.values(), start=1):
+            datum = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
+            danUNedeljiEngleski = datum.strftime('%A').lower()
+            danUNedeljiSrpski = engleskiUDani[danUNedeljiEngleski]
+
+            if danUNedeljiSrpski == odabraniDan:
+                brojac += 1
+                pretraga[idx] = {
+                    'ID Rezervacije': rezervacija['id'],
+                    'Korisnicko ime': rezervacija['idKorisnika'],
+                    'ID Termina': rezervacija['idTermina'],
+                    'Oznaka Mesta': rezervacija['oznakaRedaKolone'],
+                    'Datum': rezervacija['datum']
+                }
+
+        print(f"Ukupan broj rezervacija za {odabraniDan} je: {brojac}. To su:")
+        ispisTabele(pretraga)
+        sacuvajIzvestaj(pretraga, 'izvestaji/izvestajD.txt')
+        return pretraga
+
+def izvestajE(rezervacije, termini, treninzi, programi):
+    danasnjiDatum = datetime.now().date()
+    poslednjih30Dana = danasnjiDatum - timedelta(days=30)
+    brojRezervacijaPoInstruktoru = {}
+
+    for rezervacija in rezervacije.values():
+        datumRezervacije = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
+        if datumRezervacije >= poslednjih30Dana:
+            idTermina = rezervacija['idTermina']
+            if idTermina in termini:
+                idTreninga = termini[idTermina]['idTreninga']
+                if idTreninga in treninzi:
+                    idPrograma = treninzi[idTreninga]['idPrograma']
+                    if idPrograma in programi:
+                        idInstruktora = programi[idPrograma]['idInstruktora']
+                        if idInstruktora not in brojRezervacijaPoInstruktoru:
+                            brojRezervacijaPoInstruktoru[idInstruktora] = 0
+                        brojRezervacijaPoInstruktoru[idInstruktora] += 1
+
+    sortiraniInstruktori = sorted(
+        brojRezervacijaPoInstruktoru.items(), 
+        key=lambda x: x[1], 
+        reverse=True
+    )
+
+    pretraga = {}
+    for id, (instruktor, brojRezervacija) in enumerate(sortiraniInstruktori, start=1):
+        pretraga[id] = {
+            'Instruktor': instruktor,
+            'Broj rezervacija': brojRezervacija
+        }
+
+    ispisTabele(pretraga)
+    sacuvajIzvestaj(pretraga, 'izvestaji/izvestajE.txt')
+    return pretraga

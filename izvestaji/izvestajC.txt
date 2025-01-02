@@ -1,0 +1,6 @@
+ | ID Rezervacije | Korisnicko ime | ID Termina | Instruktor | Oznaka Mesta | Datum     
+-+----------------+----------------+------------+------------+--------------+-----------
+ | 27             | tax            | 1004MR     | mixa       | F3           | 24.12.2024
+ | 28             | tax            | 1004MR     | mixa       | C2           | 24.12.2024
+ | 29             | nikola23       | 1004MR     | mixa       | E2           | 24.12.2024
+ | 30             | nikola23       | 1004MR     | mixa       | B1           | 24.12.2024

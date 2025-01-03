@@ -217,3 +217,108 @@ def izvestajE(rezervacije, termini, treninzi, programi):
     ispisTabele(pretraga)
     sacuvajIzvestaj(pretraga, 'izvestaji/izvestajE.txt')
     return pretraga
+
+def izvestajF(rezervacije, termini, treninzi, programi):
+    danasnjiDatum = datetime.now().date()
+    poslednjih30Dana = danasnjiDatum - timedelta(days=30)
+
+    premiumRezervacije = 0
+    standardRezervacije = 0
+
+    for rezervacija in rezervacije.values():
+        datumRezervacije = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
+        if datumRezervacije >= poslednjih30Dana:
+            idTermina = rezervacija['idTermina']
+            if idTermina in termini:
+                idTreninga = termini[idTermina]['idTreninga']
+                if idTreninga in treninzi:
+                    idPrograma = treninzi[idTreninga]['idPrograma']
+                    if idPrograma in programi:
+                        potrebanPaket = programi[idPrograma]['potrebanPaket']
+                        if potrebanPaket == 1:
+                            premiumRezervacije += 1
+                        elif potrebanPaket == 0:
+                            standardRezervacije += 1
+
+    pretraga = {
+        1: {'Tip paketa': 'Premium', 'Broj rezervacija': premiumRezervacije},
+        2: {'Tip paketa': 'Standard', 'Broj rezervacija': standardRezervacije},
+    }
+
+    ispisTabele(pretraga)
+    sacuvajIzvestaj(pretraga, 'izvestaji/izvestajF.txt')
+    return pretraga
+
+def izvestajG(rezervacije, termini, treninzi, programi):
+    danasnjiDatum = datetime.now().date()
+    poslednjihGodinuDana = danasnjiDatum - timedelta(days=365)
+
+    popularnostPrograma = {}
+
+    for rezervacija in rezervacije.values():
+        datumRezervacije = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
+        if datumRezervacije >= poslednjihGodinuDana:
+            idTermina = rezervacija['idTermina']
+            if idTermina in termini:
+                idTreninga = termini[idTermina]['idTreninga']
+                if idTreninga in treninzi:
+                    idPrograma = treninzi[idTreninga]['idPrograma']
+                    if idPrograma in programi:
+                        if idPrograma not in popularnostPrograma:
+                            popularnostPrograma[idPrograma] = 0
+                        popularnostPrograma[idPrograma] += 1
+
+    najpopularnijiProgrami = sorted(
+        popularnostPrograma.items(),
+        key=lambda x: x[1], 
+        reverse=True
+    )[:3]
+
+    pretraga = {}
+    for idx, (idPrograma, brojRezervacija) in enumerate(najpopularnijiProgrami, start=1):
+        pretraga[idx] = {
+            'Naziv Programa': programi[idPrograma]['naziv'],
+            'Broj Rezervacija': brojRezervacija,
+        }
+
+    ispisTabele(pretraga)
+    sacuvajIzvestaj(pretraga, 'izvestaji/izvestajG.txt')
+    return pretraga
+
+def izvestajH(rezervacije, termini):
+    popularnostDana = {}
+
+    for rezervacija in rezervacije.values():
+        idTermina = rezervacija['idTermina']
+        if idTermina in termini:
+            datumTermina = datetime.strptime(termini[idTermina]['datum'], '%d.%m.%Y').date()
+            danUNedelji = datumTermina.strftime('%A').lower()
+
+            daniNaSrpskom = {
+                'monday': 'ponedeljak',
+                'tuesday': 'utorak',
+                'wednesday': 'sreda',
+                'thursday': 'četvrtak',
+                'friday': 'petak',
+                'saturday': 'subota',
+                'sunday': 'nedelja',
+            }
+
+            danNaSrpskom = daniNaSrpskom[danUNedelji]
+
+            if danNaSrpskom not in popularnostDana:
+                popularnostDana[danNaSrpskom] = 0
+            popularnostDana[danNaSrpskom] += 1
+
+    najpopularnijiDan = max(popularnostDana.items(), key=lambda x: x[1])
+
+    pretraga = {
+        1: {
+            'Dan u Nedelji': najpopularnijiDan[0].capitalize(),
+            'Broj Rezervacija': najpopularnijiDan[1],
+        }
+    }
+
+    ispisTabele(pretraga)
+    sacuvajIzvestaj(pretraga, 'izvestaji/izvestajH.txt')
+    return pretraga

@@ -1,0 +1,4 @@
+ | Tip paketa | Broj rezervacija
+-+------------+-----------------
+ | Premium    | 19              
+ | Standard   | 7               

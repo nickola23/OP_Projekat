@@ -11,7 +11,7 @@ from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.tabela import ispisTabele
 from funkcije.fajlovi import upisFajl
 from funkcije.sala import ucitajSale
-from funkcije.izvestaji import izvestajA, izvestajB, izvestajC,izvestajD, izvestajE
+from funkcije.izvestaji import izvestajA, izvestajB, izvestajC,izvestajD, izvestajE, izvestajF, izvestajG, izvestajH
 
 putanjaVrsteTreninga = './data/VrstaTreninga.txt'
 putanjaRezervacije = './data/Rezervacija.txt'
@@ -269,9 +269,9 @@ def meniIzvestaji():
         '3': lambda: izvestajC(rezervacije, korisnici, programi, termini, treninzi),
         '4': lambda: izvestajD(rezervacije),
         '5': lambda: izvestajE(rezervacije, termini, treninzi, programi),
-        '6': lambda: print('izvestaj'),
-        '7': lambda: print('izvestaj'),
-        '8': lambda: print('izvestaj'),
+        '6': lambda: izvestajF(rezervacije, termini, treninzi, programi),
+        '7': lambda: izvestajG(rezervacije, termini, treninzi, programi),
+        '8': lambda: izvestajH(rezervacije, termini),
         'b': lambda: nazad()
     }
 

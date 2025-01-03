@@ -1,0 +1,5 @@
+ | Naziv Programa   | Broj Rezervacija
+-+------------------+-----------------
+ | Advanced Pilates | 9               
+ | Yoga Basics      | 6               
+ | Kardio skulptura | 5               

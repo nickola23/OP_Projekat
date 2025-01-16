@@ -1,4 +1,4 @@
-# Gym Group Training Booking System
+# Gym Booking System
 
 A terminal-based Python application for managing and booking gym group training sessions, designed for use by unregistered users, registered members, instructors, and administrators.
 

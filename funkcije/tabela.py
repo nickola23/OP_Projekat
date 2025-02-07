@@ -1,22 +1,22 @@
 from datetime import time
 
-def maxDuzina(podaci):
+def max_duzina(podaci):
     if not podaci or not isinstance(podaci, dict):
         return {}
 
-    maxDuzina = {}
+    max_duzina = {}
 
     prvi_unos = next(iter(podaci))
     for kljuc in podaci[prvi_unos].keys():
-        maxDuzina[kljuc] = len(kljuc)
+        max_duzina[kljuc] = len(kljuc)
 
     for red in podaci.values():
         for kljuc, vrednost in red.items():
             trenutna_duzina = len(str(vrednost))
-            if trenutna_duzina > maxDuzina[kljuc]:
-                maxDuzina[kljuc] = trenutna_duzina
+            if trenutna_duzina > max_duzina[kljuc]:
+                max_duzina[kljuc] = trenutna_duzina
 
-    return maxDuzina
+    return max_duzina
 
 
 def kreiraj_tabelu(podaci, duzine):
@@ -42,15 +42,15 @@ def ispis_tabele(podaci):
         print("Nema podataka za prikaz.")
         return
 
-    duzine = maxDuzina(podaci)
+    duzine = max_duzina(podaci)
 
     if not duzine:
         print("Nema podataka za prikaz.")
         return
 
-    for kljuc in duzine.keys():
-        zaglavlje += " | " + f"{kljuc:<{duzine[kljuc]}}" 
-        linija += "-+-" + "-" * duzine[kljuc]
+    for kljuc, vrednost in duzine.items():
+        zaglavlje += " | " + f"{kljuc:<{vrednost}}"
+        linija += "-+-" + "-" * vrednost
 
     print('\n')
     print(zaglavlje)

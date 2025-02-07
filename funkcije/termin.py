@@ -22,12 +22,12 @@ def ucitaj_termin(putanja):
 
 def dodaj_termin(termini):
     while True:
-        id = input("Unesite ID termina: ")
-        if id not in termini.keys():
+        id_termina = input("Unesite ID termina: ")
+        if id_termina not in termini.keys():
             datum = input("Unesite datum termina (dd.mm.yyyy): ")
             id_treninga = input("Unesite ID treninga: ")
-            termini[id] = {
-                'id': id,
+            termini[id_termina] = {
+                'id': id_termina,
                 'datum': datetime.strptime(datum, '%d.%m.%Y').date().strftime('%d.%m.%Y'),
                 'id_treninga': id_treninga
             }
@@ -39,9 +39,9 @@ def dodaj_termin(termini):
 
 def brisi_termin(termini):
     while True:
-        id = input("Unesite ID termina za brisanje: ")
-        if id in termini.keys():
-            del termini[id]
+        id_termina = input("Unesite ID termina za brisanje: ")
+        if id_termina in termini.keys():
+            del termini[id_termina]
             return True
         else:
             print("Termin sa unesenim ID-em ne postoji.")
@@ -50,21 +50,24 @@ def brisi_termin(termini):
 
 def izmeni_termin(termini):
     while True:
-        id = input("Unesite ID termina za izmenu: ")
-        if id in termini.keys():
-            ispis_tabele({id: termini[id]})
+        id_termina = input("Unesite ID termina za izmenu: ")
+        if id_termina in termini.keys():
+            ispis_tabele({id_termina: termini[id_termina]})
 
             while True:
-                odgovor = input("1. Datum\n2. ID treninga\nb. Nazad\nIzaberite podatak koji zelite da izmenite: ")
+                odgovor = input("1. Datum\n2. ID treninga\nb. Nazad\n"
+                                "Izaberite podatak koji zelite da izmenite: ")
 
                 match odgovor:
                     case '1':
-                        termini[id]['datum'] = datetime.strptime(input("Unesite novi datum (dd.mm.yyyy): "), '%d.%m.%Y').date().strftime('%d.%m.%Y')
+                        datum_input = input("Unesite novi datum (dd.mm.yyyy): ")
+                        termini[id_termina]['datum'] = datetime.strptime(datum_input, '%d.%m.%Y').date().strftime('%d.%m.%Y')
+
                     case '2':
-                        termini[id]['id_treninga'] = input("Unesite novi ID treninga: ")
+                        termini[id_termina]['id_treninga'] = input("Unesite novi ID treninga: ")
                     case 'b':
                         return True
-        else:  
+        else:
             print("Termin sa unesenim ID-em ne postoji.")
             continue
 
@@ -102,30 +105,29 @@ def pretrazi_termine(termini, sale, programi, kriterijum=''):
 
     kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()
 
-    for id, podaci in termini.items():
+    for id_termina, podaci in termini.items():
         if kriterijum:
             if kriterijum == 'id_sale' and str(podaci['id_sale']).lower() == kljuc:
-                pretraga[id] = podaci
+                pretraga[id_termina] = podaci
             elif kriterijum == 'id_programa' and str(podaci['id_programa']).lower() == kljuc:
-                pretraga[id] = podaci
+                pretraga[id_termina] = podaci
             elif kriterijum == 'datum' and podaci['datum'] == kljuc:
-                pretraga[id] = podaci
+                pretraga[id_termina] = podaci
             elif kriterijum == 'vreme_pocetka' and podaci['vreme_pocetka'].strftime('%H:%M') == kljuc:
-                pretraga[id] = podaci
+                pretraga[id_termina] = podaci
             elif kriterijum == 'vreme_kraja' and podaci['vreme_kraja'].strftime('%H:%M') == kljuc:
-                pretraga[id] = podaci
+                pretraga[id_termina] = podaci
         else:
             for vrednost in podaci.values():
                 if isinstance(vrednost, list):
                     if kljuc in [str(v).lower() for v in vrednost]:
-                        pretraga[id] = podaci
+                        pretraga[id_termina] = podaci
                         break
                 elif kljuc in str(vrednost).lower():
-                    pretraga[id] = podaci
+                    pretraga[id_termina] = podaci
                     break
 
     if not pretraga:
         print('Nema podataka iz pretrage.')
         return {}
-    else:
-        return pretraga
+    return pretraga

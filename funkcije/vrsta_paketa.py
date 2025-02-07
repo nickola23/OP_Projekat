@@ -8,9 +8,9 @@ def ucitaj_vrste_paketa(putanja):
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, naziv = red.split('|')
-            podaci[id] = {
-                'id': id,
+            id_vrste_paketa, naziv = red.split('|')
+            podaci[id_vrste_paketa] = {
+                'id': id_vrste_paketa,
                 'naziv': naziv
             }
 

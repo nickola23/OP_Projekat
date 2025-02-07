@@ -5,7 +5,7 @@ from funkcije.meni import glavni_meni
 
 def main():
     """
-    Glavna funkcija koja poziva meni.
+    Glavna funkcija koja poziva meni za upravljanje aplikacijom.
     """
     glavni_meni()
 

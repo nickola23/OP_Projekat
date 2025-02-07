@@ -8,14 +8,14 @@ def dodaj_instruktora(korisnici):
             lozinka = input("Unesite lozinku: ")
             ime = input("Unesite ime: ")
             prezime = input("Unesite prezime: ")
-            uloga = input("Izaberite jednu od uloga:\n0. Instruktor\n1. Administrator\nUnesite ulogu:")
+            uloga = input("Izaberite opciju:\n0. Instruktor\n1. Administrator\nUnesite ulogu:")
 
             korisnici[korisnicko_ime] = {
                 'korisnicko_ime': korisnicko_ime,
                 'ime': ime,
                 'prezime': prezime,
                 'lozinka': lozinka,
-                'uloga': eval(uloga),
+                'uloga': int(uloga),
                 'status': 0,
                 'uplaceni_paket': 0,
                 'datum_registracije': datetime.now().date().strftime('%d.%m.%Y'),
@@ -23,8 +23,8 @@ def dodaj_instruktora(korisnici):
 
             print("Uspesno ste dodali instruktora.")
             return True
-        
-        
+
+
 def promeni_status_clana(korisnici, clanarine, korisnicko_ime, novi_status):
     if korisnicko_ime in korisnici:
         dodaj_clanarinu(korisnici, clanarine, korisnicko_ime)

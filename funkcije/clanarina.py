@@ -9,13 +9,13 @@ from funkcije.fajlovi import citaj_fajl
 
 def ucitaj_clanarine(putanja):
     """
-    Ucitava clanarine iz .txt fajla
+    Ucitava clanarine iz .txt fajla i vraca ih u obliku recnika.
 
     Args:
-        putanja (string): putanja do .txt fajla.
+        putanja (string): putanja do .txt fajla
 
     Returns:
-        dict: sve clanarine
+        dict: recnik sa svim clanarinama
     """
     fajl = citaj_fajl(putanja)
     if fajl is None:

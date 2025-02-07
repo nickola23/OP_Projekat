@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from funkcije.tabela import maxDuzina, kreiraj_tabelu
+from funkcije.tabela import max_duzina, kreiraj_tabelu
 from funkcije.tabela import ispis_tabele
 from funkcije.kratak_ispis import ispis_korisnika
 
@@ -15,7 +15,7 @@ def sacuvaj_izvestaj(podaci, naziv_fajla):
                         break
 
                     zaglavlje = linija = vrednosti = ''
-                    duzine = maxDuzina(podaci)
+                    duzine = max_duzina(podaci)
 
                     for kljuc in duzine.keys():
                         zaglavlje += " | " + f"{kljuc:<{duzine[kljuc]}}"

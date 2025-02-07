@@ -1,14 +1,32 @@
+"""
+Modul za upravljanje funkcijama za ispis.
+
+Sadrži funkcije za ispis
+programa, treninga, termina, rezervacija.
+"""
 from datetime import datetime
 
 def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
+    """
+    Ispisuje podatke o programima sa instruktorima, vrstama treninga i paketa.
+
+    Args:
+        programi (dict): recnik sa podacima o programima
+        instruktori (dict): recnik sa podacima o instruktorima
+        vrste_treninga (dict): recnik sa podacima o vrstama treninga
+        vrste_paketa (dict): recnik sa podacima o vrstama paketa
+
+    Returns:
+        dict: recnik sa podacima za ispis
+    """
     podaci = {}
-    for id, program in programi.items():
+    for id_programa, program in programi.items():
         vrsta_treninga = vrste_treninga.get(str(program['idvrste_treninga']), {}).get('naziv', 'Nepoznato')
         vrsta_paketa = vrste_paketa.get(str(program['potreban_paket']), {}).get('naziv', 'Nepoznato')
         instruktor = instruktori.get(str(program['id_instruktora']), {})
         ime_instruktora = f"{instruktor.get('ime', 'Nepoznato')} {instruktor.get('prezime', '')}"
 
-        podaci[id] = {
+        podaci[id_programa] = {
             'id': program['id'],
             'naziv': program['naziv'],
             'vrsta_treninga': vrsta_treninga,
@@ -21,12 +39,23 @@ def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
 
 
 def trening_za_ispis(treninzi, sale, programi):
+    """
+    Ispisuje podatke o treningima sa salama i programima.
+
+    Args:
+        treninzi (dict): recnik sa podacima o treningima
+        sale (dict): recnik sa podacima o salama
+        programi (dict): recnik sa podacima o programima
+
+    Returns:
+        dict: recnik sa podacima za ispis
+    """
     podaci = {}
-    for id, trening in treninzi.items():
+    for id_treninga, trening in treninzi.items():
         sala = sale.get(str(trening['id_sale']), {}).get('naziv', 'Nepoznato')
         program = programi.get(str(trening['id_programa']), {}).get('naziv', 'Nepoznato')
 
-        podaci[id] = {
+        podaci[id_treninga] = {
             'id': trening['id'],
             'id_sale': sala,
             'vreme_pocetka': trening['vreme_pocetka'],
@@ -38,6 +67,17 @@ def trening_za_ispis(treninzi, sale, programi):
 
 
 def spojeni_termini_za_ispis(termini, sale, programi):
+    """
+    Ispisuje podatke o terminima sa salama, programima.
+
+    Args:
+        termini (dict): recnik sa podacima o terminima
+        sale (dict): recnik sa podacima o salama
+        programi (dict): recnik sa podacima o programima
+
+    Returns:
+        dict: recnik sa podacima za ispis
+    """
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
     if not termini or not isinstance(termini, dict):
@@ -68,6 +108,19 @@ def spojeni_termini_za_ispis(termini, sale, programi):
 
 
 def rezervacije_za_ispis(rezervacije, termini, treninzi, programi):
+    """
+    Ispisuje podatke o rezervacijama sa terminima, treninzima i programima.
+
+    Args:
+        rezervacije (dict): recnik sa podacima o rezervacijama
+        termini (dict): recnik sa podacima o terminima
+        treninzi (dict): recnik sa podacima o treninzima
+        programi (dict): recnik sa podacima o programima
+
+    Returns:
+        dict: recnik sa podacima za ispis
+
+    """
     spojeni_podaci = {}
 
     for id_rezervacije, rezervacija in rezervacije.items():

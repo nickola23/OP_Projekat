@@ -1,19 +1,19 @@
-from datetime import datetime, date, time, timedelta
+from datetime import datetime, timedelta
 from funkcije.tabela import maxDuzina, kreiraj_tabelu
 from funkcije.tabela import ispis_tabele
-from funkcije.kratakIspis import ispis_korisnika
+from funkcije.kratak_ispis import ispis_korisnika
 
 def sacuvaj_izvestaj(podaci, naziv_fajla):
     while True:
-        opcija = input("Da li želite da sačuvate podatke u tekstualni fajl? (da/ne): ").strip().lower()
-        
+        opcija = input("Da li želite da sačuvate podatke u fajl? (da/ne): ").strip().lower()
+
         if opcija == "da":
             try:
                 with open(naziv_fajla, "w", encoding="utf-8") as fajl:
                     if not podaci:
                         fajl.write("Nema podataka za čuvanje.\n")
                         break
-                    
+
                     zaglavlje = linija = vrednosti = ''
                     duzine = maxDuzina(podaci)
 
@@ -39,7 +39,8 @@ def sacuvaj_izvestaj(podaci, naziv_fajla):
             print("Neispravan unos. Pokusajte ponovo.")
             continue
 
-def izvestaj_A(rezervacije):
+
+def izvestaj_a(rezervacije):
     while True:
         odabrani_datum = input("Unesite datum rezervacije: ").strip()
         pretraga = {}
@@ -58,10 +59,11 @@ def izvestaj_A(rezervacije):
                     'Datum': rezervacija['datum']
                 }
         ispis_tabele(pretraga)
-        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_A.txt')
+        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_a.txt')
         return pretraga
 
-def izvestaj_B(rezervacije, termini):
+
+def izvestaj_b(rezervacije, termini):
     while True:
         odabrani_datum = input("Unesite datum termina treninga: ").strip()
         try:
@@ -70,7 +72,10 @@ def izvestaj_B(rezervacije, termini):
             print("Neispravan format datuma. Pokušajte ponovo.")
             continue
 
-        termini_za_datum = {id: termin for id, termin in termini.items() if datetime.strptime(termin['datum'], '%d.%m.%Y').date() == datum}
+        termini_za_datum = {
+                            id: termin for id, termin in termini.items() 
+                            if datetime.strptime(termin['datum'], '%d.%m.%Y').date() == datum
+                        }
 
         if not termini_za_datum:
             return {}
@@ -87,10 +92,11 @@ def izvestaj_B(rezervacije, termini):
                 }
 
         ispis_tabele(pretraga)
-        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_B.txt')
+        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_b.txt')
         return pretraga
 
-def izvestaj_C(rezervacije, korisnici, programi, termini, treninzi):
+
+def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
     while True:
         odabrani_datum = input("Unesite datum rezervacije: ").strip()
         try:
@@ -98,7 +104,7 @@ def izvestaj_C(rezervacije, korisnici, programi, termini, treninzi):
         except ValueError:
             print("Neispravan format datuma. Pokušajte ponovo.")
             continue
-        
+
         while True:
             print('Opcije za instruktore:')
             ispis_korisnika(korisnici, 1)
@@ -130,10 +136,11 @@ def izvestaj_C(rezervacije, korisnici, programi, termini, treninzi):
                     continue
 
         ispis_tabele(pretraga)
-        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_C.txt')
+        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_c.txt')
         return pretraga
-    
-def izvestaj_D(rezervacije):
+
+
+def izvestaj_d(rezervacije):
     while True:
         validni_dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
         odabrani_dan = input("Unesite dan u nedelji (npr. ponedeljak): ").strip().lower()
@@ -170,10 +177,11 @@ def izvestaj_D(rezervacije):
 
         print(f"Ukupan broj rezervacija za {odabrani_dan} je: {brojac}. To su:")
         ispis_tabele(pretraga)
-        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_D.txt')
+        sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_d.txt')
         return pretraga
 
-def izvestaj_E(rezervacije, termini, treninzi, programi):
+
+def izvestaj_e(rezervacije, termini, treninzi, programi):
     danasnji_datum = datetime.now().date()
     poslednjih_30_dana = danasnji_datum - timedelta(days=30)
     broj_rezervacija_po_instruktoru = {}
@@ -206,10 +214,10 @@ def izvestaj_E(rezervacije, termini, treninzi, programi):
         }
 
     ispis_tabele(pretraga)
-    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_E.txt')
+    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_e.txt')
     return pretraga
 
-def izvestaj_F(rezervacije, termini, treninzi, programi):
+def izvestaj_f(rezervacije, termini, treninzi, programi):
     danasnji_datum = datetime.now().date()
     poslednjih_30_dana = danasnji_datum - timedelta(days=30)
 
@@ -237,10 +245,11 @@ def izvestaj_F(rezervacije, termini, treninzi, programi):
     }
 
     ispis_tabele(pretraga)
-    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_F.txt')
+    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_f.txt')
     return pretraga
 
-def izvestaj_G(rezervacije, termini, treninzi, programi):
+
+def izvestaj_g(rezervacije, termini, treninzi, programi):
     danasnji_datum = datetime.now().date()
     poslednjih_godinu_dana = danasnji_datum - timedelta(days=365)
 
@@ -273,10 +282,11 @@ def izvestaj_G(rezervacije, termini, treninzi, programi):
         }
 
     ispis_tabele(pretraga)
-    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_G.txt')
+    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_g.txt')
     return pretraga
 
-def izvestaj_H(rezervacije, termini):
+
+def izvestaj_h(rezervacije, termini):
     popularnost_dana = {}
 
     for rezervacija in rezervacije.values():
@@ -311,5 +321,5 @@ def izvestaj_H(rezervacije, termini):
     }
 
     ispis_tabele(pretraga)
-    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_H.txt')
+    sacuvaj_izvestaj(pretraga, 'izvestaji/izvestaj_h.txt')
     return pretraga

@@ -24,6 +24,7 @@ def dodaj_instruktora(korisnici):
             print("Uspesno ste dodali instruktora.")
             return True
         
+        
 def promeni_status_clana(korisnici, clanarine, korisnicko_ime, novi_status):
     if korisnicko_ime in korisnici:
         dodaj_clanarinu(korisnici, clanarine, korisnicko_ime)
@@ -31,6 +32,7 @@ def promeni_status_clana(korisnici, clanarine, korisnicko_ime, novi_status):
         print(f"Status korisnika {korisnicko_ime} je uspešno promenjen.")
     else:
         print(f"Korisnik sa korisničkim imenom {korisnicko_ime} ne postoji.")
+
 
 def aktivacija_clana(korisnici, clanarine):
     korisnicko_ime = input('Unesite korisnicko ime clana za aktivaciju: ')

@@ -28,7 +28,9 @@ def ucitaj_clanarine(putanja):
             podaci[id_clanarine] = {
                 'id': int(id_clanarine),
                 'id_korisnika': id_korisnika,
-                'datum_uplate': datetime.strptime(datum_uplate.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y'),
+                'datum_uplate': datetime.strptime(datum_uplate.strip(), '%d.%m.%Y')
+                                        .date()
+                                        .strftime('%d.%m.%Y'),
             }
 
     return podaci

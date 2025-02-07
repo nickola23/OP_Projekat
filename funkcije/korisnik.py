@@ -1,12 +1,12 @@
 from datetime import datetime
 import re
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 
 def ucitaj_korisnike(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -21,8 +21,9 @@ def ucitaj_korisnike(putanja):
                 'uplaceni_paket': eval(uplaceni_paket),
                 'datum_registracije': datetime.strptime(datum_registracije, "%d.%m.%Y").date().strftime('%d.%m.%Y'),
             }
-            
+
     return podaci
+
 
 def dodaj_korisnika(korisnici):
     while True:
@@ -51,6 +52,7 @@ def dodaj_korisnika(korisnici):
         else:
             print('Korisnicko ime je vec zauzeto.')
             continue
+
 
 def registracija_instruktora(korisnici):
     while True:
@@ -92,6 +94,7 @@ def registracija_instruktora(korisnici):
             print('Korisnicko ime je vec zauzeto.')
             continue
 
+
 def prijava(korisnici, trenutni_korisnik):
     if not trenutni_korisnik:
         while True:
@@ -111,6 +114,7 @@ def prijava(korisnici, trenutni_korisnik):
         print("Već ste prijavljeni.")
         return trenutni_korisnik
 
+
 def registracija(korisnici):
     while True:
         if dodaj_korisnika(korisnici):
@@ -119,7 +123,8 @@ def registracija(korisnici):
         else: 
             print('Neuspesna registracija.')
             continue
-    
+
+
 def odjava():
     print('Odjava uspesna.')
     return None

@@ -1,10 +1,10 @@
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 
 def ucitaj_sale(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -15,6 +15,5 @@ def ucitaj_sale(putanja):
                 'broj_redova': eval(broj_redova),
                 'oznaka_mesta': oznaka_mesta.strip()
             }
-            
+   
     return podaci
-

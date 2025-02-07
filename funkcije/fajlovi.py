@@ -9,10 +9,10 @@ from datetime import time
 def pretvori_u_tekst(podaci):
     """
     Pretvara podatke u oblik koji se prikazuje u fajlu.
-    
+
     Args:
         podaci (dict): podaci za upis u fajl.
-    
+
     Returns:
         str: tekstualni podatak za upis u fajl.
     """
@@ -32,13 +32,14 @@ def pretvori_u_tekst(podaci):
     print('Nema podataka za upis')
     return None
 
+
 def citaj_fajl(putanja):
     """
     Cita podatke iz .txt fajla.
-    
+
     Args:
         putanja (str): putanja do fajla.
-    
+
     Returns:
         str: tekstualni podatak iz fajla.
     """
@@ -49,10 +50,11 @@ def citaj_fajl(putanja):
         print('Greska prilikom citanja fajla:\n', e)
         return None
 
+
 def upis_fajl(putanja, podaci):
     """
     Upis podataka u.txt fajl.
-    
+
     Args:
         putanja (str): putanja do .txt fajla.
         podaci (dict): podaci za upis u fajl.
@@ -60,5 +62,5 @@ def upis_fajl(putanja, podaci):
     try:
         with open(putanja, 'w', encoding='utf-8') as fajl:
             fajl.write(pretvori_u_tekst(podaci))
-    except:
+    except Exception as e:
         print('Greska prilikom upisa u fajl.')

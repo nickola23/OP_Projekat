@@ -1,10 +1,10 @@
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 
 def ucitaj_vrste_treninga(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -13,6 +13,5 @@ def ucitaj_vrste_treninga(putanja):
                 'id': eval(id),
                 'naziv': naziv
             }
-            
-    return podaci
 
+    return podaci

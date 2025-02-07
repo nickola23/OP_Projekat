@@ -7,7 +7,7 @@ def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
         vrsta_paketa = vrste_paketa.get(str(program['potreban_paket']), {}).get('naziv', 'Nepoznato')
         instruktor = instruktori.get(str(program['id_instruktora']), {})
         ime_instruktora = f"{instruktor.get('ime', 'Nepoznato')} {instruktor.get('prezime', '')}"
-        
+
         podaci[id] = {
             'id': program['id'],
             'naziv': program['naziv'],
@@ -18,6 +18,7 @@ def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
             'opis': program['opis']
         }
     return podaci
+
 
 def trening_za_ispis(treninzi, sale, programi):
     podaci = {}
@@ -34,6 +35,7 @@ def trening_za_ispis(treninzi, sale, programi):
             'id_programa': program,
         }
     return podaci
+
 
 def spojeni_termini_za_ispis(termini, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
@@ -63,6 +65,7 @@ def spojeni_termini_za_ispis(termini, sale, programi):
             'id_programa': program
         }
     return podaci
+
 
 def rezervacije_za_ispis(rezervacije, termini, treninzi, programi):
     spojeni_podaci = {}

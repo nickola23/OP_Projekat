@@ -1,12 +1,12 @@
 from datetime import datetime
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 from funkcije.tabela import ispis_tabele
 
 def ucitaj_termin(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -16,8 +16,9 @@ def ucitaj_termin(putanja):
                 'datum': datetime.strptime(datum, '%d.%m.%Y').date().strftime('%d.%m.%Y'),
                 'id_treninga': id_treninga
             }
-    
+
     return podaci
+
 
 def dodaj_termin(termini):
     while True:
@@ -35,6 +36,7 @@ def dodaj_termin(termini):
             print("Termin sa unesenim ID-em već postoji.")
             continue
 
+
 def brisi_termin(termini):
     while True:
         id = input("Unesite ID termina za brisanje: ")
@@ -44,6 +46,7 @@ def brisi_termin(termini):
         else:
             print("Termin sa unesenim ID-em ne postoji.")
             continue
+
 
 def izmeni_termin(termini):
     while True:
@@ -65,6 +68,7 @@ def izmeni_termin(termini):
             print("Termin sa unesenim ID-em ne postoji.")
             continue
 
+
 def spoji_termine(treninzi, termini):
     spojeni_podaci = {}
 
@@ -83,18 +87,19 @@ def spoji_termine(treninzi, termini):
             }
     return spojeni_podaci
 
+
 def pretrazi_termine(termini, sale, programi, kriterijum=''):
     pretraga = {}
     if kriterijum == 'id_sale':
         print("Dostupni ID sale:")
         for id, podaci in sale.items():
             print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
-        
+
     elif kriterijum == 'id_programa':
         print("Dostupni ID programa:")
         for id, podaci in programi.items():
             print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
-        
+
     kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()
 
     for id, podaci in termini.items():
@@ -118,7 +123,7 @@ def pretrazi_termine(termini, sale, programi, kriterijum=''):
                 elif kljuc in str(vrednost).lower():
                     pretraga[id] = podaci
                     break
-    
+
     if not pretraga:
         print('Nema podataka iz pretrage.')
         return {}

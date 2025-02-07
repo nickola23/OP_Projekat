@@ -1,15 +1,14 @@
 from datetime import datetime, timedelta
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 from funkcije.tabela import ispis_tabele
-from funkcije.zaIspis import rezervacije_za_ispis
 from funkcije.termin import spoji_termine
-from funkcije.kratakIspis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi, ispis_treninzi, ispis_sale, ispis_mesta
+from funkcije.kratak_ispis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi, ispis_treninzi, ispis_sale, ispis_mesta
 
 def ucitaj_rezervacije(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -24,6 +23,7 @@ def ucitaj_rezervacije(putanja):
     
     return podaci
 
+
 def pretrazi_rezervacije_korisnik(rezervacije, korisnicko_ime):
     pretraga = {}
 
@@ -37,7 +37,8 @@ def pretrazi_rezervacije_korisnik(rezervacije, korisnicko_ime):
     else:
         print(f"Nema rezervacija za korisnika '{korisnicko_ime}'.")
         return pretraga
-    
+
+
 def pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, korisnicko_ime):
     pretraga = {}
     
@@ -55,7 +56,7 @@ def pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, ko
         print(f"Nema rezervacija za instruktora '{korisnicko_ime}'.")
         return pretraga
 
-    
+
 def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
     while True:
         print("Ponuđene opcije:\n1. ID treninga\n2. Ime člana\n3. Prezime člana\n4. Datumu rezervacije\n5. Vreme početka treninga\n6. Vreme kraja treninga\nb. Nazad")
@@ -143,6 +144,7 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
         else:
             print("Nema rezultata za zadatu pretragu.")
 
+
 def prikaz_mesta_u_matrici(id_termina, rezervacije, termini, treninzi, sale):
     id_treninga = termini[id_termina]['id_treninga']
     id_sale = treninzi[id_treninga]['id_sale']
@@ -172,7 +174,8 @@ def prikaz_mesta_u_matrici(id_termina, rezervacije, termini, treninzi, sale):
     print(f"Raspored mesta za termin {id_termina}:")
     for i, red in enumerate(matrica, 1):
         print(f"Red {i}: {' '.join(red)}")
-    
+
+
 def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_ime):
     korisnik = korisnici.get(korisnicko_ime)
     if korisnik['status'] != 1:
@@ -182,20 +185,20 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
     while True:
         print("Dostupni termini:")
         ispis_tabele(spoji_termine(treninzi, termini))
-        
+
         id_termina = input("Unesite ID željenog termina (b. za Nazad): ")
         if id_termina == 'b':
             break
         elif id_termina not in termini:
             print("Uneti termin ne postoji. Pokušajte ponovo.")
             continue
-        
+
         termin = termini[id_termina]
         trening = treninzi.get(termin['id_treninga'])
         if not trening:
             print("Trening za izabrani termin nije pronađen.")
             continue
-        
+
         program = programi.get(trening['id_programa'])
         if not program:
             print("Program za izabrani trening nije pronađen.")
@@ -230,7 +233,7 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
         svi_redovi = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         indeks = svi_redovi.index(oznaka_mesta) + 1
         svi_redovi = svi_redovi[:indeks]
-        
+
         zauzeta_mesta = {rezervacija['oznaka_reda_kolone'] for rezervacija in rezervacije.values() if rezervacija['id_termina'] == id_termina}
         slobodna_mesta = {f"{red}{kolona}" for kolona in range(1, broj_kolona + 1) for red in svi_redovi} - zauzeta_mesta
 
@@ -260,6 +263,7 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
         if nastavak != 'da':
             break
 
+
 def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_ime_instruktora):
     while True:
         termini_instruktora = {
@@ -279,6 +283,7 @@ def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale,
 
         rezervacija_mesta(rezervacije, termini_instruktora, treninzi, programi, sale, korisnici, korisnicko_ime_clana)
         break
+
 
 def ponisti_rezervaciju(rezervacije, termini):
     while True:
@@ -310,6 +315,7 @@ def ponisti_rezervaciju(rezervacije, termini):
         if nastavak != 'da':
             break
 
+
 def ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, korisnicko_ime):
     while True:
         termini_instruktora = {
@@ -334,6 +340,7 @@ def ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kor
 
         ponisti_rezervaciju(rezervacije, termini)
         break
+
 
 def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, korisnicko_ime_instruktora):
     while True:
@@ -456,10 +463,11 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
         if nastavak != "da":
             break
 
+
 def mesecna_nagrada_lojalnosti(rezervacije, korisnici):
     danas = datetime.now().date()
     prosli_mesec = danas - timedelta(days=30)
-    
+
     mesecne_rezervacije = {}
     for rezervacija in rezervacije.values():
         datum_rezervacije = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
@@ -468,12 +476,12 @@ def mesecna_nagrada_lojalnosti(rezervacije, korisnici):
             if id_korisnika not in mesecne_rezervacije:
                 mesecne_rezervacije[id_korisnika] = []
             mesecne_rezervacije[id_korisnika].append(rezervacija)
-    
+
     for id_korisnika, rezervacije_korisnika in mesecne_rezervacije.items():
         if len(rezervacije_korisnika) > 27:
             korisnik = korisnici.get(id_korisnika)
             if korisnik:
                 korisnik['status'] = 1
                 korisnik['uplaceni_paket'] = 1
-    
+
     print("Raspodela mesečnih nagrada lojalnosti je uspešno završena.")

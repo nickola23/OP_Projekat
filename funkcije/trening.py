@@ -1,13 +1,13 @@
 from datetime import datetime
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 from funkcije.tabela import ispis_tabele
-from funkcije.kratakIspis import ispis_sale, ispis_programi, ispis_treninzi
+from funkcije.kratak_ispis import ispis_sale, ispis_programi, ispis_treninzi
 
 def ucitaj_trening(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -20,8 +20,9 @@ def ucitaj_trening(putanja):
                 'dani_nedelje': dani_nedelje.split(','),
                 'id_programa': id_programa
             }
-    
+
     return podaci
+
 
 def dodaj_trening(treninzi, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
@@ -30,7 +31,7 @@ def dodaj_trening(treninzi, sale, programi):
     while True:
         print('Opcije za sale:')
         ispis_sale(sale)
-        
+
         id_sale = input("Unesite ID sale (b. za Nazad): ")
         if id_sale == 'b':
             break
@@ -59,11 +60,10 @@ def dodaj_trening(treninzi, sale, programi):
             nevalidni_dani = [dan for dan in dani_nedelje if dan not in dani]
 
             if nevalidni_dani:
-                print(f"Niste uneli validne dane u nedelji. Pokušajte ponovo.")
+                print("Niste uneli validne dane u nedelji. Pokušajte ponovo.")
                 continue
             else:
                 break
-
 
         while True:
             print('Opcije za programe:')
@@ -73,8 +73,8 @@ def dodaj_trening(treninzi, sale, programi):
             if id_programa in programi:
                 break
             else:
-                print(f'Program sa ovim ID ne postoji. Pokusajte ponovo.')
-        
+                print('Program sa ovim ID ne postoji. Pokusajte ponovo.')
+
         treninzi[id] = {
             'id': id,
             'id_sale': id_sale,
@@ -88,6 +88,7 @@ def dodaj_trening(treninzi, sale, programi):
         return True
     return False
 
+
 def izmeni_trening(treninzi, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
@@ -99,8 +100,8 @@ def izmeni_trening(treninzi, sale, programi):
         if id == 'b':
             break
         elif id not in treninzi.keys():
-           print("ID treninga ne postoji. Pokusajte ponovo.")
-           continue
+            print("ID treninga ne postoji. Pokusajte ponovo.")
+            continue
 
         while True:
             print('Trenutni trening za izmenu:')
@@ -158,6 +159,7 @@ def izmeni_trening(treninzi, sale, programi):
                     print('Trening uspesno izmenjen.')
                     return True
     return False
+
 
 def brisi_trening(treninzi):
     while True:

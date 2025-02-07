@@ -1,37 +1,37 @@
 from funkcije.rezervacija import ucitaj_rezervacije, pretrazi_rezervacije, pretrazi_rezervacije_korisnik, rezervacija_mesta, ponisti_rezervaciju, mesecna_nagrada_lojalnosti, rezervacija_mesta_instruktor, pretrazi_rezervacije_instruktor, ponisti_rezervaciju_instruktor, izmeni_rezervaciju_instruktor
-from funkcije.zaIspis import programi_za_ispis, trening_za_ispis, spojeni_termini_za_ispis, rezervacije_za_ispis
+from funkcije.za_ispis import programi_za_ispis, trening_za_ispis, spojeni_termini_za_ispis, rezervacije_za_ispis
 from funkcije.program import ucitaj_programe, dodaj_program, izmeni_program, brisi_program, pretrazi_program
 from funkcije.korisnik import prijava, registracija, odjava, ucitaj_korisnike, registracija_instruktora
 from funkcije.trening import ucitaj_trening, dodaj_trening, izmeni_trening, brisi_trening
 from funkcije.vrsta_paketa import ucitaj_vrste_paketa, aktivacija_premium_paketa
 from funkcije.termin import ucitaj_termin, pretrazi_termine, spoji_termine
 from funkcije.clanarina import ucitaj_clanarine, validacija_clanarina
-from funkcije.upravljanjeKorisnicima import aktivacija_clana
+from funkcije.upravljanje_korisnicima import aktivacija_clana
 from funkcije.vrsta_treninga import ucitaj_vrste_treninga
 from funkcije.tabela import ispis_tabele
 from funkcije.fajlovi import upis_fajl
 from funkcije.sala import ucitaj_sale
-from funkcije.izvestaji import izvestaj_A, izvestaj_B, izvestaj_C,izvestaj_D, izvestaj_E, izvestaj_F, izvestaj_G, izvestaj_H
+from funkcije.izvestaji import izvestaj_a, izvestaj_b, izvestaj_c,izvestaj_d, izvestaj_e, izvestaj_f, izvestaj_g, izvestaj_h
 
-putanja_vrste_treninga = './data/vrsta_treninga.txt'
-putanja_rezervacije = './data/Rezervacija.txt'
-putanja_vrste_paketa = './data/vrsta_paketa.txt'
-putanja_korisnici = './data/Korisnici.txt'
-putanja_clanarine = './data/Clanarina.txt'
-putanja_programi = './data/Program.txt'
-putanja_trening = './data/Trening.txt'
-putanja_termin = './data/Termin.txt'
-putanja_sala = './data/Sala.txt'
+PUTANJA_VRSTE_TRENINGA = './data/vrsta_treninga.txt'
+PUTANJA_REZERVACIJE = './data/Rezervacija.txt'
+PUTANJA_VRSTE_PAKETA = './data/vrsta_paketa.txt'
+PUTANJA_KORISNICI = './data/Korisnici.txt'
+PUTANJA_CLANARINE = './data/Clanarina.txt'
+PUTANJA_PROGRAMI = './data/Program.txt'
+PUTANJA_TRENING = './data/Trening.txt'
+PUTANJA_TERMIN = './data/Termin.txt'
+PUTANJA_SALA = './data/Sala.txt'
 
-vrste_treninga = ucitaj_vrste_treninga(putanja_vrste_treninga)
-rezervacije = ucitaj_rezervacije(putanja_rezervacije)
-vrste_paketa = ucitaj_vrste_paketa(putanja_vrste_paketa)
-korisnici = ucitaj_korisnike(putanja_korisnici)
-clanarine = ucitaj_clanarine(putanja_clanarine)
-programi = ucitaj_programe(putanja_programi)
-treninzi = ucitaj_trening(putanja_trening)
-termini =  ucitaj_termin(putanja_termin)
-sale = ucitaj_sale(putanja_sala)
+vrste_treninga = ucitaj_vrste_treninga(PUTANJA_VRSTE_TRENINGA)
+rezervacije = ucitaj_rezervacije(PUTANJA_REZERVACIJE)
+vrste_paketa = ucitaj_vrste_paketa(PUTANJA_VRSTE_PAKETA)
+korisnici = ucitaj_korisnike(PUTANJA_KORISNICI)
+clanarine = ucitaj_clanarine(PUTANJA_CLANARINE)
+programi = ucitaj_programe(PUTANJA_PROGRAMI)
+treninzi = ucitaj_trening(PUTANJA_TRENING)
+termini =  ucitaj_termin(PUTANJA_TERMIN)
+sale = ucitaj_sale(PUTANJA_SALA)
 
 trenutni_korisnik = None
 menii = {}
@@ -41,33 +41,39 @@ def prijava_korisnik(korisnici):
     trenutni_korisnik = prijava(korisnici, trenutni_korisnik)
     glavni_meni()
 
+
 def registracija_korisnik(korisnici):
     global trenutni_korisnik
     trenutni_korisnik = registracija(korisnici)
     glavni_meni()
+
 
 def odjava_korisnik():
     global trenutni_korisnik
     trenutni_korisnik = odjava()
     glavni_meni()
 
+
 def upisi_fajlove():
-    upis_fajl(putanja_vrste_treninga, vrste_treninga)
-    upis_fajl(putanja_rezervacije, rezervacije)
-    upis_fajl(putanja_vrste_paketa, vrste_paketa)
-    upis_fajl(putanja_korisnici, korisnici)
-    upis_fajl(putanja_clanarine, clanarine)
-    upis_fajl(putanja_programi, programi)
-    upis_fajl(putanja_trening, treninzi)
-    upis_fajl(putanja_termin, termini)
-    upis_fajl(putanja_sala, sale)
+    upis_fajl(PUTANJA_VRSTE_TRENINGA, vrste_treninga)
+    upis_fajl(PUTANJA_REZERVACIJE, rezervacije)
+    upis_fajl(PUTANJA_VRSTE_PAKETA, vrste_paketa)
+    upis_fajl(PUTANJA_KORISNICI, korisnici)
+    upis_fajl(PUTANJA_CLANARINE, clanarine)
+    upis_fajl(PUTANJA_PROGRAMI, programi)
+    upis_fajl(PUTANJA_TRENING, treninzi)
+    upis_fajl(PUTANJA_TERMIN, termini)
+    upis_fajl(PUTANJA_SALA, sale)
+
 
 def izlaz():
     upisi_fajlove()
     print('Izlaz iz programa.')
 
+
 def nazad():
     print('Povratak nazad.')
+
 
 def pokreni_meni(trenutni_meni):
     meni = menii[trenutni_meni]
@@ -93,7 +99,7 @@ def pokreni_meni(trenutni_meni):
                 exit()
         else:
             print("Odabrali ste nepostojeću opciju")
-    
+
 
 def meni_neregistrovan():
 
@@ -117,6 +123,7 @@ def meni_neregistrovan():
     }
 
     menii['meni_neregistrovan'] = meni_opcije
+
 
 def meni_registrovan():
 
@@ -142,6 +149,7 @@ def meni_registrovan():
     }
 
     menii['meni_registrovan'] = meni_opcije
+
 
 def meni_instruktor():
 
@@ -172,6 +180,7 @@ def meni_instruktor():
 
     menii['meni_instruktor'] = meni_opcije
 
+
 def meni_admin():
 
     submenu2_dict = {
@@ -199,6 +208,7 @@ def meni_admin():
 
     menii['meni_admin'] = meni_opcije
 
+
 def meni_pretrazi_termin():
 
     meni_funkcije = {
@@ -221,6 +231,7 @@ def meni_pretrazi_termin():
 
     menii['meni_pretrazi_termin'] = meni_opcije
 
+
 def meni_unos_izmena_brisanje_program():
 
     meni_funkcije = {
@@ -240,6 +251,7 @@ def meni_unos_izmena_brisanje_program():
     }
 
     menii['meni_unos_izmena_brisanje_program'] = meni_opcije
+
 
 def meni_unos_izmena_brisanje_trening():
 
@@ -261,17 +273,18 @@ def meni_unos_izmena_brisanje_trening():
 
     menii['meni_unos_izmena_brisanje_trening'] = meni_opcije
 
+
 def meni_izvestaji():
 
     meni_funkcije = {
-        '1': lambda: izvestaj_A(rezervacije),
-        '2': lambda: izvestaj_B(rezervacije, termini),
-        '3': lambda: izvestaj_C(rezervacije, korisnici, programi, termini, treninzi),
-        '4': lambda: izvestaj_D(rezervacije),
-        '5': lambda: izvestaj_E(rezervacije, termini, treninzi, programi),
-        '6': lambda: izvestaj_F(rezervacije, termini, treninzi, programi),
-        '7': lambda: izvestaj_G(rezervacije, termini, treninzi, programi),
-        '8': lambda: izvestaj_H(rezervacije, termini),
+        '1': lambda: izvestaj_a(rezervacije),
+        '2': lambda: izvestaj_b(rezervacije, termini),
+        '3': lambda: izvestaj_c(rezervacije, korisnici, programi, termini, treninzi),
+        '4': lambda: izvestaj_d(rezervacije),
+        '5': lambda: izvestaj_e(rezervacije, termini, treninzi, programi),
+        '6': lambda: izvestaj_f(rezervacije, termini, treninzi, programi),
+        '7': lambda: izvestaj_g(rezervacije, termini, treninzi, programi),
+        '8': lambda: izvestaj_h(rezervacije, termini),
         'b': lambda: nazad()
     }
 
@@ -286,6 +299,7 @@ def meni_izvestaji():
 
     menii['meni_izvestaji'] = meni_opcije
 
+
 def definisi():
     meni_neregistrovan()
     meni_registrovan()
@@ -295,6 +309,7 @@ def definisi():
     meni_unos_izmena_brisanje_program()
     meni_unos_izmena_brisanje_trening()
     meni_izvestaji()
+
 
 def glavni_meni():
     global trenutni_korisnik

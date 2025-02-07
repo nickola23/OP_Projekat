@@ -1,12 +1,12 @@
-from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.fajlovi import citaj_fajl
 from funkcije.tabela import ispis_tabele
-from funkcije.kratakIspis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi
+from funkcije.kratak_ispis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi
 
 def ucitaj_programe(putanja):
     fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
@@ -22,6 +22,7 @@ def ucitaj_programe(putanja):
             }
             
     return podaci
+
 
 def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
     id = str(max([int(id_programa) for id_programa in programi.keys()], default=0) + 1)
@@ -61,11 +62,11 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
                 break
             else:
                 print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
-        
+
         while True:
             print('Opcije za vrste paketa:')
             ispis_vrste_paketa(vrste_paketa)
-            
+
             potreban_paket = input("Unesite ID potrebnog paketa: ")
             if potreban_paket in vrste_paketa:
                 break
@@ -73,7 +74,7 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
                 print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
 
         opis = input("Unesite opis programa: ")
-        
+
         programi[id] = {
             'id': id,
             'naziv': naziv,
@@ -88,11 +89,12 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
         return True
     return False
 
+
 def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
     while True:
         print('Opcije programa za izmenu:')
         ispis_programi(programi)
-        
+
         id = input("Unesite ID programa za izmenu (b. za Nazad): ")
         if id == 'b':
             break
@@ -101,7 +103,7 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
             continue
 
         ispis_tabele({id: programi[id]})
-                
+   
         while True:
             odgovor = input("Ponuđene opcije:\n1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nUnesite zeljenu opciju: ")
             
@@ -130,7 +132,6 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                                 print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
                         except Exception:
                             print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
-                    
                 case '4':
                     while True:
                         print('Opcije za instruktore:')
@@ -160,6 +161,7 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                     return True
     return False
 
+
 def brisi_program(programi):
     while True:
         print('Opcije postojecih programa za brisanje:')
@@ -176,6 +178,7 @@ def brisi_program(programi):
             print("Program sa ovim ID ne postoji.")
             continue
 
+
 def pretrazi_program(programi, vrste_treninga, vrste_paketa):
     pretraga = programi
 
@@ -183,7 +186,7 @@ def pretrazi_program(programi, vrste_treninga, vrste_paketa):
 
     for kriterijum in kriterijumi:
         kriterijum = kriterijum.strip()
-        
+
         if kriterijum == '1':
             print("Dostupne vrste treninga:")
             ispis_vrste_treninga(vrste_treninga)

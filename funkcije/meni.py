@@ -5,7 +5,7 @@ from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike, re
 from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
 from funkcije.vrstaPaketa import ucitajVrstePaketa, aktivacijaPremiumPaketa
 from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
-from funkcije.clanarina import ucitajClanarine, validacijaClanarina
+from funkcije.clanarina import ucitaj_clanarine, validacija_clanarina
 from funkcije.upravljanjeKorisnicima import aktivacijaClana
 from funkcije.vrstaTreninga import ucitajVrsteTreninga
 from funkcije.tabela import ispisTabele
@@ -27,7 +27,7 @@ vrsteTreninga = ucitajVrsteTreninga(putanjaVrsteTreninga)
 rezervacije = ucitajRezervacije(putanjaRezervacije)
 vrstePaketa = ucitajVrstePaketa(putanjaVrstePaketa)
 korisnici = ucitajKorisnike(putanjaKorisnici)
-clanarine = ucitajClanarine(putanjaClanarine)
+clanarine = ucitaj_clanarine(putanjaClanarine)
 programi = ucitajPrograme(putanjaProgrami)
 treninzi = ucitajTrening(putanjaTrening)
 termini =  ucitajTermin(putanjaTermin)
@@ -126,8 +126,8 @@ def meniRegistrovan():
         '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa), korisnici, vrsteTreninga, vrstePaketa)),
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnickoIme']),
-        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
+        '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnicko_ime']),
+        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnicko_ime']), termini, treninzi, programi)),
         '8': lambda: ponistiRezervaciju(rezervacije, termini),
         '0': lambda: izlaz()
     }
@@ -151,13 +151,13 @@ def meniInstruktor():
         '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa), korisnici, vrsteTreninga, vrstePaketa)),
         '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
         '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnickoIme']),
-        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, trenutniKorisnik['korisnickoIme']), termini, treninzi, programi)),
-        '8': lambda: ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
+        '6': lambda: rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnicko_ime']),
+        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, trenutniKorisnik['korisnicko_ime']), termini, treninzi, programi)),
+        '8': lambda: ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnicko_ime']),
         '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
         '10': lambda: aktivacijaClana(korisnici, clanarine),
         '11': lambda: aktivacijaPremiumPaketa(korisnici),
-        '12': lambda: izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnickoIme']),
+        '12': lambda: izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnicko_ime']),
         '0': lambda: izlaz()
     }
 
@@ -299,7 +299,7 @@ def initiate():
 def glavniMeni():
     global trenutniKorisnik
     initiate()
-    validacijaClanarina(korisnici, clanarine)   #azuriraj clanarine
+    validacija_clanarina(korisnici, clanarine)   #azuriraj clanarine
 
     if trenutniKorisnik is None:                #nije prijavljen
         pokreniMeni('meniNeregistrovan')

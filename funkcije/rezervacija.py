@@ -13,10 +13,10 @@ def ucitajRezervacije(putanja):
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, idKorisnika, idTermina, oznakaRedaKolone, datum = red.split('|')
+            id, id_korisnika, idTermina, oznakaRedaKolone, datum = red.split('|')
             podaci[id] = {
                 'id': id,
-                'idKorisnika': idKorisnika,
+                'id_korisnika': id_korisnika,
                 'idTermina': idTermina,
                 'oznakaRedaKolone': oznakaRedaKolone,
                 'datum': datetime.strptime(datum.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y')
@@ -24,21 +24,21 @@ def ucitajRezervacije(putanja):
     
     return podaci
 
-def pretraziRezervacijeKorisnik(rezervacije, korisnickoIme):
+def pretraziRezervacijeKorisnik(rezervacije, korisnicko_ime):
     pretraga = {}
 
-    if korisnickoIme:
+    if korisnicko_ime:
         for podaci in rezervacije.values():
-            if podaci['idKorisnika'] == korisnickoIme:
+            if podaci['id_korisnika'] == korisnicko_ime:
                 pretraga[podaci['id']] = podaci
 
     if pretraga:
         return pretraga
     else:
-        print(f"Nema rezervacija za korisnika '{korisnickoIme}'.")
+        print(f"Nema rezervacija za korisnika '{korisnicko_ime}'.")
         return pretraga
     
-def pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, korisnickoIme):
+def pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, korisnicko_ime):
     pretraga = {}
     
     for podaci in rezervacije.values():
@@ -46,13 +46,13 @@ def pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, kori
         trening = treninzi.get(termini.get(idTermina, {}).get('idTreninga', ''))
         if trening:
             idPrograma = trening.get('idPrograma')
-            if idPrograma and programi.get(idPrograma, {}).get('idInstruktora') == korisnickoIme:
+            if idPrograma and programi.get(idPrograma, {}).get('idInstruktora') == korisnicko_ime:
                 pretraga[podaci['id']] = podaci
 
     if pretraga:
         return pretraga
     else:
-        print(f"Nema rezervacija za instruktora '{korisnickoIme}'.")
+        print(f"Nema rezervacija za instruktora '{korisnicko_ime}'.")
         return pretraga
 
     
@@ -79,7 +79,7 @@ def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
                 pretraga = {
                     idRezervacije: rezervacija
                     for idRezervacije, rezervacija in rezervacije.items()
-                    if any(korisnik['ime'].lower() == ime for korisnik in korisnici.values() if korisnik['korisnickoIme'] == rezervacija['idKorisnika'])
+                    if any(korisnik['ime'].lower() == ime for korisnik in korisnici.values() if korisnik['korisnicko_ime'] == rezervacija['id_korisnika'])
                 }
 
             case "3":
@@ -87,7 +87,7 @@ def pretraziRezervacije(rezervacije, termini, treninzi, korisnici):
                 pretraga = {
                     idRezervacije: rezervacija
                     for idRezervacije, rezervacija in rezervacije.items()
-                    if any(korisnik['prezime'].lower() == prezime for korisnik in korisnici.values() if korisnik['korisnickoIme'] == rezervacija['idKorisnika'])
+                    if any(korisnik['prezime'].lower() == prezime for korisnik in korisnici.values() if korisnik['korisnicko_ime'] == rezervacija['id_korisnika'])
                 }
 
             case "4":
@@ -173,10 +173,10 @@ def prikazMestaUMatrici(idTermina, rezervacije, termini, treninzi, sale):
     for i, red in enumerate(matrica, 1):
         print(f"Red {i}: {' '.join(red)}")
     
-def rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, korisnickoIme):
-    korisnik = korisnici.get(korisnickoIme)
+def rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_ime):
+    korisnik = korisnici.get(korisnicko_ime)
     if korisnik['status'] != 1:
-        print(f"{korisnik['korisnickoIme']} status je 'neaktivan'. Ne možete rezervisati mesta.")
+        print(f"{korisnik['korisnicko_ime']} status je 'neaktivan'. Ne možete rezervisati mesta.")
         return
 
     while True:
@@ -245,11 +245,11 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, 
             print("Uneto mesto nije slobodno ili ne postoji. Pokusajte ponovo.")
             continue
 
-        noviID = str(len(rezervacije) + 1)
+        novi_id = str(len(rezervacije) + 1)
         datum = datetime.now().strftime('%d.%m.%Y')
-        rezervacije[noviID] = {
-            'id': noviID,
-            'idKorisnika': korisnickoIme,
+        rezervacije[novi_id] = {
+            'id': novi_id,
+            'id_korisnika': korisnicko_ime,
             'idTermina': idTermina,
             'oznakaRedaKolone': oznakaRedaKolone,
             'datum': datum,
@@ -260,24 +260,24 @@ def rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, 
         if nastavak != 'da':
             break
 
-def rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, korisnickoImeInstruktora):
+def rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_imeInstruktora):
     while True:
         terminiInstruktora = {
             idTermina: termin
             for idTermina, termin in termini.items()
-            if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnickoImeInstruktora
+            if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnicko_imeInstruktora
         }
 
         if not terminiInstruktora:
             print("Nemate termine za koje možete rezervisati mesta.")
             break
 
-        korisnickoImeClana = input("Unesite korisničko ime člana za kojeg rezervišete mesto: ").strip()
-        if korisnickoImeClana not in korisnici:
+        korisnicko_imeClana = input("Unesite korisničko ime člana za kojeg rezervišete mesto: ").strip()
+        if korisnicko_imeClana not in korisnici:
             print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
             continue
 
-        rezervacijaMesta(rezervacije, terminiInstruktora, treninzi, programi, sale, korisnici, korisnickoImeClana)
+        rezervacijaMesta(rezervacije, terminiInstruktora, treninzi, programi, sale, korisnici, korisnicko_imeClana)
         break
 
 def ponistiRezervaciju(rezervacije, termini):
@@ -310,12 +310,12 @@ def ponistiRezervaciju(rezervacije, termini):
         if nastavak != 'da':
             break
 
-def ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnickoIme):
+def ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnicko_ime):
     while True:
         terminiInstruktora = {
                 idTermina: termin
                 for idTermina, termin in termini.items()
-                if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnickoIme
+                if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnicko_ime
             }
 
         if not terminiInstruktora:
@@ -335,12 +335,12 @@ def ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, koris
         ponistiRezervaciju(rezervacije, termini)
         break
 
-def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnickoImeInstruktora):
+def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, korisnicko_imeInstruktora):
     while True:
         terminiInstruktora = {
             idTermina: termin
             for idTermina, termin in termini.items()
-            if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnickoImeInstruktora
+            if programi[treninzi[termin['idTreninga']]['idPrograma']]['idInstruktora'] == korisnicko_imeInstruktora
         }
 
         if not terminiInstruktora:
@@ -358,15 +358,15 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
             continue
 
         korisniciSaRezervacijama = {
-            rezervacija['idKorisnika']
+            rezervacija['id_korisnika']
             for rezervacija in rezervacije.values()
             if rezervacija['idTermina'] == idTermina
         }
 
         filtriraniKorisnici = {
-            korisnickoIme: korisnici[korisnickoIme]
-            for korisnickoIme in korisniciSaRezervacijama
-            if korisnickoIme in korisnici
+            korisnicko_ime: korisnici[korisnicko_ime]
+            for korisnicko_ime in korisniciSaRezervacijama
+            if korisnicko_ime in korisnici
         }
 
         if korisniciSaRezervacijama:
@@ -376,22 +376,22 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
             print("Nema korisnika sa rezervacijama za ovaj termin.")
             continue
 
-        korisnickoImeClana = input("Unesite korisničko ime člana: ").strip()
-        if korisnickoImeClana not in korisnici:
+        korisnicko_imeClana = input("Unesite korisničko ime člana: ").strip()
+        if korisnicko_imeClana not in korisnici:
             print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
             continue
 
         izabraneRezervacije = {
             idRezervacije: rezervacija
             for idRezervacije, rezervacija in rezervacije.items()
-            if rezervacija['idTermina'] == idTermina and rezervacija['idKorisnika'] == korisnickoImeClana
+            if rezervacija['idTermina'] == idTermina and rezervacija['id_korisnika'] == korisnicko_imeClana
         }
 
         if izabraneRezervacije:
             print('Opcije rezervisanih mesta korisnika:')
             ispisMesta(izabraneRezervacije)
         else:
-            print(f"Korisnik '{korisnickoImeClana}' nema rezervisana mesta za ovaj termin.")
+            print(f"Korisnik '{korisnicko_imeClana}' nema rezervisana mesta za ovaj termin.")
             continue
 
         oznakaRedaKolone = input("Unesite ID mesta koje želite da izmenite: ").strip()
@@ -399,7 +399,7 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
         for rezervacija in rezervacije.values():
             if (
                 rezervacija['idTermina'] == idTermina
-                and rezervacija['idKorisnika'] == korisnickoImeClana
+                and rezervacija['id_korisnika'] == korisnicko_imeClana
                 and rezervacija['oznakaRedaKolone'] == oznakaRedaKolone
             ):
                 rezervacijaZaIzmenu = rezervacija
@@ -418,18 +418,18 @@ def izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisn
             print("Dostupni termini za koje ste odgovorni:")
             ispisTabele(terminiInstruktora)
 
-            noviIdTermina = input("Unesite novi termin: ").strip()
-            if noviIdTermina not in terminiInstruktora:
+            novi_idTermina = input("Unesite novi termin: ").strip()
+            if novi_idTermina not in terminiInstruktora:
                 print("Novi termin nije validan za vas. Pokušajte ponovo.")
                 continue
-            rezervacijaZaIzmenu['idTermina'] = noviIdTermina
+            rezervacijaZaIzmenu['idTermina'] = novi_idTermina
             print("Termin uspešno izmenjen.")
         elif izbor == "2":
             noviKorisnik = input("Unesite korisničko ime novog korisnika: ").strip()
             if noviKorisnik not in korisnici:
                 print("Novi korisnik ne postoji. Pokušajte ponovo.")
                 continue
-            rezervacijaZaIzmenu['idKorisnika'] = noviKorisnik
+            rezervacijaZaIzmenu['id_korisnika'] = noviKorisnik
             print("Korisnik uspešno izmenjen.")
         elif izbor == "3":
             print("Dostupna mesta za dati termin:")
@@ -464,14 +464,14 @@ def mesecnaNagradaLojalnosti(rezervacije, korisnici):
     for rezervacija in rezervacije.values():
         datumRezervacije = datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date()
         if datumRezervacije > prosliMesec:
-            idKorisnika = rezervacija['idKorisnika']
-            if idKorisnika not in mesecneRezervacije:
-                mesecneRezervacije[idKorisnika] = []
-            mesecneRezervacije[idKorisnika].append(rezervacija)
+            id_korisnika = rezervacija['id_korisnika']
+            if id_korisnika not in mesecneRezervacije:
+                mesecneRezervacije[id_korisnika] = []
+            mesecneRezervacije[id_korisnika].append(rezervacija)
     
-    for idKorisnika, rezervacijeKorisnika in mesecneRezervacije.items():
+    for id_korisnika, rezervacijeKorisnika in mesecneRezervacije.items():
         if len(rezervacijeKorisnika) > 27:
-            korisnik = korisnici.get(idKorisnika)
+            korisnik = korisnici.get(id_korisnika)
             if korisnik:
                 korisnik['status'] = 1
                 korisnik['uplaceniPaket'] = 1

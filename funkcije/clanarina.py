@@ -1,58 +1,90 @@
-from funkcije.fajlovi import citajFajl, upisFajl
 from datetime import datetime, timedelta
+from funkcije.fajlovi import citajFajl
 
-def ucitajClanarine(putanja):
+def ucitaj_clanarine(putanja):
+    """
+    Ucitava clanarine iz .txt fajla
+
+    Args:
+        putanja (string): putanja do .txt fajla.
+
+    Returns:
+        recnik: sve clanarine
+    """
     fajl = citajFajl(putanja)
     if fajl is None:
         return {}
-    
+
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, idKorisnika, datumUplate = red.split('|')
-            podaci[id] = {
-                'id': eval(id),
-                'idKorisnika': idKorisnika,
-                'datumUplate': datetime.strptime(datumUplate.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y'),
+            id_clanarine, id_korisnika, datum_uplate = red.split('|')
+            podaci[id_clanarine] = {
+                'id': int(id_clanarine),
+                'id_korisnika': id_korisnika,
+                'datum_uplate': datetime.strptime(datum_uplate.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y'),
             }
-            
+   
     return podaci
 
-def dodajClanarinu(korisnici, clanarine, korisnickoIme):
-    if korisnickoIme not in korisnici:
-        print(f"Korisnik sa korisničkim imenom {korisnickoIme} ne postoji.")
+
+def dodaj_clanarinu(korisnici, clanarine, korisnicko_ime):
+    """
+    Dodaje clanarinu u recnik
+
+    Args:
+        korisnici (dictionary): trenutni recnik korisnika,
+        clanarine (dictionary): trenutni recnik clanarina,
+        korisnicko_ime (string): ime korisnika kome se dodaje clanarina.
+
+    Returns:
+        boolean: da li je uspesno izvrseno
+    """
+    if korisnicko_ime not in korisnici:
+        print(f"Korisnik sa korisničkim imenom {korisnicko_ime} ne postoji.")
         return False
 
     if clanarine:
-        noviId = max(map(int, clanarine.keys())) + 1
+        novi_id = max(map(int, clanarine.keys())) + 1
     else:
-        noviId = 1
-    
-    datumUplate = datetime.now().strftime('%d.%m.%Y')
+        novi_id = 1
 
-    clanarine[str(noviId)] = {
-        'id': noviId,
-        'idKorisnika': korisnickoIme,
-        'datumUplate': datumUplate,
+    datum_uplate = datetime.now().strftime('%d.%m.%Y')
+
+    clanarine[str(novi_id)] = {
+        'id': novi_id,
+        'id_korisnika': korisnicko_ime,
+        'datum_uplate': datum_uplate,
     }
 
-    print(f"Uspešno dodata članarina za korisnika {korisnickoIme}.")
+    print(f"Uspešno dodata članarina za korisnika {korisnicko_ime}.")
     return True
 
-def validacijaClanarina(korisnici, clanarine):
-    danasnjiDatum = datetime.now().date()
 
-    for korisnickoIme, podaci in korisnici.items():
-        aktivnaClanarina = None
+def validacija_clanarina(korisnici, clanarine):
+    """
+    Proverava da li su clanarine istekle i ako jesu menja status i uplaceniPaket korisniku
+
+    Args:
+        korisnici (dictionary): trenutni recnik korisnika,
+        clanarine (dictionary): trenutni recnik clanarina.
+
+    Returns:
+        dictionary: novi recnik korisnika
+    """
+    danasnji_datum = datetime.now().date()
+
+    for korisnicko_ime in korisnici.keys():
+        aktivna_clanarina = None
         for clanarina in clanarine.values():
-            if clanarina['idKorisnika'] == korisnickoIme:
-                datumUplate = datetime.strptime(clanarina['datumUplate'], '%d.%m.%Y').date()
-                if (datumUplate + timedelta(days=30)) >= danasnjiDatum:
-                    aktivnaClanarina = True
+            if clanarina['id_korisnika'] == korisnicko_ime:
+                datum_uplate = datetime.strptime(clanarina['datum_uplate'], '%d.%m.%Y').date()
+                if (datum_uplate + timedelta(days=30)) >= danasnji_datum:
+                    aktivna_clanarina = True
                     break
 
-        if not aktivnaClanarina:
-            korisnici[korisnickoIme]['status'] = 0
-            korisnici[korisnickoIme]['uplaceniPaket'] = 0
+        if not aktivna_clanarina:
+            korisnici[korisnicko_ime]['status'] = 0
+            korisnici[korisnicko_ime]['uplaceniPaket'] = 0
 
     return korisnici

@@ -16,13 +16,13 @@ def ucitajVrstePaketa(putanja):
             
     return podaci
 
-def promeniPaket(podaci, korisnickoIme, noviPaket):
-    if korisnickoIme in podaci:
-        podaci[korisnickoIme]['uplaceniPaket'] = noviPaket
-        print(f"Paket za korisnika {korisnickoIme} je uspešno promenjen.")
+def promeniPaket(podaci, korisnicko_ime, noviPaket):
+    if korisnicko_ime in podaci:
+        podaci[korisnicko_ime]['uplaceniPaket'] = noviPaket
+        print(f"Paket za korisnika {korisnicko_ime} je uspešno promenjen.")
     else:
-        print(f"Korisnik sa korisničkim imenom '{korisnickoIme}' ne postoji.")
+        print(f"Korisnik sa korisničkim imenom '{korisnicko_ime}' ne postoji.")
 
 def aktivacijaPremiumPaketa(podaci):
-    korisnickoIme = input('Unesite korisnicko ime clana za aktivaciju: ')
-    promeniPaket(podaci, korisnickoIme, 1)
+    korisnicko_ime = input('Unesite korisnicko ime clana za aktivaciju: ')
+    promeniPaket(podaci, korisnicko_ime, 1)

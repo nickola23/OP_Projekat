@@ -10,9 +10,9 @@ def ucitajKorisnike(putanja):
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            korisnickoIme, lozinka, ime, prezime, uloga, status, uplaceniPaket, datumRegistracije = red.split('|')
-            podaci[korisnickoIme] = {
-                'korisnickoIme': korisnickoIme,
+            korisnicko_ime, lozinka, ime, prezime, uloga, status, uplaceniPaket, datumRegistracije = red.split('|')
+            podaci[korisnicko_ime] = {
+                'korisnicko_ime': korisnicko_ime,
                 'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
@@ -26,8 +26,8 @@ def ucitajKorisnike(putanja):
 
 def dodajKorisnika(korisnici):
     while True:
-        korisnickoIme = input('Unesite korisnicko ime: ')
-        if korisnickoIme not in korisnici.keys():
+        korisnicko_ime = input('Unesite korisnicko ime: ')
+        if korisnicko_ime not in korisnici.keys():
             while True:
                 lozinka = input('Unesite lozinku (barem 6 karaktera i 1 cifra): ').strip()
                 if len(lozinka) < 6 or not re.search(r'\d', lozinka):
@@ -36,8 +36,8 @@ def dodajKorisnika(korisnici):
                     break
             ime = input('Unesite ime: ')
             prezime = input('Unesite prezime: ')
-            korisnici[korisnickoIme] = {
-                'korisnickoIme': korisnickoIme,
+            korisnici[korisnicko_ime] = {
+                'korisnicko_ime': korisnicko_ime,
                 'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
@@ -54,8 +54,8 @@ def dodajKorisnika(korisnici):
 
 def registracijaInstruktora(korisnici):
     while True:
-        korisnickoIme = input('Unesite korisnicko ime instruktora: ')
-        if korisnickoIme not in korisnici.keys():
+        korisnicko_ime = input('Unesite korisnicko ime instruktora: ')
+        if korisnicko_ime not in korisnici.keys():
             while True:
                 lozinka = input('Unesite lozinku (barem 6 karaktera i 1 cifra): ').strip()
                 if len(lozinka) < 6 or not re.search(r'\d', lozinka):
@@ -76,8 +76,8 @@ def registracijaInstruktora(korisnici):
                 except Exception as e:
                     print(f"Došlo je do greške:\n{e}")
 
-            korisnici[korisnickoIme] = {
-                'korisnickoIme': korisnickoIme,
+            korisnici[korisnicko_ime] = {
+                'korisnicko_ime': korisnicko_ime,
                 'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
@@ -86,7 +86,7 @@ def registracijaInstruktora(korisnici):
                 'uplaceniPaket': 0,         
                 'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
             }
-            print(f'Uspesno ste registrovali korisnika {korisnickoIme}')
+            print(f'Uspesno ste registrovali korisnika {korisnicko_ime}')
             return True
         else:
             print('Korisnicko ime je vec zauzeto.')
@@ -95,12 +95,12 @@ def registracijaInstruktora(korisnici):
 def prijava(korisnici, trenutniKorisnik):
     if not trenutniKorisnik:
         while True:
-            korisnickoIme = input('Unesite korisnicko ime: ')
-            if korisnickoIme in korisnici.keys():
+            korisnicko_ime = input('Unesite korisnicko ime: ')
+            if korisnicko_ime in korisnici.keys():
                 lozinka = input('Unesite lozinku: ')
-                if lozinka == korisnici[korisnickoIme]['lozinka']:
+                if lozinka == korisnici[korisnicko_ime]['lozinka']:
                     print('Uspesna prijava.')
-                    return korisnici[korisnickoIme]
+                    return korisnici[korisnicko_ime]
                 else:
                     print('Pogresna lozinka.')
                     continue

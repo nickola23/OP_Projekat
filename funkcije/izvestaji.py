@@ -61,7 +61,7 @@ def izvestajA(rezervacije):
             if rezervacija['datum'] == odabraniDatum:
                 pretraga[idx] = {
                     'ID Rezervacije': rezervacija['id'],
-                    'Korisnicko ime': rezervacija['idKorisnika'],
+                    'Korisnicko ime': rezervacija['id_korisnika'],
                     'ID Termina': rezervacija['idTermina'],
                     'Oznaka Mesta': rezervacija['oznakaRedaKolone'],
                     'Datum': rezervacija['datum']
@@ -89,7 +89,7 @@ def izvestajB(rezervacije, termini):
             if rezervacija['idTermina'] in terminiZaDatum:
                 pretraga[idRezervacije] = {
                     'ID Rezervacije': idRezervacije,
-                    'Korisnicko ime': rezervacija['idKorisnika'],
+                    'Korisnicko ime': rezervacija['id_korisnika'],
                     'ID Termina': rezervacija['idTermina'],
                     'Oznaka Mesta': rezervacija['oznakaRedaKolone'],
                     'Datum': rezervacija['datum'],
@@ -127,7 +127,7 @@ def izvestajC(rezervacije, korisnici, programi, termini, treninzi):
             if rezervacija['datum'] == odabraniDatum and idInstruktora.lower() == odabraniInstruktor.lower():
                 pretraga[idx] = {
                     'ID Rezervacije': rezervacija['id'],
-                    'Korisnicko ime': rezervacija['idKorisnika'],
+                    'Korisnicko ime': rezervacija['id_korisnika'],
                     'ID Termina': idTermina,
                     'Instruktor': idInstruktora,
                     'Oznaka Mesta': rezervacija['oznakaRedaKolone'],
@@ -171,7 +171,7 @@ def izvestajD(rezervacije):
                 brojac += 1
                 pretraga[idx] = {
                     'ID Rezervacije': rezervacija['id'],
-                    'Korisnicko ime': rezervacija['idKorisnika'],
+                    'Korisnicko ime': rezervacija['id_korisnika'],
                     'ID Termina': rezervacija['idTermina'],
                     'Oznaka Mesta': rezervacija['oznakaRedaKolone'],
                     'Datum': rezervacija['datum']
@@ -183,8 +183,8 @@ def izvestajD(rezervacije):
         return pretraga
 
 def izvestajE(rezervacije, termini, treninzi, programi):
-    danasnjiDatum = datetime.now().date()
-    poslednjih30Dana = danasnjiDatum - timedelta(days=30)
+    danasnji_datum = datetime.now().date()
+    poslednjih30Dana = danasnji_datum - timedelta(days=30)
     brojRezervacijaPoInstruktoru = {}
 
     for rezervacija in rezervacije.values():
@@ -219,8 +219,8 @@ def izvestajE(rezervacije, termini, treninzi, programi):
     return pretraga
 
 def izvestajF(rezervacije, termini, treninzi, programi):
-    danasnjiDatum = datetime.now().date()
-    poslednjih30Dana = danasnjiDatum - timedelta(days=30)
+    danasnji_datum = datetime.now().date()
+    poslednjih30Dana = danasnji_datum - timedelta(days=30)
 
     premiumRezervacije = 0
     standardRezervacije = 0
@@ -250,8 +250,8 @@ def izvestajF(rezervacije, termini, treninzi, programi):
     return pretraga
 
 def izvestajG(rezervacije, termini, treninzi, programi):
-    danasnjiDatum = datetime.now().date()
-    poslednjihGodinuDana = danasnjiDatum - timedelta(days=365)
+    danasnji_datum = datetime.now().date()
+    poslednjihGodinuDana = danasnji_datum - timedelta(days=365)
 
     popularnostPrograma = {}
 

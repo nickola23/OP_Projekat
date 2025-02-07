@@ -1,17 +1,17 @@
 from datetime import datetime
-from funkcije.clanarina import dodajClanarinu
+from funkcije.clanarina import dodaj_clanarinu
 
 def dodajInstruktora(korisnici):
     while True:
-        korisnickoIme = input("Unesite korisnicko ime: ")
-        if korisnickoIme not in korisnici.keys():
+        korisnicko_ime = input("Unesite korisnicko ime: ")
+        if korisnicko_ime not in korisnici.keys():
             lozinka = input("Unesite lozinku: ")
             ime = input("Unesite ime: ")
             prezime = input("Unesite prezime: ")
             uloga = input("Izaberite jednu od uloga:\n0. Instruktor\n1. Administrator\nUnesite ulogu:")
 
-            korisnici[korisnickoIme] = {
-                'korisnickoIme': korisnickoIme,
+            korisnici[korisnicko_ime] = {
+                'korisnicko_ime': korisnicko_ime,
                 'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
@@ -24,14 +24,14 @@ def dodajInstruktora(korisnici):
             print("Uspesno ste dodali instruktora.")
             return True
         
-def promeniStatusClana(korisnici, clanarine, korisnickoIme, noviStatus):
-    if korisnickoIme in korisnici:
-        dodajClanarinu(korisnici, clanarine, korisnickoIme)
-        korisnici[korisnickoIme]['status'] = noviStatus
-        print(f"Status korisnika {korisnickoIme} je uspešno promenjen.")
+def promeniStatusClana(korisnici, clanarine, korisnicko_ime, noviStatus):
+    if korisnicko_ime in korisnici:
+        dodaj_clanarinu(korisnici, clanarine, korisnicko_ime)
+        korisnici[korisnicko_ime]['status'] = noviStatus
+        print(f"Status korisnika {korisnicko_ime} je uspešno promenjen.")
     else:
-        print(f"Korisnik sa korisničkim imenom {korisnickoIme} ne postoji.")
+        print(f"Korisnik sa korisničkim imenom {korisnicko_ime} ne postoji.")
 
 def aktivacijaClana(korisnici, clanarine):
-    korisnickoIme = input('Unesite korisnicko ime clana za aktivaciju: ')
-    promeniStatusClana(korisnici, clanarine, korisnickoIme, 1)
+    korisnicko_ime = input('Unesite korisnicko ime clana za aktivaciju: ')
+    promeniStatusClana(korisnici, clanarine, korisnicko_ime, 1)

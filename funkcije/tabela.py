@@ -47,7 +47,7 @@ def ispisTabele(podaci):
                 spojeni_podaci = ", ".join(map(str, red[kljuc]))
                 vrednosti += " | " + f"{spojeni_podaci.capitalize():<{duzine[kljuc]}}"
             elif isinstance(red[kljuc], time):
-                vrednosti += " | " + f"{str(red[kljuc].strftime("%H:%M")):<{duzine[kljuc]}}"
+                vrednosti += " | " + f"{str(red[kljuc].strftime('%H:%M')):<{duzine[kljuc]}}"
             else:
                 vrednosti += " | " + f"{str(red[kljuc]):<{duzine[kljuc]}}"
         vrednosti += '\n'

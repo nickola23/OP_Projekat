@@ -69,7 +69,7 @@ def rezervacijeZaIspis(rezervacije, termini, treninzi, programi):
 
     for idRezervacije, rezervacija in rezervacije.items():
         idTermina = rezervacija['idTermina']
-        idKorisnika = rezervacija['idKorisnika']
+        id_korisnika = rezervacija['id_korisnika']
 
         termin = termini.get(idTermina)
         if not termin:
@@ -89,7 +89,7 @@ def rezervacijeZaIspis(rezervacije, termini, treninzi, programi):
 
         spojeniPodaci[idRezervacije] = {
             'idRezervacije': idRezervacije,
-            'idKorisnika': idKorisnika,
+            'id_korisnika': id_korisnika,
             'datumRezervacije': rezervacija['datum'],
             'idTermina': idTermina,
             'datumTermina': termin['datum'],

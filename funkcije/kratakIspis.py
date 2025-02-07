@@ -4,16 +4,16 @@ def ispisVrsteTreninga(vrsteTreninga):
 
 def ispisKorisnika(korisnici, uloga=3):
     if uloga == 3:
-        for korisnickoIme, podaci in korisnici.items():
+        for korisnicko_ime, podaci in korisnici.items():
             ime = podaci['ime']
             prezime = podaci['prezime']
-            print(f"{korisnickoIme} - {ime} {prezime}")
+            print(f"{korisnicko_ime} - {ime} {prezime}")
     else:
-        for korisnickoIme, podaci in korisnici.items():
+        for korisnicko_ime, podaci in korisnici.items():
             if podaci['uloga'] == uloga:
                 ime = podaci['ime']
                 prezime = podaci['prezime']
-                print(f"{korisnickoIme} - {ime} {prezime}")
+                print(f"{korisnicko_ime} - {ime} {prezime}")
 
 def ispisVrstePaketa(vrstePaketa):
     for id, podaci in vrstePaketa.items():
@@ -33,4 +33,4 @@ def ispisTreninzi(treninzi):
 
 def ispisMesta(rezervacije):
     for id, podaci in rezervacije.items():
-        print(f"ID: {podaci['oznakaRedaKolone']} - {podaci['idKorisnika']} - {podaci['idTermina']} - {podaci['datum']}")
+        print(f"ID: {podaci['oznakaRedaKolone']} - {podaci['id_korisnika']} - {podaci['idTermina']} - {podaci['datum']}")

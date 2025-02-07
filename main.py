@@ -1,7 +1,7 @@
-from funkcije.meni import glavniMeni
+from funkcije.meni import glavni_meni
 
 def main():
-    glavniMeni()
+    glavni_meni()
 
 if __name__ == '__main__':
     main()

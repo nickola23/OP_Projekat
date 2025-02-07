@@ -1,30 +1,30 @@
-from funkcije.fajlovi import citajFajl, upisFajl
-from funkcije.tabela import ispisTabele
-from funkcije.kratakIspis import ispisKorisnika, ispisVrstePaketa, ispisVrsteTreninga, ispisProgrami
+from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.tabela import ispis_tabele
+from funkcije.kratakIspis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi
 
-def ucitajPrograme(putanja):
-    fajl = citajFajl(putanja)
+def ucitaj_programe(putanja):
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
     
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, naziv, idVrsteTreninga, trajanje, idInstruktora, potrebanPaket, opis = red.split('|')
+            id, naziv, idvrste_treninga, trajanje, id_instruktora, potreban_paket, opis = red.split('|')
             podaci[id] = {
                 'id':id,
                 'naziv': naziv,
-                'idVrsteTreninga': eval(idVrsteTreninga),
+                'idvrste_treninga': eval(idvrste_treninga),
                 'trajanje': eval(trajanje),
-                'idInstruktora': idInstruktora,
-                'potrebanPaket': eval(potrebanPaket),
+                'id_instruktora': id_instruktora,
+                'potreban_paket': eval(potreban_paket),
                 'opis': opis
             }
             
     return podaci
 
-def dodajProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
-    id = str(max([int(idPrograma) for idPrograma in programi.keys()], default=0) + 1)
+def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
+    id = str(max([int(id_programa) for id_programa in programi.keys()], default=0) + 1)
 
     while True:
         naziv = input("Unesite naziv programa (b. za Nazad): ")
@@ -33,10 +33,10 @@ def dodajProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
 
         while True:
             print('Opcije za vrste treninga:')
-            ispisVrsteTreninga(vrsteTreninga)
+            ispis_vrste_treninga(vrste_treninga)
 
-            idVrsteTreninga = input("Unesite ID vrste treninga: ")
-            if idVrsteTreninga in vrsteTreninga:
+            idvrste_treninga = input("Unesite ID vrste treninga: ")
+            if idvrste_treninga in vrste_treninga:
                 break
             else:
                 print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -54,20 +54,20 @@ def dodajProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
 
         while True:
             print('Opcije za instruktore:')
-            ispisKorisnika(korisnici, 1)
+            ispis_korisnika(korisnici, 1)
 
-            idInstruktora = input("Unesite Korisnicko ime instruktora: ")
-            if idInstruktora in korisnici:
+            id_instruktora = input("Unesite Korisnicko ime instruktora: ")
+            if id_instruktora in korisnici:
                 break
             else:
                 print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
         
         while True:
             print('Opcije za vrste paketa:')
-            ispisVrstePaketa(vrstePaketa)
+            ispis_vrste_paketa(vrste_paketa)
             
-            potrebanPaket = input("Unesite ID potrebnog paketa: ")
-            if potrebanPaket in vrstePaketa:
+            potreban_paket = input("Unesite ID potrebnog paketa: ")
+            if potreban_paket in vrste_paketa:
                 break
             else:
                 print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -77,21 +77,21 @@ def dodajProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
         programi[id] = {
             'id': id,
             'naziv': naziv,
-            'idVrsteTreninga': idVrsteTreninga,
+            'idvrste_treninga': idvrste_treninga,
             'trajanje': trajanje,
-            'idInstruktora': idInstruktora,
-            'potrebanPaket': potrebanPaket,
+            'id_instruktora': id_instruktora,
+            'potreban_paket': potreban_paket,
             'opis': opis
         }
         print("Uspesno ste dodali program sa sledecim podacima:")
-        ispisTabele({id: programi[id]})
+        ispis_tabele({id: programi[id]})
         return True
     return False
 
-def izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
+def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
     while True:
         print('Opcije programa za izmenu:')
-        ispisProgrami(programi)
+        ispis_programi(programi)
         
         id = input("Unesite ID programa za izmenu (b. za Nazad): ")
         if id == 'b':
@@ -100,7 +100,7 @@ def izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
             print("Program sa ovim ID ne postoji.")
             continue
 
-        ispisTabele({id: programi[id]})
+        ispis_tabele({id: programi[id]})
                 
         while True:
             odgovor = input("Ponuđene opcije:\n1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nUnesite zeljenu opciju: ")
@@ -111,11 +111,11 @@ def izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
                 case '2':
                     while True:
                         print('Opcije za vrste treninga:')
-                        ispisVrsteTreninga(vrsteTreninga)
+                        ispis_vrste_treninga(vrste_treninga)
 
-                        idVrsteTreninga = input("Unesite novi ID vrste treninga: ")
-                        if idVrsteTreninga in vrsteTreninga:
-                            programi[id]['idVrsteTreninga'] = idVrsteTreninga
+                        idvrste_treninga = input("Unesite novi ID vrste treninga: ")
+                        if idvrste_treninga in vrste_treninga:
+                            programi[id]['idvrste_treninga'] = idvrste_treninga
                             break
                         else:
                             print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -134,22 +134,22 @@ def izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
                 case '4':
                     while True:
                         print('Opcije za instruktore:')
-                        ispisKorisnika(korisnici, 1)
+                        ispis_korisnika(korisnici, 1)
 
-                        idInstruktora = input("Unesite novo Korisnicko ime instruktora: ")
-                        if idInstruktora in korisnici:
-                            programi[id]['idInstruktora'] = idInstruktora
+                        id_instruktora = input("Unesite novo Korisnicko ime instruktora: ")
+                        if id_instruktora in korisnici:
+                            programi[id]['id_instruktora'] = id_instruktora
                             break
                         else:
                             print(f'Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
                 case '5':
                     while True:
                         print('Opcije za vrste paketa:')
-                        ispisVrstePaketa(vrstePaketa)
+                        ispis_vrste_paketa(vrste_paketa)
 
-                        potrebanPaket = input("Unesite novi ID potrebnog paketa: ")
-                        if potrebanPaket in vrstePaketa:
-                            programi[id]['potrebanPaket'] = potrebanPaket
+                        potreban_paket = input("Unesite novi ID potrebnog paketa: ")
+                        if potreban_paket in vrste_paketa:
+                            programi[id]['potreban_paket'] = potreban_paket
                             break
                         else:
                             print(f'Paket sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -160,10 +160,10 @@ def izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa):
                     return True
     return False
 
-def brisiProgram(programi):
+def brisi_program(programi):
     while True:
         print('Opcije postojecih programa za brisanje:')
-        ispisProgrami(programi)
+        ispis_programi(programi)
 
         id = input("Unesite ID programa za brisanje (b. za Nazad): ")
         if id == 'b':
@@ -176,7 +176,7 @@ def brisiProgram(programi):
             print("Program sa ovim ID ne postoji.")
             continue
 
-def pretraziProgram(programi, vrsteTreninga, vrstePaketa):
+def pretrazi_program(programi, vrste_treninga, vrste_paketa):
     pretraga = programi
 
     kriterijumi = input("Ponuđene opcije:\n1. Vrsta treninga\n2. Trajanje treninga (u minutama)\n3. Potreban paket\n4. Naziv programa\nUnesite jedan ili više kriterijuma za pretragu (odvojeni zarezom, npr. 1,3):").strip().split(',')
@@ -186,25 +186,25 @@ def pretraziProgram(programi, vrsteTreninga, vrstePaketa):
         
         if kriterijum == '1':
             print("Dostupne vrste treninga:")
-            ispisVrsteTreninga(vrsteTreninga)
+            ispis_vrste_treninga(vrste_treninga)
             while True:
-                idVrsteTreninga = input("Unesite ID vrste treninga: ").strip()
-                if idVrsteTreninga not in vrsteTreninga:
-                    print(f"Vrsta treninga sa ID {idVrsteTreninga} ne postoji. Pokušajte ponovo.")
+                idvrste_treninga = input("Unesite ID vrste treninga: ").strip()
+                if idvrste_treninga not in vrste_treninga:
+                    print(f"Vrsta treninga sa ID {idvrste_treninga} ne postoji. Pokušajte ponovo.")
                     continue
                 pretraga = {
                     id: podaci
                     for id, podaci in pretraga.items()
-                    if str(podaci['idVrsteTreninga']) == idVrsteTreninga
+                    if str(podaci['idvrste_treninga']) == idvrste_treninga
                 }
                 break
 
         elif kriterijum == '2':
             while True:
                 try:
-                    minTrajanje = int(input("Unesite minimalno trajanje treninga u minutima: "))
-                    maxTrajanje = int(input("Unesite maksimalno trajanje treninga u minutima: "))
-                    if minTrajanje < 0 or maxTrajanje < 0:
+                    min_trajanje = int(input("Unesite minimalno trajanje treninga u minutima: "))
+                    max_trajanje = int(input("Unesite maksimalno trajanje treninga u minutima: "))
+                    if min_trajanje < 0 or max_trajanje < 0:
                         print('Trajanje mora biti vece od 0. Pokusajte ponovo.')
                         continue 
                     break 
@@ -212,21 +212,21 @@ def pretraziProgram(programi, vrsteTreninga, vrstePaketa):
             pretraga = {
             id: podaci
             for id, podaci in pretraga.items()
-            if minTrajanje <= podaci['trajanje'] <= maxTrajanje
+            if min_trajanje <= podaci['trajanje'] <= max_trajanje
         }
 
         elif kriterijum == '3':
             print("Dostupni paketi:")
-            ispisVrstePaketa(vrstePaketa)
+            ispis_vrste_paketa(vrste_paketa)
             while True:
-                idPaketa = input("Unesite ID paketa: ").strip()
-                if idPaketa not in vrstePaketa:
-                    print(f"Paket sa ID {idPaketa} ne postoji. Pokušajte ponovo.")
+                id_paketa = input("Unesite ID paketa: ").strip()
+                if id_paketa not in vrste_paketa:
+                    print(f"Paket sa ID {id_paketa} ne postoji. Pokušajte ponovo.")
                     continue
                 pretraga = {
                     id: podaci
                     for id, podaci in pretraga.items()
-                    if str(podaci['potrebanPaket']) == idPaketa
+                    if str(podaci['potreban_paket']) == id_paketa
                 }
                 break
 

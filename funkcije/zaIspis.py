@@ -1,41 +1,41 @@
 from datetime import datetime
 
-def programiZaIspis(programi, instruktori, vrsteTreninga, vrstePaketa):
+def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
     podaci = {}
     for id, program in programi.items():
-        vrstaTreninga = vrsteTreninga.get(str(program['idVrsteTreninga']), {}).get('naziv', 'Nepoznato')
-        vrstaPaketa = vrstePaketa.get(str(program['potrebanPaket']), {}).get('naziv', 'Nepoznato')
-        instruktor = instruktori.get(str(program['idInstruktora']), {})
-        imeInstruktora = f"{instruktor.get('ime', 'Nepoznato')} {instruktor.get('prezime', '')}"
+        vrsta_treninga = vrste_treninga.get(str(program['idvrste_treninga']), {}).get('naziv', 'Nepoznato')
+        vrsta_paketa = vrste_paketa.get(str(program['potreban_paket']), {}).get('naziv', 'Nepoznato')
+        instruktor = instruktori.get(str(program['id_instruktora']), {})
+        ime_instruktora = f"{instruktor.get('ime', 'Nepoznato')} {instruktor.get('prezime', '')}"
         
         podaci[id] = {
             'id': program['id'],
             'naziv': program['naziv'],
-            'vrstaTreninga': vrstaTreninga,
+            'vrsta_treninga': vrsta_treninga,
             'trajanje': program['trajanje'],
-            'instruktor': imeInstruktora,
-            'potrebanPaket': vrstaPaketa,
+            'instruktor': ime_instruktora,
+            'potreban_paket': vrsta_paketa,
             'opis': program['opis']
         }
     return podaci
 
-def treningZaIspis(treninzi, sale, programi):
+def trening_za_ispis(treninzi, sale, programi):
     podaci = {}
     for id, trening in treninzi.items():
-        sala = sale.get(str(trening['idSale']), {}).get('naziv', 'Nepoznato')
-        program = programi.get(str(trening['idPrograma']), {}).get('naziv', 'Nepoznato')
+        sala = sale.get(str(trening['id_sale']), {}).get('naziv', 'Nepoznato')
+        program = programi.get(str(trening['id_programa']), {}).get('naziv', 'Nepoznato')
 
         podaci[id] = {
             'id': trening['id'],
-            'idSale': sala,
-            'vremePocetka': trening['vremePocetka'],
-            'vremeKraja': trening['vremeKraja'],
-            'daniNedelje': trening['daniNedelje'],
-            'idPrograma': program,
+            'id_sale': sala,
+            'vreme_pocetka': trening['vreme_pocetka'],
+            'vreme_kraja': trening['vreme_kraja'],
+            'dani_nedelje': trening['dani_nedelje'],
+            'id_programa': program,
         }
     return podaci
 
-def spojeniTerminiZaIspis(termini, sale, programi):
+def spojeni_termini_za_ispis(termini, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
     if not termini or not isinstance(termini, dict):
@@ -43,61 +43,61 @@ def spojeniTerminiZaIspis(termini, sale, programi):
 
     podaci = {}
     for id, trening in termini.items():
-        sala = sale.get(str(trening['idSale']), {}).get('naziv', 'Nepoznato')
-        program = programi.get(str(trening['idPrograma']), {}).get('naziv', 'Nepoznato')
-        danUNedelji = dani[datetime.strptime(trening['datum'], '%d.%m.%Y').date().weekday()]
+        sala = sale.get(str(trening['id_sale']), {}).get('naziv', 'Nepoznato')
+        program = programi.get(str(trening['id_programa']), {}).get('naziv', 'Nepoznato')
+        dan_u_nedelji = dani[datetime.strptime(trening['datum'], '%d.%m.%Y').date().weekday()]
 
-        if danUNedelji in trening['daniNedelje']:
-            treningDan = danUNedelji
+        if dan_u_nedelji in trening['dani_nedelje']:
+            trening_dan = dan_u_nedelji
         else:
-            treningDan = 'Neodgovarajuci dan'
+            trening_dan = 'Neodgovarajuci dan'
 
         podaci[id] = {
-            'id': trening['idTermina'],
+            'id': trening['id_termina'],
             'datum': trening['datum'],
-            'idTreninga': trening['idTreninga'],
-            'idSale': sala,
-            'vremePocetka': trening['vremePocetka'],
-            'vremeKraja': trening['vremeKraja'],
-            'daniNedelje': treningDan,
-            'idPrograma': program
+            'id_treninga': trening['id_treninga'],
+            'id_sale': sala,
+            'vreme_pocetka': trening['vreme_pocetka'],
+            'vreme_kraja': trening['vreme_kraja'],
+            'dani_nedelje': trening_dan,
+            'id_programa': program
         }
     return podaci
 
-def rezervacijeZaIspis(rezervacije, termini, treninzi, programi):
-    spojeniPodaci = {}
+def rezervacije_za_ispis(rezervacije, termini, treninzi, programi):
+    spojeni_podaci = {}
 
-    for idRezervacije, rezervacija in rezervacije.items():
-        idTermina = rezervacija['idTermina']
+    for id_rezervacije, rezervacija in rezervacije.items():
+        id_termina = rezervacija['id_termina']
         id_korisnika = rezervacija['id_korisnika']
 
-        termin = termini.get(idTermina)
+        termin = termini.get(id_termina)
         if not termin:
             continue
 
-        idTreninga = termin['idTreninga']
+        id_treninga = termin['id_treninga']
 
-        trening = treninzi.get(idTreninga)
+        trening = treninzi.get(id_treninga)
         if not trening:
             continue
 
-        idPrograma = trening['idPrograma']
+        id_programa = trening['id_programa']
 
-        program = programi.get(idPrograma)
+        program = programi.get(id_programa)
         if not program:
             continue
 
-        spojeniPodaci[idRezervacije] = {
-            'idRezervacije': idRezervacije,
+        spojeni_podaci[id_rezervacije] = {
+            'id_rezervacije': id_rezervacije,
             'id_korisnika': id_korisnika,
-            'datumRezervacije': rezervacija['datum'],
-            'idTermina': idTermina,
-            'datumTermina': termin['datum'],
-            'vremePocetka': trening['vremePocetka'].strftime('%H:%M'),
-            'vremeKraja': trening['vremeKraja'].strftime('%H:%M'),
-            'daniNedelje': ', '.join(trening['daniNedelje']),
-            'nazivPrograma': program['naziv'],
-            'opisPrograma': program['opis']
+            'datum_rezervacije': rezervacija['datum'],
+            'id_termina': id_termina,
+            'datum_termina': termin['datum'],
+            'vreme_pocetka': trening['vreme_pocetka'].strftime('%H:%M'),
+            'vreme_kraja': trening['vreme_kraja'].strftime('%H:%M'),
+            'dani_nedelje': ', '.join(trening['dani_nedelje']),
+            'naziv_programa': program['naziv'],
+            'opis_programa': program['opis']
         }
 
-    return spojeniPodaci
+    return spojeni_podaci

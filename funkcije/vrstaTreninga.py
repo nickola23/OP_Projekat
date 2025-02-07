@@ -1,7 +1,7 @@
-from funkcije.fajlovi import citajFajl, upisFajl
+from funkcije.fajlovi import citaj_fajl, upis_fajl
 
-def ucitajVrsteTreninga(putanja):
-    fajl = citajFajl(putanja)
+def ucitaj_vrste_treninga(putanja):
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
     

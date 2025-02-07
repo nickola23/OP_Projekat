@@ -1,7 +1,7 @@
-from funkcije.fajlovi import citajFajl, upisFajl
+from funkcije.fajlovi import citaj_fajl, upis_fajl
 
-def ucitajVrstePaketa(putanja):
-    fajl = citajFajl(putanja)
+def ucitaj_vrste_paketa(putanja):
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
     
@@ -16,13 +16,13 @@ def ucitajVrstePaketa(putanja):
             
     return podaci
 
-def promeniPaket(podaci, korisnicko_ime, noviPaket):
+def promeni_paket(podaci, korisnicko_ime, novi_paket):
     if korisnicko_ime in podaci:
-        podaci[korisnicko_ime]['uplaceniPaket'] = noviPaket
+        podaci[korisnicko_ime]['uplaceni_paket'] = novi_paket
         print(f"Paket za korisnika {korisnicko_ime} je uspešno promenjen.")
     else:
         print(f"Korisnik sa korisničkim imenom '{korisnicko_ime}' ne postoji.")
 
-def aktivacijaPremiumPaketa(podaci):
+def aktivacija_premium_paketa(podaci):
     korisnicko_ime = input('Unesite korisnicko ime clana za aktivaciju: ')
-    promeniPaket(podaci, korisnicko_ime, 1)
+    promeni_paket(podaci, korisnicko_ime, 1)

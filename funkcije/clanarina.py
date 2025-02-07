@@ -1,5 +1,11 @@
+"""
+Modul za upravljanje clanarinama.
+
+Sadrži funkcije za ucitavanje,
+dodavanje i validaciju clanarine.
+"""
 from datetime import datetime, timedelta
-from funkcije.fajlovi import citajFajl
+from funkcije.fajlovi import citaj_fajl
 
 def ucitaj_clanarine(putanja):
     """
@@ -9,9 +15,9 @@ def ucitaj_clanarine(putanja):
         putanja (string): putanja do .txt fajla.
 
     Returns:
-        recnik: sve clanarine
+        dict: sve clanarine
     """
-    fajl = citajFajl(putanja)
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
 
@@ -24,7 +30,7 @@ def ucitaj_clanarine(putanja):
                 'id_korisnika': id_korisnika,
                 'datum_uplate': datetime.strptime(datum_uplate.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y'),
             }
-   
+
     return podaci
 
 
@@ -33,8 +39,8 @@ def dodaj_clanarinu(korisnici, clanarine, korisnicko_ime):
     Dodaje clanarinu u recnik
 
     Args:
-        korisnici (dictionary): trenutni recnik korisnika,
-        clanarine (dictionary): trenutni recnik clanarina,
+        korisnici (dict): trenutni recnik korisnika,
+        clanarine (dict): trenutni recnik clanarina,
         korisnicko_ime (string): ime korisnika kome se dodaje clanarina.
 
     Returns:
@@ -63,14 +69,14 @@ def dodaj_clanarinu(korisnici, clanarine, korisnicko_ime):
 
 def validacija_clanarina(korisnici, clanarine):
     """
-    Proverava da li su clanarine istekle i ako jesu menja status i uplaceniPaket korisniku
+    Proverava da li su clanarine istekle i ako jesu menja status i uplaceni_paket korisniku
 
     Args:
-        korisnici (dictionary): trenutni recnik korisnika,
-        clanarine (dictionary): trenutni recnik clanarina.
+        korisnici (dict): trenutni recnik korisnika,
+        clanarine (dict): trenutni recnik clanarina.
 
     Returns:
-        dictionary: novi recnik korisnika
+        dict: novi recnik korisnika
     """
     danasnji_datum = datetime.now().date()
 
@@ -85,6 +91,6 @@ def validacija_clanarina(korisnici, clanarine):
 
         if not aktivna_clanarina:
             korisnici[korisnicko_ime]['status'] = 0
-            korisnici[korisnicko_ime]['uplaceniPaket'] = 0
+            korisnici[korisnicko_ime]['uplaceni_paket'] = 0
 
     return korisnici

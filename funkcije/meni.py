@@ -1,76 +1,76 @@
-from funkcije.rezervacija import ucitajRezervacije, pretraziRezervacije, pretraziRezervacijeKorisnik, rezervacijaMesta, ponistiRezervaciju, mesecnaNagradaLojalnosti, rezervacijaMestaInstruktor, pretraziRezervacijeInstruktor, ponistiRezervacijuInstruktor, izmeniRezervacijuInstruktor
-from funkcije.zaIspis import programiZaIspis, treningZaIspis, spojeniTerminiZaIspis, rezervacijeZaIspis
-from funkcije.program import ucitajPrograme, dodajProgram, izmeniProgram, brisiProgram, pretraziProgram
-from funkcije.korisnik import prijava, registracija, odjava, ucitajKorisnike, registracijaInstruktora
-from funkcije.trening import ucitajTrening, dodajTrening, izmeniTrening, brisiTrening
-from funkcije.vrstaPaketa import ucitajVrstePaketa, aktivacijaPremiumPaketa
-from funkcije.termin import ucitajTermin, pretraziTermine, spojiTermine
+from funkcije.rezervacija import ucitaj_rezervacije, pretrazi_rezervacije, pretrazi_rezervacije_korisnik, rezervacija_mesta, ponisti_rezervaciju, mesecna_nagrada_lojalnosti, rezervacija_mesta_instruktor, pretrazi_rezervacije_instruktor, ponisti_rezervaciju_instruktor, izmeni_rezervaciju_instruktor
+from funkcije.zaIspis import programi_za_ispis, trening_za_ispis, spojeni_termini_za_ispis, rezervacije_za_ispis
+from funkcije.program import ucitaj_programe, dodaj_program, izmeni_program, brisi_program, pretrazi_program
+from funkcije.korisnik import prijava, registracija, odjava, ucitaj_korisnike, registracija_instruktora
+from funkcije.trening import ucitaj_trening, dodaj_trening, izmeni_trening, brisi_trening
+from funkcije.vrsta_paketa import ucitaj_vrste_paketa, aktivacija_premium_paketa
+from funkcije.termin import ucitaj_termin, pretrazi_termine, spoji_termine
 from funkcije.clanarina import ucitaj_clanarine, validacija_clanarina
-from funkcije.upravljanjeKorisnicima import aktivacijaClana
-from funkcije.vrstaTreninga import ucitajVrsteTreninga
-from funkcije.tabela import ispisTabele
-from funkcije.fajlovi import upisFajl
-from funkcije.sala import ucitajSale
-from funkcije.izvestaji import izvestajA, izvestajB, izvestajC,izvestajD, izvestajE, izvestajF, izvestajG, izvestajH
+from funkcije.upravljanjeKorisnicima import aktivacija_clana
+from funkcije.vrsta_treninga import ucitaj_vrste_treninga
+from funkcije.tabela import ispis_tabele
+from funkcije.fajlovi import upis_fajl
+from funkcije.sala import ucitaj_sale
+from funkcije.izvestaji import izvestaj_A, izvestaj_B, izvestaj_C,izvestaj_D, izvestaj_E, izvestaj_F, izvestaj_G, izvestaj_H
 
-putanjaVrsteTreninga = './data/VrstaTreninga.txt'
-putanjaRezervacije = './data/Rezervacija.txt'
-putanjaVrstePaketa = './data/VrstaPaketa.txt'
-putanjaKorisnici = './data/Korisnici.txt'
-putanjaClanarine = './data/Clanarina.txt'
-putanjaProgrami = './data/Program.txt'
-putanjaTrening = './data/Trening.txt'
-putanjaTermin = './data/Termin.txt'
-putanjaSala = './data/Sala.txt'
+putanja_vrste_treninga = './data/vrsta_treninga.txt'
+putanja_rezervacije = './data/Rezervacija.txt'
+putanja_vrste_paketa = './data/vrsta_paketa.txt'
+putanja_korisnici = './data/Korisnici.txt'
+putanja_clanarine = './data/Clanarina.txt'
+putanja_programi = './data/Program.txt'
+putanja_trening = './data/Trening.txt'
+putanja_termin = './data/Termin.txt'
+putanja_sala = './data/Sala.txt'
 
-vrsteTreninga = ucitajVrsteTreninga(putanjaVrsteTreninga)
-rezervacije = ucitajRezervacije(putanjaRezervacije)
-vrstePaketa = ucitajVrstePaketa(putanjaVrstePaketa)
-korisnici = ucitajKorisnike(putanjaKorisnici)
-clanarine = ucitaj_clanarine(putanjaClanarine)
-programi = ucitajPrograme(putanjaProgrami)
-treninzi = ucitajTrening(putanjaTrening)
-termini =  ucitajTermin(putanjaTermin)
-sale = ucitajSale(putanjaSala)
+vrste_treninga = ucitaj_vrste_treninga(putanja_vrste_treninga)
+rezervacije = ucitaj_rezervacije(putanja_rezervacije)
+vrste_paketa = ucitaj_vrste_paketa(putanja_vrste_paketa)
+korisnici = ucitaj_korisnike(putanja_korisnici)
+clanarine = ucitaj_clanarine(putanja_clanarine)
+programi = ucitaj_programe(putanja_programi)
+treninzi = ucitaj_trening(putanja_trening)
+termini =  ucitaj_termin(putanja_termin)
+sale = ucitaj_sale(putanja_sala)
 
-trenutniKorisnik = None
+trenutni_korisnik = None
 menii = {}
 
-def prijavaKorisnik(korisnici):
-    global trenutniKorisnik
-    trenutniKorisnik = prijava(korisnici, trenutniKorisnik)
-    glavniMeni()
+def prijava_korisnik(korisnici):
+    global trenutni_korisnik
+    trenutni_korisnik = prijava(korisnici, trenutni_korisnik)
+    glavni_meni()
 
-def registracijaKorisnik(korisnici):
-    global trenutniKorisnik
-    trenutniKorisnik = registracija(korisnici)
-    glavniMeni()
+def registracija_korisnik(korisnici):
+    global trenutni_korisnik
+    trenutni_korisnik = registracija(korisnici)
+    glavni_meni()
 
-def odjavaKorisnik():
-    global trenutniKorisnik
-    trenutniKorisnik = odjava()
-    glavniMeni()
+def odjava_korisnik():
+    global trenutni_korisnik
+    trenutni_korisnik = odjava()
+    glavni_meni()
 
-def upisiFajlove():
-    upisFajl(putanjaVrsteTreninga, vrsteTreninga)
-    upisFajl(putanjaRezervacije, rezervacije)
-    upisFajl(putanjaVrstePaketa, vrstePaketa)
-    upisFajl(putanjaKorisnici, korisnici)
-    upisFajl(putanjaClanarine, clanarine)
-    upisFajl(putanjaProgrami, programi)
-    upisFajl(putanjaTrening, treninzi)
-    upisFajl(putanjaTermin, termini)
-    upisFajl(putanjaSala, sale)
+def upisi_fajlove():
+    upis_fajl(putanja_vrste_treninga, vrste_treninga)
+    upis_fajl(putanja_rezervacije, rezervacije)
+    upis_fajl(putanja_vrste_paketa, vrste_paketa)
+    upis_fajl(putanja_korisnici, korisnici)
+    upis_fajl(putanja_clanarine, clanarine)
+    upis_fajl(putanja_programi, programi)
+    upis_fajl(putanja_trening, treninzi)
+    upis_fajl(putanja_termin, termini)
+    upis_fajl(putanja_sala, sale)
 
 def izlaz():
-    upisiFajlove()
+    upisi_fajlove()
     print('Izlaz iz programa.')
 
 def nazad():
     print('Povratak nazad.')
 
-def pokreniMeni(trenutniMeni):
-    meni = menii[trenutniMeni]
+def pokreni_meni(trenutni_meni):
+    meni = menii[trenutni_meni]
     while True:
         print("=" * 30)
         print("Odabrali ste", meni["nazivIspis"])
@@ -85,7 +85,7 @@ def pokreniMeni(trenutniMeni):
             if meni["opcijeUnos"][unos] not in menii:
                 funkcija()
             else:
-                pokreniMeni(funkcija)
+                pokreni_meni(funkcija)
 
             if meni["nazad"] and unos == 'b':
                 return
@@ -95,100 +95,100 @@ def pokreniMeni(trenutniMeni):
             print("Odabrali ste nepostojeću opciju")
     
 
-def meniNeregistrovan():
+def meni_neregistrovan():
 
-    meniFunkcije = {
-        '1': lambda: prijavaKorisnik(korisnici),
-        '2': lambda: registracijaKorisnik(korisnici),
-        '3': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
-        '4': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa), korisnici, vrsteTreninga, vrstePaketa)),
-        '5': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
-        '6': lambda: pokreniMeni('meniPretraziTermin'),
+    meni_funkcije = {
+        '1': lambda: prijava_korisnik(korisnici),
+        '2': lambda: registracija_korisnik(korisnici),
+        '3': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
+        '4': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
+        '5': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
+        '6': lambda: pokreni_meni('meni_pretrazi_termin'),
         '0': lambda: izlaz()
     }
 
-    meniOpcije = {
+    meni_opcije = {
         'naziv': "neregistrovan",
         'nazivIspis': "Neregistrovani Meni",
         'opcijeIspis': "1. Prijava\n2. Registracija\n3. Pregled dostupnih programa treninga\n4. Pretrazi programe\n5. Pregled dostupnih termina\n6. Pretrazi termine\n0. Izlaz",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': False,
         'izlaz': True
     }
 
-    menii['meniNeregistrovan'] = meniOpcije
+    menii['meni_neregistrovan'] = meni_opcije
 
-def meniRegistrovan():
+def meni_registrovan():
 
-    meniFunkcije = {
-        '1': lambda: odjavaKorisnik(),
-        '2': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
-        '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa), korisnici, vrsteTreninga, vrstePaketa)),
-        '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
-        '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: rezervacijaMesta(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnicko_ime']),
-        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeKorisnik(rezervacije, trenutniKorisnik['korisnicko_ime']), termini, treninzi, programi)),
-        '8': lambda: ponistiRezervaciju(rezervacije, termini),
+    meni_funkcije = {
+        '1': lambda: odjava_korisnik(),
+        '2': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
+        '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
+        '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
+        '5': lambda: pokreni_meni('meni_pretrazi_termin'),
+        '6': lambda: rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici, trenutni_korisnik['korisnicko_ime']),
+        '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_korisnik(rezervacije, trenutni_korisnik['korisnicko_ime']), termini, treninzi, programi)),
+        '8': lambda: ponisti_rezervaciju(rezervacije, termini),
         '0': lambda: izlaz()
     }
 
-    meniOpcije = {
+    meni_opcije = {
         'naziv': "registrovan",
         'nazivIspis': "Registrovan Meni",
         'opcijeIspis': "1. Odjava\n2. Pregled dostupnih programa treninga\n3. Pretrazi programe\n4. Pregled dostupnih termina\n5. Pretrazi termine\n6. Rezervisi mesto\n7. Pregled rezervacija\n8. Ponisti rezervaciju\n0. Izlaz",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': False,
         'izlaz': True
     }
 
-    menii['meniRegistrovan'] = meniOpcije
+    menii['meni_registrovan'] = meni_opcije
 
-def meniInstruktor():
+def meni_instruktor():
 
-    meniFunkcije = {
-        '1': lambda: odjavaKorisnik(),
-        '2': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
-        '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa), korisnici, vrsteTreninga, vrstePaketa)),
-        '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
-        '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: rezervacijaMestaInstruktor(rezervacije, termini, treninzi, programi, sale, korisnici, trenutniKorisnik['korisnicko_ime']),
-        '7': lambda: ispisTabele(rezervacijeZaIspis(pretraziRezervacijeInstruktor(rezervacije, treninzi, termini, programi, trenutniKorisnik['korisnicko_ime']), termini, treninzi, programi)),
-        '8': lambda: ponistiRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnicko_ime']),
-        '9': lambda: pretraziRezervacije(rezervacije, termini, treninzi, korisnici),
-        '10': lambda: aktivacijaClana(korisnici, clanarine),
-        '11': lambda: aktivacijaPremiumPaketa(korisnici),
-        '12': lambda: izmeniRezervacijuInstruktor(rezervacije, termini, treninzi, programi, korisnici, trenutniKorisnik['korisnicko_ime']),
+    meni_funkcije = {
+        '1': lambda: odjava_korisnik(),
+        '2': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
+        '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
+        '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
+        '5': lambda: pokreni_meni('meni_pretrazi_termin'),
+        '6': lambda: rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale, korisnici, trenutni_korisnik['korisnicko_ime']),
+        '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, trenutni_korisnik['korisnicko_ime']), termini, treninzi, programi)),
+        '8': lambda: ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, trenutni_korisnik['korisnicko_ime']),
+        '9': lambda: pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici),
+        '10': lambda: aktivacija_clana(korisnici, clanarine),
+        '11': lambda: aktivacija_premium_paketa(korisnici),
+        '12': lambda: izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, trenutni_korisnik['korisnicko_ime']),
         '0': lambda: izlaz()
     }
 
-    meniOpcije = {
+    meni_opcije = {
         'naziv': "instruktor",
         'nazivIspis': "Instruktor Meni",
         'opcijeIspis': "1. Odjava\n2. Pregled dostupnih programa treninga\n3. Pretrazi programe\n4. Pregled dostupnih termina\n5. Pretrazi termine\n6. Rezervisi mesto\n7. Pregled rezervacija\n8. Ponisti rezervaciju\n9. Pretraga rezervacija\n10. Aktivacija clana\n11. Aktivacija premium clana\n12. Izmeni rezervacije\n0. Izlaz",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': False,
         'izlaz': True
     }
 
-    menii['meniInstruktor'] = meniOpcije
+    menii['meni_instruktor'] = meni_opcije
 
-def meniAdmin():
+def meni_admin():
 
     submenu2_dict = {
-        '1': lambda: odjavaKorisnik(),
-        '2': lambda: ispisTabele(programiZaIspis(programi, korisnici, vrsteTreninga, vrstePaketa)),
-        '3': lambda: ispisTabele(programiZaIspis(pretraziProgram(programi, vrsteTreninga, vrstePaketa), korisnici, vrsteTreninga, vrstePaketa)),
-        '4': lambda: ispisTabele(spojiTermine(treningZaIspis(treninzi, sale, programi), termini)),
-        '5': lambda: pokreniMeni('meniPretraziTermin'),
-        '6': lambda: registracijaInstruktora(korisnici),
-        '7': lambda: pokreniMeni('meniIzvestaji'),
-        '8': lambda: mesecnaNagradaLojalnosti(rezervacije, korisnici),
-        '9': lambda: pokreniMeni('meniUnosIzmenaBrisanjeProgram'),
-        '10': lambda: pokreniMeni('meniUnosIzmenaBrisanjeTrening'),
+        '1': lambda: odjava_korisnik(),
+        '2': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
+        '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
+        '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
+        '5': lambda: pokreni_meni('meni_pretrazi_termin'),
+        '6': lambda: registracija_instruktora(korisnici),
+        '7': lambda: pokreni_meni('meni_izvestaji'),
+        '8': lambda: mesecna_nagrada_lojalnosti(rezervacije, korisnici),
+        '9': lambda: pokreni_meni('meni_unos_izmena_brisanje_program'),
+        '10': lambda: pokreni_meni('meni_unos_izmena_brisanje_trening'),
         '0': lambda: izlaz()
     }
 
-    meniOpcije = {
+    meni_opcije = {
         'naziv': "admin",
         'nazivIspis': "Admin Meni",
         'opcijeIspis': "1. Odjava\n2. Pregled dostupnih programa treninga\n3. Pretrazi programe\n4. Pregled dostupnih termina\n5. Pretrazi termine\n6. Registracija novih instruktora\n7. Izvestavanje\n8. Mesecna nagrada lojalnosti\n9. Unos Izmena Brisanje Programa\n10. Unos Izmena Brisanje Treninga\n0. Izlaz",
@@ -197,115 +197,115 @@ def meniAdmin():
         'izlaz': True
     }
 
-    menii['meniAdmin'] = meniOpcije
+    menii['meni_admin'] = meni_opcije
 
-def meniPretraziTermin():
+def meni_pretrazi_termin():
 
-    meniFunkcije = {
-        '1': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'idSale'), sale, programi)),
-        '2': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'idPrograma'), sale, programi)),
-        '3': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'datum'), sale, programi)),
-        '4': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'vremePocetka'), sale, programi)),
-        '5': lambda: ispisTabele(spojeniTerminiZaIspis(pretraziTermine(spojiTermine(treninzi, termini), sale, programi, 'vremeKraja'), sale, programi)),
+    meni_funkcije = {
+        '1': lambda: ispis_tabele(spojeni_termini_za_ispis(pretrazi_termine(spoji_termine(treninzi, termini), sale, programi, 'id_sale'), sale, programi)),
+        '2': lambda: ispis_tabele(spojeni_termini_za_ispis(pretrazi_termine(spoji_termine(treninzi, termini), sale, programi, 'id_programa'), sale, programi)),
+        '3': lambda: ispis_tabele(spojeni_termini_za_ispis(pretrazi_termine(spoji_termine(treninzi, termini), sale, programi, 'datum'), sale, programi)),
+        '4': lambda: ispis_tabele(spojeni_termini_za_ispis(pretrazi_termine(spoji_termine(treninzi, termini), sale, programi, 'vreme_pocetka'), sale, programi)),
+        '5': lambda: ispis_tabele(spojeni_termini_za_ispis(pretrazi_termine(spoji_termine(treninzi, termini), sale, programi, 'vreme_kraja'), sale, programi)),
         'b': lambda: nazad()
     }
 
-    meniOpcije = {
+    meni_opcije = {
         'naziv': "pretraziTermin",
         'nazivIspis': "Pretrazi Termin Meni",
         'opcijeIspis': "1. ID Sale\n2. ID programa\n3. Datum\n4. Vreme pocetka\n5. Vreme kraja\nb. Nazad",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': True,
         'izlaz': False
     }
 
-    menii['meniPretraziTermin'] = meniOpcije
+    menii['meni_pretrazi_termin'] = meni_opcije
 
-def meniUnosIzmenaBrisanjeProgram():
+def meni_unos_izmena_brisanje_program():
 
-    meniFunkcije = {
-        '1': lambda: dodajProgram(programi, vrsteTreninga, korisnici, vrstePaketa),
-        '2': lambda: izmeniProgram(programi, vrsteTreninga, korisnici, vrstePaketa),
-        '3': lambda: brisiProgram(programi),
+    meni_funkcije = {
+        '1': lambda: dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa),
+        '2': lambda: izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa),
+        '3': lambda: brisi_program(programi),
         'b': lambda: nazad()
     }
 
-    meniOpcije = {
+    meni_opcije = {
         'naziv': "UnosIzmenaBrisanjePrograma",
         'nazivIspis': "Unos Izmena Brisanje Programa Meni",
         'opcijeIspis': "1. Unos programa treninga\n2. Izmena programa treninga\n3. Brisanje programa treninga\nb. Nazad",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': True,
         'izlaz': False
     }
 
-    menii['meniUnosIzmenaBrisanjeProgram'] = meniOpcije
+    menii['meni_unos_izmena_brisanje_program'] = meni_opcije
 
-def meniUnosIzmenaBrisanjeTrening():
+def meni_unos_izmena_brisanje_trening():
 
-    meniFunkcije = {
-        '1': lambda: dodajTrening(treninzi, sale, programi),
-        '2': lambda: izmeniTrening(treninzi, sale, programi),
-        '3': lambda: brisiTrening(treninzi),
+    meni_funkcije = {
+        '1': lambda: dodaj_trening(treninzi, sale, programi),
+        '2': lambda: izmeni_trening(treninzi, sale, programi),
+        '3': lambda: brisi_trening(treninzi),
         'b': lambda: nazad()
     }
 
-    meniOpcije = {
-        'naziv': "meniUnosIzmenaBrisanjeTrening",
+    meni_opcije = {
+        'naziv': "meni_unos_izmena_brisanje_trening",
         'nazivIspis': "Unos Izmena Brisanje Treminga Meni",
         'opcijeIspis': "1. Unos treninga\n2. Izmena treninga\n3. Brisanje treninga\nb. Nazad",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': True,
         'izlaz': False
     }
 
-    menii['meniUnosIzmenaBrisanjeTrening'] = meniOpcije
+    menii['meni_unos_izmena_brisanje_trening'] = meni_opcije
 
-def meniIzvestaji():
+def meni_izvestaji():
 
-    meniFunkcije = {
-        '1': lambda: izvestajA(rezervacije),
-        '2': lambda: izvestajB(rezervacije, termini),
-        '3': lambda: izvestajC(rezervacije, korisnici, programi, termini, treninzi),
-        '4': lambda: izvestajD(rezervacije),
-        '5': lambda: izvestajE(rezervacije, termini, treninzi, programi),
-        '6': lambda: izvestajF(rezervacije, termini, treninzi, programi),
-        '7': lambda: izvestajG(rezervacije, termini, treninzi, programi),
-        '8': lambda: izvestajH(rezervacije, termini),
+    meni_funkcije = {
+        '1': lambda: izvestaj_A(rezervacije),
+        '2': lambda: izvestaj_B(rezervacije, termini),
+        '3': lambda: izvestaj_C(rezervacije, korisnici, programi, termini, treninzi),
+        '4': lambda: izvestaj_D(rezervacije),
+        '5': lambda: izvestaj_E(rezervacije, termini, treninzi, programi),
+        '6': lambda: izvestaj_F(rezervacije, termini, treninzi, programi),
+        '7': lambda: izvestaj_G(rezervacije, termini, treninzi, programi),
+        '8': lambda: izvestaj_H(rezervacije, termini),
         'b': lambda: nazad()
     }
 
-    meniOpcije = {
-        'naziv': "meniIzvestaji",
+    meni_opcije = {
+        'naziv': "meni_izvestaji",
         'nazivIspis': "Izvestaji Meni",
         'opcijeIspis': "1. Lista rezervacija za odabran datum rezervacije\n2. Lista rezervacija za odabran datum termina treninga\n3. Lista rezervacija za odabran datum rezervacije i odabranog instruktora\n4. Ukupan broj rezervacija za izabran dan (u nedelji) održavanja treninga\n5. Ukupan broj rezervacije po instruktorima u poslednjih 30 dana\n6. Ukupan broj rezervacija realizovanih (Standard i Premium) u poslednjih 30 dana.\n7. Najpopularniji programi treninga.\n8. Najpopularniji dan u nedelji.\nb. Nazad",
-        'opcijeUnos': meniFunkcije,
+        'opcijeUnos': meni_funkcije,
         'nazad': True,
         'izlaz': False
     }
 
-    menii['meniIzvestaji'] = meniOpcije
+    menii['meni_izvestaji'] = meni_opcije
 
-def initiate():
-    meniNeregistrovan()
-    meniRegistrovan()
-    meniInstruktor()
-    meniAdmin()
-    meniPretraziTermin()
-    meniUnosIzmenaBrisanjeProgram()
-    meniUnosIzmenaBrisanjeTrening()
-    meniIzvestaji()
+def definisi():
+    meni_neregistrovan()
+    meni_registrovan()
+    meni_instruktor()
+    meni_admin()
+    meni_pretrazi_termin()
+    meni_unos_izmena_brisanje_program()
+    meni_unos_izmena_brisanje_trening()
+    meni_izvestaji()
 
-def glavniMeni():
-    global trenutniKorisnik
-    initiate()
+def glavni_meni():
+    global trenutni_korisnik
+    definisi()
     validacija_clanarina(korisnici, clanarine)   #azuriraj clanarine
 
-    if trenutniKorisnik is None:                #nije prijavljen
-        pokreniMeni('meniNeregistrovan')
-    elif trenutniKorisnik['uloga'] == 0:        #registrovan
-        pokreniMeni('meniRegistrovan')
-    elif trenutniKorisnik['uloga'] == 1:        #instruktor
-        pokreniMeni('meniInstruktor')
-    elif trenutniKorisnik['uloga'] == 2:        #admin
-        pokreniMeni('meniAdmin')
+    if trenutni_korisnik is None:                #nije prijavljen
+        pokreni_meni('meni_neregistrovan')
+    elif trenutni_korisnik['uloga'] == 0:        #registrovan
+        pokreni_meni('meni_registrovan')
+    elif trenutni_korisnik['uloga'] == 1:        #instruktor
+        pokreni_meni('meni_instruktor')
+    elif trenutni_korisnik['uloga'] == 2:        #admin
+        pokreni_meni('meni_admin')

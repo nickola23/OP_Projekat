@@ -1,19 +1,19 @@
-from funkcije.fajlovi import citajFajl, upisFajl
+from funkcije.fajlovi import citaj_fajl, upis_fajl
 
-def ucitajSale(putanja):
-    fajl = citajFajl(putanja)
+def ucitaj_sale(putanja):
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
     
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, naziv, brojRedova, oznakaMesta = red.split('|')
+            id, naziv, broj_redova, oznaka_mesta = red.split('|')
             podaci[id] = {
                 'id': eval(id),
                 'naziv': naziv,
-                'brojRedova': eval(brojRedova),
-                'oznakaMesta': oznakaMesta.strip()
+                'broj_redova': eval(broj_redova),
+                'oznaka_mesta': oznaka_mesta.strip()
             }
             
     return podaci

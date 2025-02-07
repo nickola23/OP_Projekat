@@ -1,64 +1,64 @@
 from datetime import datetime
-from funkcije.fajlovi import citajFajl, upisFajl
-from funkcije.tabela import ispisTabele
-from funkcije.kratakIspis import ispisSale, ispisProgrami, ispisTreninzi
+from funkcije.fajlovi import citaj_fajl, upis_fajl
+from funkcije.tabela import ispis_tabele
+from funkcije.kratakIspis import ispis_sale, ispis_programi, ispis_treninzi
 
-def ucitajTrening(putanja):
-    fajl = citajFajl(putanja)
+def ucitaj_trening(putanja):
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
     
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, idSale, vremePocetka, vremeKraja, daniNedelje, idPrograma= red.split('|')
-            podaci[id] = {
-                'id': id,
-                'idSale': idSale,
-                'vremePocetka': datetime.strptime(vremePocetka, '%H:%M').time(),
-                'vremeKraja': datetime.strptime(vremeKraja, '%H:%M').time(),
-                'daniNedelje': daniNedelje.split(','),
-                'idPrograma': idPrograma
+            id_treninga, id_sale, vreme_pocetka, vreme_kraja, dani_nedelje, id_programa= red.split('|')
+            podaci[id_treninga] = {
+                'id': id_treninga,
+                'id_sale': id_sale,
+                'vreme_pocetka': datetime.strptime(vreme_pocetka, '%H:%M').time(),
+                'vreme_kraja': datetime.strptime(vreme_kraja, '%H:%M').time(),
+                'dani_nedelje': dani_nedelje.split(','),
+                'id_programa': id_programa
             }
     
     return podaci
 
-def dodajTrening(treninzi, sale, programi):
+def dodaj_trening(treninzi, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
-    id = str(max([int(idTreninga) for idTreninga in treninzi.keys()], default=0) + 1)
+    id = str(max([int(id_treninga) for id_treninga in treninzi.keys()], default=0) + 1)
 
     while True:
         print('Opcije za sale:')
-        ispisSale(sale)
+        ispis_sale(sale)
         
-        idSale = input("Unesite ID sale (b. za Nazad): ")
-        if idSale == 'b':
+        id_sale = input("Unesite ID sale (b. za Nazad): ")
+        if id_sale == 'b':
             break
-        elif idSale not in sale:
+        elif id_sale not in sale:
             print(f'Sala sa ovim ID ne postoji. Pokusajte ponovo.')
             continue
 
         while True:
             try:
-                vremePocetka = datetime.strptime(input("Unesite vreme početka (HH:MM): "), '%H:%M').time()
+                vreme_pocetka = datetime.strptime(input("Unesite vreme početka (HH:MM): "), '%H:%M').time()
                 break
             except Exception:
                 print("Pogresan format vremena. Pokusajte ponovo.")
 
         while True:
             try:
-                vremeKraja = datetime.strptime(input("Unesite vreme kraja (HH:MM): "), '%H:%M').time()
+                vreme_kraja = datetime.strptime(input("Unesite vreme kraja (HH:MM): "), '%H:%M').time()
                 break
             except Exception:
                 print("Pogresan format vremena. Pokusajte ponovo.")
 
         while True:
-            daniNedelje = input("Unesite dane u nedelji (odvojeni zarezom, npr. ponedeljak,sreda): ").strip().split(',')
+            dani_nedelje = input("Unesite dane u nedelji (odvojeni zarezom, npr. ponedeljak,sreda): ").strip().split(',')
 
-            daniNedelje = [dan.strip().lower() for dan in daniNedelje]
-            nevalidniDani = [dan for dan in daniNedelje if dan not in dani]
+            dani_nedelje = [dan.strip().lower() for dan in dani_nedelje]
+            nevalidni_dani = [dan for dan in dani_nedelje if dan not in dani]
 
-            if nevalidniDani:
+            if nevalidni_dani:
                 print(f"Niste uneli validne dane u nedelji. Pokušajte ponovo.")
                 continue
             else:
@@ -67,33 +67,33 @@ def dodajTrening(treninzi, sale, programi):
 
         while True:
             print('Opcije za programe:')
-            ispisProgrami(programi)
+            ispis_programi(programi)
 
-            idPrograma = input("Unesite ID programa: ")
-            if idPrograma in programi:
+            id_programa = input("Unesite ID programa: ")
+            if id_programa in programi:
                 break
             else:
                 print(f'Program sa ovim ID ne postoji. Pokusajte ponovo.')
         
         treninzi[id] = {
             'id': id,
-            'idSale': idSale,
-            'vremePocetka': vremePocetka,
-            'vremeKraja': vremeKraja,
-            'daniNedelje': daniNedelje,
-            'idPrograma': idPrograma
+            'id_sale': id_sale,
+            'vreme_pocetka': vreme_pocetka,
+            'vreme_kraja': vreme_kraja,
+            'dani_nedelje': dani_nedelje,
+            'id_programa': id_programa
         }
         print("Uspesno ste dodali trening sa sledecim podacima:")
-        ispisTabele({id: treninzi[id]})
+        ispis_tabele({id: treninzi[id]})
         return True
     return False
 
-def izmeniTrening(treninzi, sale, programi):
+def izmeni_trening(treninzi, sale, programi):
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
     while True:
         print('Opcije za treninge:')
-        ispisTreninzi(treninzi)
+        ispis_treninzi(treninzi)
 
         id = input("Unesite ID treninga za izmenu (b. za Nazad): ")
         if id == 'b':
@@ -104,53 +104,53 @@ def izmeniTrening(treninzi, sale, programi):
 
         while True:
             print('Trenutni trening za izmenu:')
-            ispisTabele({id: treninzi[id]})
+            ispis_tabele({id: treninzi[id]})
 
             odgovor = input("Ponuđene opcije za izmenu:\n1. ID sale\n2. Vreme pocetka\n3. Vreme kraja\n4. Dani u nedelji\n5. ID programa\nb. Nazad\nUnesite zeljenu opciju: ")
             match odgovor:
                 case '1':
                     while True:
                         print('Opcije za sale:')
-                        ispisSale(sale)
+                        ispis_sale(sale)
 
-                        idSale = input("Unesite novi ID sale: ")
-                        if idSale in sale:
-                            treninzi[id]['idSale'] = idSale
+                        id_sale = input("Unesite novi ID sale: ")
+                        if id_sale in sale:
+                            treninzi[id]['id_sale'] = id_sale
                             break
                         else:
                             print(f'Sala sa ovim ID ne postoji. Pokusajte ponovo.')
                 case '2':
                     while True:
                         try:
-                            vremePocetka = datetime.strptime(input("Unesite novo vreme početka (HH:MM): "), '%H:%M').time()
-                            treninzi[id]['vremePocetka'] = vremePocetka
+                            vreme_pocetka = datetime.strptime(input("Unesite novo vreme početka (HH:MM): "), '%H:%M').time()
+                            treninzi[id]['vreme_pocetka'] = vreme_pocetka
                             break
                         except Exception:
                             print("Pogresan format vremena. Pokusajte ponovo.")
                 case '3':
                     while True:
                         try:
-                            vremeKraja = datetime.strptime(input("Unesite novo vreme kraja (HH:MM): "), '%H:%M').time()
-                            treninzi[id]['vremeKraja'] = vremeKraja
+                            vreme_kraja = datetime.strptime(input("Unesite novo vreme kraja (HH:MM): "), '%H:%M').time()
+                            treninzi[id]['vreme_kraja'] = vreme_kraja
                             break
                         except Exception:
                             print("Pogresan format vremena. Pokusajte ponovo.")
                 case '4':
                     while True:
-                        daniNedelje = input("Unesite nove dane u nedelji (ponedeljak,sreda) sa zarezom bez razmaka: ").split(',')
-                        if all(dan in dani for dan in daniNedelje):
-                            treninzi[id]['daniNedelje'] = daniNedelje
+                        dani_nedelje = input("Unesite nove dane u nedelji (ponedeljak,sreda) sa zarezom bez razmaka: ").split(',')
+                        if all(dan in dani for dan in dani_nedelje):
+                            treninzi[id]['dani_nedelje'] = dani_nedelje
                             break
                         else:
                             print("Niste uneli validne dane u nedelji. Pokušajte ponovo.")
                 case '5':
                     while True:
                         print('Opcije za programe:')
-                        ispisProgrami(programi)
+                        ispis_programi(programi)
 
-                        idPrograma = input("Unesite novi ID programa: ")
-                        if idPrograma in programi:
-                            treninzi[id]['idPrograma'] = idPrograma
+                        id_programa = input("Unesite novi ID programa: ")
+                        if id_programa in programi:
+                            treninzi[id]['id_programa'] = id_programa
                             break
                         else:
                             print(f'Program sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -159,10 +159,10 @@ def izmeniTrening(treninzi, sale, programi):
                     return True
     return False
 
-def brisiTrening(treninzi):
+def brisi_trening(treninzi):
     while True:
         print('Opcije postojecih treninga za brisanje:')
-        ispisTreninzi(treninzi)
+        ispis_treninzi(treninzi)
 
         id = input("Unesite ID treninga za brisanje (b. za Nazad): ")
         if id == 'b':

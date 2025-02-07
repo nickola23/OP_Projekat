@@ -1,7 +1,7 @@
 from datetime import datetime
 from funkcije.clanarina import dodaj_clanarinu
 
-def dodajInstruktora(korisnici):
+def dodaj_instruktora(korisnici):
     while True:
         korisnicko_ime = input("Unesite korisnicko ime: ")
         if korisnicko_ime not in korisnici.keys():
@@ -12,26 +12,26 @@ def dodajInstruktora(korisnici):
 
             korisnici[korisnicko_ime] = {
                 'korisnicko_ime': korisnicko_ime,
-                'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
+                'lozinka': lozinka,
                 'uloga': eval(uloga),
                 'status': 0,
-                'uplaceniPaket': 0,
-                'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
+                'uplaceni_paket': 0,
+                'datum_registracije': datetime.now().date().strftime('%d.%m.%Y'),
             }
 
             print("Uspesno ste dodali instruktora.")
             return True
         
-def promeniStatusClana(korisnici, clanarine, korisnicko_ime, noviStatus):
+def promeni_status_clana(korisnici, clanarine, korisnicko_ime, novi_status):
     if korisnicko_ime in korisnici:
         dodaj_clanarinu(korisnici, clanarine, korisnicko_ime)
-        korisnici[korisnicko_ime]['status'] = noviStatus
+        korisnici[korisnicko_ime]['status'] = novi_status
         print(f"Status korisnika {korisnicko_ime} je uspešno promenjen.")
     else:
         print(f"Korisnik sa korisničkim imenom {korisnicko_ime} ne postoji.")
 
-def aktivacijaClana(korisnici, clanarine):
+def aktivacija_clana(korisnici, clanarine):
     korisnicko_ime = input('Unesite korisnicko ime clana za aktivaciju: ')
-    promeniStatusClana(korisnici, clanarine, korisnicko_ime, 1)
+    promeni_status_clana(korisnici, clanarine, korisnicko_ime, 1)

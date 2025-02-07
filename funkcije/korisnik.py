@@ -1,16 +1,16 @@
 from datetime import datetime
 import re
-from funkcije.fajlovi import citajFajl, upisFajl
+from funkcije.fajlovi import citaj_fajl, upis_fajl
 
-def ucitajKorisnike(putanja):
-    fajl = citajFajl(putanja)
+def ucitaj_korisnike(putanja):
+    fajl = citaj_fajl(putanja)
     if fajl is None:
         return {}
     
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            korisnicko_ime, lozinka, ime, prezime, uloga, status, uplaceniPaket, datumRegistracije = red.split('|')
+            korisnicko_ime, lozinka, ime, prezime, uloga, status, uplaceni_paket, datum_registracije = red.split('|')
             podaci[korisnicko_ime] = {
                 'korisnicko_ime': korisnicko_ime,
                 'lozinka': lozinka,
@@ -18,13 +18,13 @@ def ucitajKorisnike(putanja):
                 'prezime': prezime,
                 'uloga': eval(uloga),
                 'status': eval(status),
-                'uplaceniPaket': eval(uplaceniPaket),
-                'datumRegistracije': datetime.strptime(datumRegistracije, "%d.%m.%Y").date().strftime('%d.%m.%Y'),
+                'uplaceni_paket': eval(uplaceni_paket),
+                'datum_registracije': datetime.strptime(datum_registracije, "%d.%m.%Y").date().strftime('%d.%m.%Y'),
             }
             
     return podaci
 
-def dodajKorisnika(korisnici):
+def dodaj_korisnika(korisnici):
     while True:
         korisnicko_ime = input('Unesite korisnicko ime: ')
         if korisnicko_ime not in korisnici.keys():
@@ -43,8 +43,8 @@ def dodajKorisnika(korisnici):
                 'prezime': prezime,
                 'uloga': 0,                 #registrovan, instruktor, admin - 0, 1, 2
                 'status': 0,                #neaktivan, aktivan - 0, 1
-                'uplaceniPaket': 0,         #standard, premium  - 0, 1
-                'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
+                'uplaceni_paket': 0,        #standard, premium  - 0, 1
+                'datum_registracije': datetime.now().date().strftime('%d.%m.%Y'),
             } 
 
             return True
@@ -52,7 +52,7 @@ def dodajKorisnika(korisnici):
             print('Korisnicko ime je vec zauzeto.')
             continue
 
-def registracijaInstruktora(korisnici):
+def registracija_instruktora(korisnici):
     while True:
         korisnicko_ime = input('Unesite korisnicko ime instruktora: ')
         if korisnicko_ime not in korisnici.keys():
@@ -83,8 +83,8 @@ def registracijaInstruktora(korisnici):
                 'prezime': prezime,
                 'uloga': uloga,
                 'status': 0,                
-                'uplaceniPaket': 0,         
-                'datumRegistracije': datetime.now().date().strftime('%d.%m.%Y'),
+                'uplaceni_paket': 0,         
+                'datum_registracije': datetime.now().date().strftime('%d.%m.%Y'),
             }
             print(f'Uspesno ste registrovali korisnika {korisnicko_ime}')
             return True
@@ -92,8 +92,8 @@ def registracijaInstruktora(korisnici):
             print('Korisnicko ime je vec zauzeto.')
             continue
 
-def prijava(korisnici, trenutniKorisnik):
-    if not trenutniKorisnik:
+def prijava(korisnici, trenutni_korisnik):
+    if not trenutni_korisnik:
         while True:
             korisnicko_ime = input('Unesite korisnicko ime: ')
             if korisnicko_ime in korisnici.keys():
@@ -109,11 +109,11 @@ def prijava(korisnici, trenutniKorisnik):
                 continue
     else:
         print("Već ste prijavljeni.")
-        return trenutniKorisnik
+        return trenutni_korisnik
 
 def registracija(korisnici):
     while True:
-        if dodajKorisnika(korisnici):
+        if dodaj_korisnika(korisnici):
             print('Uspesna registracija. Sada se mozete prijaviti.')
             return prijava(korisnici, None)
         else: 

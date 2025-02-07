@@ -13,5 +13,5 @@ petar65|abcd123|Petar|Ilić|2|0|0|07.12.2024
 jelena44|jelena44|Jelena|Popović|2|0|0|08.12.2024
 dusan33|pass123|Dušan|Stanković|1|0|0|09.12.2024
 sofia21|sofia21|Sofija|Lukić|2|0|0|10.12.2024
-tax|sifra123|Tamra|DaDaDa|0|1|1|17.12.2024
+tax|sifra123|Tamra|DaDaDa|0|0|0|17.12.2024
 marko21|sifra123|Marko|Milanovic|2|0|0|23.12.2024

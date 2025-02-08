@@ -1,20 +1,8 @@
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_vrste_paketa(putanja):
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
-
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            id_vrste_paketa, naziv = red.split('|')
-            podaci[id_vrste_paketa] = {
-                'id': id_vrste_paketa,
-                'naziv': naziv
-            }
-
-    return podaci
+    kljucevi = ['id', 'naziv']
+    return ucitaj_podatke(putanja, kljucevi)
 
 
 def promeni_paket(podaci, korisnicko_ime, novi_paket):

@@ -1,26 +1,17 @@
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
 from funkcije.kratak_ispis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi
 
 def ucitaj_programe(putanja):
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+    kljucevi = ['id', 'naziv', 'id_vrste_treninga', 'trajanje', 'id_instruktora', 'potreban_paket', 'opis']
+    podaci = ucitaj_podatke(putanja, kljucevi)
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            id, naziv, id_vrste_treninga, trajanje, id_instruktora, potreban_paket, opis = red.split('|')
-            podaci[id] = {
-                'id':id,
-                'naziv': naziv,
-                'id_vrste_treninga': eval(id_vrste_treninga),
-                'trajanje': eval(trajanje),
-                'id_instruktora': id_instruktora,
-                'potreban_paket': eval(potreban_paket),
-                'opis': opis
-            }
-            
+    # Dodatna obrada podataka
+    for program in podaci.values():
+        program['id_vrste_treninga'] = int(program['id_vrste_treninga'])
+        program['trajanje'] = int(program['trajanje'])
+        program['potreban_paket'] = int(program['potreban_paket'])
+
     return podaci
 
 

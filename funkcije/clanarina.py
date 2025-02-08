@@ -5,7 +5,7 @@ Sadrži funkcije za ucitavanje,
 dodavanje i validaciju clanarine.
 """
 from datetime import datetime, timedelta
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_clanarine(putanja):
     """
@@ -17,21 +17,13 @@ def ucitaj_clanarine(putanja):
     Returns:
         dict: recnik sa svim clanarinama
     """
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+    kljucevi = ['id_clanarine', 'id_korisnika', 'datum_uplate']
+    podaci = ucitaj_podatke(putanja, kljucevi)
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            id_clanarine, id_korisnika, datum_uplate = red.split('|')
-            podaci[id_clanarine] = {
-                'id': int(id_clanarine),
-                'id_korisnika': id_korisnika,
-                'datum_uplate': datetime.strptime(datum_uplate.strip(), '%d.%m.%Y')
-                                        .date()
-                                        .strftime('%d.%m.%Y'),
-            }
+    # Dodatna obrada podataka
+    for clanarina in podaci.values():
+        clanarina['datum_uplate'] = (datetime.strptime(clanarina['datum_uplate'].strip(), '%d.%m.%Y')
+                                             .date().strftime('%d.%m.%Y'))
 
     return podaci
 

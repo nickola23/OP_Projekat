@@ -3,7 +3,7 @@ Modul za upravljanje salama.
 
 Sadrži funkcije za ucitavanje sala.
 """
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_sale(putanja):
     """
@@ -15,19 +15,13 @@ def ucitaj_sale(putanja):
     Returns:
         dict: recnik sa svim salama
     """
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+    kljucevi = ['id', 'naziv', 'broj_redova', 'oznaka_mesta']
+    podaci = ucitaj_podatke(putanja, kljucevi)
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            id_sale, naziv, broj_redova, oznaka_mesta = red.split('|')
-            podaci[id_sale] = {
-                'id': int(id_sale),
-                'naziv': naziv,
-                'broj_redova': int(broj_redova),
-                'oznaka_mesta': oznaka_mesta.strip()
-            }
+    # Dodatna obrada podataka
+    for sala in podaci.values():
+        sala['id'] = int(sala['id'])
+        sala['broj_redova'] = int(sala['broj_redova'])
+        sala['oznaka_mesta'] = sala['oznaka_mesta'].strip()
 
     return podaci

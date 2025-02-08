@@ -1,21 +1,15 @@
 from datetime import datetime
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
 
 def ucitaj_termin(putanja):
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+    kljucevi = ['id', 'datum', 'id_treninga']
+    podaci = ucitaj_podatke(putanja, kljucevi)
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            id_termina, datum, id_treninga = red.split('|')
-            podaci[id_termina] = {
-                'id': id_termina,
-                'datum': datetime.strptime(datum, '%d.%m.%Y').date().strftime('%d.%m.%Y'),
-                'id_treninga': id_treninga
-            }
+    # Dodatna obrada podataka
+    for termin in podaci.values():
+        termin['datum'] = (datetime.strptime(termin['datum'], '%d.%m.%Y')
+                                   .date().strftime('%d.%m.%Y'))
 
     return podaci
 

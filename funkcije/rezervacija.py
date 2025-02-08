@@ -1,26 +1,18 @@
 from datetime import datetime, timedelta
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
 from funkcije.termin import spoji_termine
 from funkcije.kratak_ispis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi, ispis_treninzi, ispis_sale, ispis_mesta
 
 def ucitaj_rezervacije(putanja):
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+    kljucevi = ['id', 'id_korisnika', 'id_termina', 'oznaka_reda_kolone', 'datum']
+    podaci = ucitaj_podatke(putanja, kljucevi)
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            id, id_korisnika, id_termina, oznaka_reda_kolone, datum = red.split('|')
-            podaci[id] = {
-                'id': id,
-                'id_korisnika': id_korisnika,
-                'id_termina': id_termina,
-                'oznaka_reda_kolone': oznaka_reda_kolone,
-                'datum': datetime.strptime(datum.strip(), '%d.%m.%Y').date().strftime('%d.%m.%Y')
-            }
-    
+    # Dodatna obrada za datum
+    for rezervacija in podaci.values():
+        rezervacija['datum'] = (datetime.strptime(rezervacija['datum'].strip(), '%d.%m.%Y')
+                                        .date().strftime('%d.%m.%Y'))
+
     return podaci
 
 

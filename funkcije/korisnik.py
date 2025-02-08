@@ -2,25 +2,18 @@ from datetime import datetime
 import re
 from funkcije.fajlovi import citaj_fajl
 
-def ucitaj_korisnike(putanja):
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+from funkcije.fajlovi import ucitaj_podatke
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            korisnicko_ime, lozinka, ime, prezime, uloga, status, uplaceni_paket, datum_registracije = red.split('|')
-            podaci[korisnicko_ime] = {
-                'korisnicko_ime': korisnicko_ime,
-                'lozinka': lozinka,
-                'ime': ime,
-                'prezime': prezime,
-                'uloga': int(uloga),
-                'status': int(status),
-                'uplaceni_paket': int(uplaceni_paket),
-                'datum_registracije': datetime.strptime(datum_registracije, "%d.%m.%Y").date().strftime('%d.%m.%Y'),
-            }
+def ucitaj_korisnike(putanja):
+    kljucevi = ['korisnicko_ime', 'lozinka', 'ime', 'prezime', 'uloga', 'status', 'uplaceni_paket', 'datum_registracije']
+    podaci = ucitaj_podatke(putanja, kljucevi)
+
+    # Dodatna obrada podataka
+    for korisnik in podaci.values():
+        korisnik['uloga'] = int(korisnik['uloga'])
+        korisnik['status'] = int(korisnik['status'])
+        korisnik['uplaceni_paket'] = int(korisnik['uplaceni_paket'])
+        korisnik['datum_registracije'] = datetime.strptime(korisnik['datum_registracije'], "%d.%m.%Y").date().strftime('%d.%m.%Y')
 
     return podaci
 

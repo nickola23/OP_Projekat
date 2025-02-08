@@ -1,33 +1,17 @@
 from datetime import datetime
-from funkcije.fajlovi import citaj_fajl
+from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
 from funkcije.kratak_ispis import ispis_sale, ispis_programi, ispis_treninzi
 
 def ucitaj_trening(putanja):
-    fajl = citaj_fajl(putanja)
-    if fajl is None:
-        return {}
+    kljucevi = ['id', 'id_sale', 'vreme_pocetka', 'vreme_kraja', 'dani_nedelje', 'id_programa']
+    podaci = ucitaj_podatke(putanja, kljucevi)
 
-    podaci = {}
-    for red in fajl.split('\n'):
-        if red:
-            (
-                id_treninga,
-                id_sale,
-                vreme_pocetka,
-                vreme_kraja,
-                dani_nedelje,
-                id_programa
-            ) = red.split('|')
-
-            podaci[id_treninga] = {
-                'id': id_treninga,
-                'id_sale': id_sale,
-                'vreme_pocetka': datetime.strptime(vreme_pocetka, '%H:%M').time(),
-                'vreme_kraja': datetime.strptime(vreme_kraja, '%H:%M').time(),
-                'dani_nedelje': dani_nedelje.split(','),
-                'id_programa': id_programa
-            }
+    # Dodatna obrada podataka
+    for trening in podaci.values():
+        trening['vreme_pocetka'] = datetime.strptime(trening['vreme_pocetka'], '%H:%M').time()
+        trening['vreme_kraja'] = datetime.strptime(trening['vreme_kraja'], '%H:%M').time()
+        trening['dani_nedelje'] = trening['dani_nedelje'].split(',')
 
     return podaci
 

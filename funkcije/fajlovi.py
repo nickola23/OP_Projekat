@@ -76,3 +76,30 @@ def upis_fajl(putanja, podaci):
         print(f"Greska pri upisu u fajl '{putanja}': {e}")
     except Exception as e:
         print(f"Greska: {e}")
+
+
+def ucitaj_podatke(putanja, kljucevi, separator='|'):
+    """
+    Ucitava podatke iz fajla i pretvara ih u recnik.
+
+    Args:
+        putanja (str): Putanja do fajla.
+        kljucevi (list): Lista kljuceva koji ce biti korisceni za recnik.
+        separator (str): Separator koji razdvaja podatke u fajlu (podrazumevano '|').
+
+    Returns:
+        dict: Recnik sa ucitanim podacima.
+    """
+    fajl = citaj_fajl(putanja)
+    if fajl is None:
+        return {}
+
+    podaci = {}
+    for red in fajl.strip().split('\n'):
+        vrednosti = red.split(separator)
+        if len(vrednosti) == len(kljucevi):  
+            podaci[vrednosti[0]] = {}
+            for i in range(len(kljucevi)):
+                podaci[vrednosti[0]][kljucevi[i]] = vrednosti[i]
+
+    return podaci

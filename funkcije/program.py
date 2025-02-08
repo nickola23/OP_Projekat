@@ -10,11 +10,11 @@ def ucitaj_programe(putanja):
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, naziv, idvrste_treninga, trajanje, id_instruktora, potreban_paket, opis = red.split('|')
+            id, naziv, id_vrste_treninga, trajanje, id_instruktora, potreban_paket, opis = red.split('|')
             podaci[id] = {
                 'id':id,
                 'naziv': naziv,
-                'idvrste_treninga': eval(idvrste_treninga),
+                'id_vrste_treninga': eval(id_vrste_treninga),
                 'trajanje': eval(trajanje),
                 'id_instruktora': id_instruktora,
                 'potreban_paket': eval(potreban_paket),
@@ -36,8 +36,8 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
             print('Opcije za vrste treninga:')
             ispis_vrste_treninga(vrste_treninga)
 
-            idvrste_treninga = input("Unesite ID vrste treninga: ")
-            if idvrste_treninga in vrste_treninga:
+            id_vrste_treninga = input("Unesite ID vrste treninga: ")
+            if id_vrste_treninga in vrste_treninga:
                 break
             else:
                 print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -78,7 +78,7 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
         programi[id] = {
             'id': id,
             'naziv': naziv,
-            'idvrste_treninga': idvrste_treninga,
+            'id_vrste_treninga': id_vrste_treninga,
             'trajanje': trajanje,
             'id_instruktora': id_instruktora,
             'potreban_paket': potreban_paket,
@@ -115,9 +115,9 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                         print('Opcije za vrste treninga:')
                         ispis_vrste_treninga(vrste_treninga)
 
-                        idvrste_treninga = input("Unesite novi ID vrste treninga: ")
-                        if idvrste_treninga in vrste_treninga:
-                            programi[id]['idvrste_treninga'] = idvrste_treninga
+                        id_vrste_treninga = input("Unesite novi ID vrste treninga: ")
+                        if id_vrste_treninga in vrste_treninga:
+                            programi[id]['id_vrste_treninga'] = id_vrste_treninga
                             break
                         else:
                             print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
@@ -191,14 +191,14 @@ def pretrazi_program(programi, vrste_treninga, vrste_paketa):
             print("Dostupne vrste treninga:")
             ispis_vrste_treninga(vrste_treninga)
             while True:
-                idvrste_treninga = input("Unesite ID vrste treninga: ").strip()
-                if idvrste_treninga not in vrste_treninga:
-                    print(f"Vrsta treninga sa ID {idvrste_treninga} ne postoji. Pokušajte ponovo.")
+                id_vrste_treninga = input("Unesite ID vrste treninga: ").strip()
+                if id_vrste_treninga not in vrste_treninga:
+                    print(f"Vrsta treninga sa ID {id_vrste_treninga} ne postoji. Pokušajte ponovo.")
                     continue
                 pretraga = {
                     id: podaci
                     for id, podaci in pretraga.items()
-                    if str(podaci['idvrste_treninga']) == idvrste_treninga
+                    if str(podaci['id_vrste_treninga']) == id_vrste_treninga
                 }
                 break
 

@@ -10,9 +10,9 @@ def ucitaj_termin(putanja):
     podaci = {}
     for red in fajl.split('\n'):
         if red:
-            id, datum, id_treninga = red.split('|')
-            podaci[id] = {
-                'id': id,
+            id_termina, datum, id_treninga = red.split('|')
+            podaci[id_termina] = {
+                'id': id_termina,
                 'datum': datetime.strptime(datum, '%d.%m.%Y').date().strftime('%d.%m.%Y'),
                 'id_treninga': id_treninga
             }
@@ -32,9 +32,8 @@ def dodaj_termin(termini):
                 'id_treninga': id_treninga
             }
             return True
-        else:
-            print("Termin sa unesenim ID-em već postoji.")
-            continue
+        print("Termin sa unesenim ID-em već postoji.")
+        continue
 
 
 def brisi_termin(termini):
@@ -43,9 +42,8 @@ def brisi_termin(termini):
         if id_termina in termini.keys():
             del termini[id_termina]
             return True
-        else:
-            print("Termin sa unesenim ID-em ne postoji.")
-            continue
+        print("Termin sa unesenim ID-em ne postoji.")
+        continue
 
 
 def izmeni_termin(termini):
@@ -57,12 +55,11 @@ def izmeni_termin(termini):
             while True:
                 odgovor = input("1. Datum\n2. ID treninga\nb. Nazad\n"
                                 "Izaberite podatak koji zelite da izmenite: ")
-
                 match odgovor:
                     case '1':
                         datum_input = input("Unesite novi datum (dd.mm.yyyy): ")
-                        termini[id_termina]['datum'] = datetime.strptime(datum_input, '%d.%m.%Y').date().strftime('%d.%m.%Y')
-
+                        datum_obj = datetime.strptime(datum_input, '%d.%m.%Y').date()
+                        termini[id_termina]['datum'] = datum_obj.strftime('%d.%m.%Y')
                     case '2':
                         termini[id_termina]['id_treninga'] = input("Unesite novi ID treninga: ")
                     case 'b':
@@ -95,7 +92,7 @@ def pretrazi_termine(termini, sale, programi, kriterijum=''):
     pretraga = {}
     if kriterijum == 'id_sale':
         print("Dostupni ID sale:")
-        for id, podaci in sale.items():
+        for id_sale, podaci in sale.items():
             print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
 
     elif kriterijum == 'id_programa':
@@ -113,7 +110,7 @@ def pretrazi_termine(termini, sale, programi, kriterijum=''):
                 pretraga[id_termina] = podaci
             elif kriterijum == 'datum' and podaci['datum'] == kljuc:
                 pretraga[id_termina] = podaci
-            elif kriterijum == 'vreme_pocetka' and podaci['vreme_pocetka'].strftime('%H:%M') == kljuc:
+            elif kriterijum == 'vreme_pocetka' and podaci['vreme_pocetka'].strftime('%H:%M')==kljuc:
                 pretraga[id_termina] = podaci
             elif kriterijum == 'vreme_kraja' and podaci['vreme_kraja'].strftime('%H:%M') == kljuc:
                 pretraga[id_termina] = podaci

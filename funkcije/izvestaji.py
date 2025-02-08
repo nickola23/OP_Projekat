@@ -17,9 +17,9 @@ def sacuvaj_izvestaj(podaci, naziv_fajla):
                     zaglavlje = linija = vrednosti = ''
                     duzine = max_duzina(podaci)
 
-                    for kljuc in duzine.keys():
-                        zaglavlje += " | " + f"{kljuc:<{duzine[kljuc]}}"
-                        linija += "-+-" + "-" * duzine[kljuc]
+                    for kljuc, duzina in duzine.items():
+                        zaglavlje += " | " + f"{kljuc:<{duzina}}"
+                        linija += "-+-" + "-" * duzina
 
                     fajl.write(zaglavlje + "\n")
                     fajl.write(linija + "\n")
@@ -45,7 +45,7 @@ def izvestaj_a(rezervacije):
         odabrani_datum = input("Unesite datum rezervacije: ").strip()
         pretraga = {}
         try:
-            datum = datetime.strptime(odabrani_datum, '%d.%m.%Y').date()
+            datetime.strptime(odabrani_datum, '%d.%m.%Y').date()
         except ValueError:
             print("Neispravan format datuma. Pokušajte ponovo.")
             continue
@@ -73,7 +73,7 @@ def izvestaj_b(rezervacije, termini):
             continue
 
         termini_za_datum = {
-                            id: termin for id, termin in termini.items() 
+                            id: termin for id, termin in termini.items()
                             if datetime.strptime(termin['datum'], '%d.%m.%Y').date() == datum
                         }
 
@@ -100,7 +100,7 @@ def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
     while True:
         odabrani_datum = input("Unesite datum rezervacije: ").strip()
         try:
-            datum = datetime.strptime(odabrani_datum, '%d.%m.%Y').date()
+            datetime.strptime(odabrani_datum, '%d.%m.%Y').date()
         except ValueError:
             print("Neispravan format datuma. Pokušajte ponovo.")
             continue
@@ -113,7 +113,7 @@ def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
             if odabrani_instruktor not in korisnici:
                 print("Ne postoji instruktor sa datim korisnickim imenom. Pokušajte ponovo.")
                 continue
-            else: break
+            break
 
         pretraga = {}
         for idx, rezervacija in enumerate(rezervacije.values(), start=1):
@@ -121,7 +121,9 @@ def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
             id_treninga = termini[id_termina]['id_treninga']
             id_instruktora = programi[treninzi[id_treninga]['id_programa']]['id_instruktora']
 
-            if rezervacija['datum'] == odabrani_datum and id_instruktora.lower() == odabrani_instruktor.lower():
+            if (rezervacija['datum'] == odabrani_datum and 
+                                        id_instruktora.lower() == odabrani_instruktor.lower()):
+
                 pretraga[idx] = {
                     'ID Rezervacije': rezervacija['id'],
                     'Korisnicko ime': rezervacija['id_korisnika'],
@@ -201,14 +203,14 @@ def izvestaj_e(rezervacije, termini, treninzi, programi):
                         broj_rezervacija_po_instruktoru[id_instruktora] += 1
 
     sortirani_instruktori = sorted(
-        broj_rezervacija_po_instruktoru.items(), 
-        key=lambda x: x[1], 
+        broj_rezervacija_po_instruktoru.items(),
+        key=lambda x: x[1],
         reverse=True
     )
 
     pretraga = {}
-    for id, (instruktor, broj_rezervacija) in enumerate(sortirani_instruktori, start=1):
-        pretraga[id] = {
+    for id_instruktora, (instruktor, broj_rezervacija) in enumerate(sortirani_instruktori, start=1):
+        pretraga[id_instruktora] = {
             'Instruktor': instruktor,
             'Broj rezervacija': broj_rezervacija
         }
@@ -270,7 +272,7 @@ def izvestaj_g(rezervacije, termini, treninzi, programi):
 
     najpopularniji_programi = sorted(
         popularnost_programa.items(),
-        key=lambda x: x[1], 
+        key=lambda x: x[1],
         reverse=True
     )[:3]
 

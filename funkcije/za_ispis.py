@@ -21,8 +21,9 @@ def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
     """
     podaci = {}
     for id_programa, program in programi.items():
-        vrsta_treninga = vrste_treninga.get(str(program['idvrste_treninga']), {}).get('naziv', 'Nepoznato')
-        vrsta_paketa = vrste_paketa.get(str(program['potreban_paket']), {}).get('naziv', 'Nepoznato')
+        id_vrste = str(program['id_vrste_treninga'])
+        vrsta_treninga = vrste_treninga.get(id_vrste, {}).get('naziv', 'Nepoznato')
+        vrsta_paketa = vrste_paketa.get(str(program['potreban_paket']), {}).get('naziv','Nepoznato')
         instruktor = instruktori.get(str(program['id_instruktora']), {})
         ime_instruktora = f"{instruktor.get('ime', 'Nepoznato')} {instruktor.get('prezime', '')}"
 
@@ -84,7 +85,7 @@ def spojeni_termini_za_ispis(termini, sale, programi):
         return {}
 
     podaci = {}
-    for id, trening in termini.items():
+    for id_termina, trening in termini.items():
         sala = sale.get(str(trening['id_sale']), {}).get('naziv', 'Nepoznato')
         program = programi.get(str(trening['id_programa']), {}).get('naziv', 'Nepoznato')
         dan_u_nedelji = dani[datetime.strptime(trening['datum'], '%d.%m.%Y').date().weekday()]
@@ -94,7 +95,7 @@ def spojeni_termini_za_ispis(termini, sale, programi):
         else:
             trening_dan = 'Neodgovarajuci dan'
 
-        podaci[id] = {
+        podaci[id_termina] = {
             'id': trening['id_termina'],
             'datum': trening['datum'],
             'id_treninga': trening['id_treninga'],

@@ -16,9 +16,9 @@ def ucitaj_korisnike(putanja):
                 'lozinka': lozinka,
                 'ime': ime,
                 'prezime': prezime,
-                'uloga': eval(uloga),
-                'status': eval(status),
-                'uplaceni_paket': eval(uplaceni_paket),
+                'uloga': int(uloga),
+                'status': int(status),
+                'uplaceni_paket': int(uplaceni_paket),
                 'datum_registracije': datetime.strptime(datum_registracije, "%d.%m.%Y").date().strftime('%d.%m.%Y'),
             }
 
@@ -46,12 +46,11 @@ def dodaj_korisnika(korisnici):
                 'status': 0,                #neaktivan, aktivan - 0, 1
                 'uplaceni_paket': 0,        #standard, premium  - 0, 1
                 'datum_registracije': datetime.now().date().strftime('%d.%m.%Y'),
-            } 
+            }
 
             return True
-        else:
-            print('Korisnicko ime je vec zauzeto.')
-            continue
+        print('Korisnicko ime je vec zauzeto.')
+        continue
 
 
 def registracija_instruktora(korisnici):
@@ -72,7 +71,7 @@ def registracija_instruktora(korisnici):
                     match uloga:
                         case '1' | '2':
                             break
-                        case _: 
+                        case _:
                             print('Pogrešan unos. Unesite broj 1 ili 2.')
                             continue
                 except Exception as e:
@@ -90,9 +89,8 @@ def registracija_instruktora(korisnici):
             }
             print(f'Uspesno ste registrovali korisnika {korisnicko_ime}')
             return True
-        else:
-            print('Korisnicko ime je vec zauzeto.')
-            continue
+        print('Korisnicko ime je vec zauzeto.')
+        continue
 
 
 def prijava(korisnici, trenutni_korisnik):
@@ -104,10 +102,9 @@ def prijava(korisnici, trenutni_korisnik):
                 if lozinka == korisnici[korisnicko_ime]['lozinka']:
                     print('Uspesna prijava.')
                     return korisnici[korisnicko_ime]
-                else:
-                    print('Pogresna lozinka.')
-                    continue
-            else:   
+                print('Pogresna lozinka.')
+                continue
+            else:
                 print('Korisnicko ime ne postoji.')
                 continue
     else:
@@ -120,11 +117,9 @@ def registracija(korisnici):
         if dodaj_korisnika(korisnici):
             print('Uspesna registracija. Sada se mozete prijaviti.')
             return prijava(korisnici, None)
-        else: 
-            print('Neuspesna registracija.')
-            continue
+        print('Neuspesna registracija.')
+        continue
 
 
 def odjava():
     print('Odjava uspesna.')
-    return None

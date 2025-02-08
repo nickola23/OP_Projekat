@@ -4,19 +4,19 @@ def max_duzina(podaci):
     if not podaci or not isinstance(podaci, dict):
         return {}
 
-    max_duzina = {}
+    max_duzine = {}
 
     prvi_unos = next(iter(podaci))
     for kljuc in podaci[prvi_unos].keys():
-        max_duzina[kljuc] = len(kljuc)
+        max_duzine[kljuc] = len(kljuc)
 
     for red in podaci.values():
         for kljuc, vrednost in red.items():
             trenutna_duzina = len(str(vrednost))
-            if trenutna_duzina > max_duzina[kljuc]:
-                max_duzina[kljuc] = trenutna_duzina
+            if trenutna_duzina > max_duzine[kljuc]:
+                max_duzine[kljuc] = trenutna_duzina
 
-    return max_duzina
+    return max_duzine
 
 
 def kreiraj_tabelu(podaci, duzine):

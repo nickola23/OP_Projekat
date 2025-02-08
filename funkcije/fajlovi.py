@@ -52,8 +52,6 @@ def citaj_fajl(putanja):
         print(f"Greska: Nemate dozvolu za pristup fajlu '{putanja}'.")
     except UnicodeDecodeError:
         print(f"Greska: Problem sa enkodiranjem pri čitanju fajla '{putanja}'.")
-    except Exception as e:
-        print(f"Greska: {e}")
     return None
 
 
@@ -74,8 +72,6 @@ def upis_fajl(putanja, podaci):
         print(f"Greska: Nemate dozvolu za pisanje u fajl '{putanja}'.")
     except OSError as e:
         print(f"Greska pri upisu u fajl '{putanja}': {e}")
-    except Exception as e:
-        print(f"Greska: {e}")
 
 
 def ucitaj_podatke(putanja, kljucevi, separator='|'):
@@ -97,9 +93,10 @@ def ucitaj_podatke(putanja, kljucevi, separator='|'):
     podaci = {}
     for red in fajl.strip().split('\n'):
         vrednosti = red.split(separator)
-        if len(vrednosti) == len(kljucevi):  
+        if len(vrednosti) == len(kljucevi):
             podaci[vrednosti[0]] = {}
-            for i in range(len(kljucevi)):
-                podaci[vrednosti[0]][kljucevi[i]] = vrednosti[i]
+            for i, kljuc in enumerate(kljucevi):
+                podaci[vrednosti[0]][kljuc] = vrednosti[i]
+
 
     return podaci

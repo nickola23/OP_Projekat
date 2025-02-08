@@ -37,16 +37,16 @@ def dodaj_trening(treninzi, sale, programi):
                 vreme_unos = input("Unesite vreme početka (HH:MM): ")
                 vreme_pocetka = datetime.strptime(vreme_unos, '%H:%M').time()
                 break
-            except Exception:
-                print("Pogresan format vremena. Pokusajte ponovo.")
+            except ValueError:
+                print("Pogrešan format vremena. Pokušajte ponovo.")
 
         while True:
             try:
                 vreme_unos = input("Unesite vreme kraja (HH:MM): ")
                 vreme_kraja = datetime.strptime(vreme_unos, '%H:%M').time()
                 break
-            except Exception:
-                print("Pogresan format vremena. Pokusajte ponovo.")
+            except ValueError:
+                print("Pogrešan format vremena. Pokušajte ponovo.")
 
         while True:
             dani_unos = input("Unesite dane u nedelji (odvojeni zarezom, npr. ponedeljak,sreda): ")
@@ -122,8 +122,8 @@ def izmeni_trening(treninzi, sale, programi):
                             vreme_pocetka = datetime.strptime(vreme_unos, '%H:%M').time()
                             treninzi[id_treninga]['vreme_pocetka'] = vreme_pocetka
                             break
-                        except Exception:
-                            print("Pogresan format vremena. Pokusajte ponovo.")
+                        except ValueError:
+                            print("Pogrešan format vremena. Pokušajte ponovo.")
                 case '3':
                     while True:
                         try:
@@ -131,8 +131,8 @@ def izmeni_trening(treninzi, sale, programi):
                             vreme_kraja = datetime.strptime(vreme_unos, '%H:%M').time()
                             treninzi[id_treninga]['vreme_kraja'] = vreme_kraja
                             break
-                        except Exception:
-                            print("Pogresan format vremena. Pokusajte ponovo.")
+                        except ValueError:
+                            print("Pogrešan format vremena. Pokušajte ponovo.")
                 case '4':
                     while True:
                         dani_nedelje = input("Unesite nove dane u nedelji (ponedeljak,sreda)"

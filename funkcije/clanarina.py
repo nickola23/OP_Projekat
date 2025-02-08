@@ -22,7 +22,7 @@ def ucitaj_clanarine(putanja):
 
     # Dodatna obrada podataka
     for clanarina in podaci.values():
-        clanarina['datum_uplate'] = (datetime.strptime(clanarina['datum_uplate'].strip(), '%d.%m.%Y')
+        clanarina['datum_uplate'] = (datetime.strptime(clanarina['datum_uplate'].strip(),'%d.%m.%Y')
                                              .date().strftime('%d.%m.%Y'))
 
     return podaci

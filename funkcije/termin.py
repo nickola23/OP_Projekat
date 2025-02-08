@@ -86,12 +86,12 @@ def pretrazi_termine(termini, sale, programi, kriterijum=''):
     pretraga = {}
     if kriterijum == 'id_sale':
         print("Dostupni ID sale:")
-        for id_sale, podaci in sale.items():
+        for _, podaci in sale.items():
             print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
 
     elif kriterijum == 'id_programa':
         print("Dostupni ID programa:")
-        for id, podaci in programi.items():
+        for _, podaci in programi.items():
             print(f"ID: {podaci.get('id', 'Nepoznato')} - {podaci.get('naziv', 'Nepoznato')}")
 
     kljuc = input('Unesite ključnu reč za pretragu: ').strip().lower()

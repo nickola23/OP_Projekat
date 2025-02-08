@@ -29,10 +29,16 @@ def sacuvaj_izvestaj(podaci, naziv_fajla):
 
                 print(f"Podaci su uspešno sačuvani u fajl: {naziv_fajla}")
                 break
-            except Exception as e:
-                print(f"Došlo je do greške prilikom čuvanja podataka: {e}")
+            except FileNotFoundError:
+                print(f"Greska: Fajl '{naziv_fajla}' nije pronadjen.")
                 break
-        elif opcija == "ne":
+            except PermissionError:
+                print(f"Greska: Nemate dozvolu za pisanje u fajl '{naziv_fajla}'.")
+                break
+            except OSError as e:
+                print(f"Greska pri upisu u fajl '{naziv_fajla}': {e}")
+                break
+        if opcija == "ne":
             print("Podaci nisu sačuvani u fajl.")
             break
         else:
@@ -121,7 +127,7 @@ def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
             id_treninga = termini[id_termina]['id_treninga']
             id_instruktora = programi[treninzi[id_treninga]['id_programa']]['id_instruktora']
 
-            if (rezervacija['datum'] == odabrani_datum and 
+            if (rezervacija['datum'] == odabrani_datum and
                                         id_instruktora.lower() == odabrani_instruktor.lower()):
 
                 pretraga[idx] = {

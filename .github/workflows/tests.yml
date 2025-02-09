@@ -1,0 +1,23 @@
+name: Testiranje aplikacije
+
+on: [push, pull_request]
+
+jobs:
+  testiranje:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kloniranje repozitorijuma
+        uses: actions/checkout@v3
+
+      - name: Postavljanje Python okruženja
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instaliranje paketa
+        run: |
+          pip install pytest
+
+      - name: Pokretanje testova
+        run: pytest tests/

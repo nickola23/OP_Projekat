@@ -1,4 +1,4 @@
-name: Testiranje aplikacije
+name: Testiranje_aplikacije
 
 on: [push, pull_request]
 

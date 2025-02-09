@@ -1,9 +1,11 @@
 from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
-from funkcije.kratak_ispis import ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi
+from funkcije.kratak_ispis import (
+    ispis_korisnika, ispis_vrste_paketa, ispis_vrste_treninga, ispis_programi
+)
 
 def ucitaj_programe(putanja):
-    kljucevi = ['id', 'naziv', 'id_vrste_treninga', 'trajanje', 'id_instruktora', 'potreban_paket', 'opis']
+    kljucevi=['id','naziv','id_vrste_treninga','trajanje','id_instruktora','potreban_paket','opis']
     podaci = ucitaj_podatke(putanja, kljucevi)
 
     # Dodatna obrada podataka
@@ -71,7 +73,7 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
             'opis': opis
         }
         print("Uspesno ste dodali program sa sledecim podacima:")
-        ispis_tabele({id: programi[id]})
+        ispis_tabele({novi_id: programi[novi_id]})
         return True
     return False
 
@@ -84,14 +86,15 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
         id_programa = input("Unesite ID programa za izmenu (b. za Nazad): ")
         if id_programa == 'b':
             break
-        elif id_programa not in programi.keys():
+        if id_programa not in programi.keys():
             print("Program sa ovim ID ne postoji.")
             continue
 
         ispis_tabele({id_programa: programi[id_programa]})
    
         while True:
-            odgovor = input("Ponuđene opcije:\n1. Naziv\n2. ID vrste treninga\n3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nUnesite zeljenu opciju: ")
+            odgovor = input("Ponuđene opcije:\n1. Naziv\n2. ID vrste treninga\n"
+                            "3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nUnesite zeljenu opciju: ")
             
             match odgovor:
                 case '1':
@@ -105,8 +108,7 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                         if id_vrste_treninga in vrste_treninga:
                             programi[id_programa]['id_vrste_treninga'] = id_vrste_treninga
                             break
-                        else:
-                            print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
+                        print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
                 case '3':
                     while True:
                         try:
@@ -114,8 +116,7 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                             if trajanje > 0:
                                 programi[id_programa]['trajanje'] = trajanje
                                 break
-                            else:
-                                print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
+                            print("Trajanje mora biti vece od 0. Pokusajte ponovo.")
                         except ValueError:
                             print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
                 case '4':
@@ -127,8 +128,8 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                         if id_instruktora in korisnici:
                             programi[id_programa]['id_instruktora'] = id_instruktora
                             break
-                        else:
-                            print('Instruktor sa ovim korisnickim imenom ne postoji. Pokusajte ponovo.')
+                        print('Instruktor sa ovim korisnickim '
+                              'imenom ne postoji. Pokusajte ponovo.')
                 case '5':
                     while True:
                         print('Opcije za vrste paketa:')
@@ -138,8 +139,7 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                         if potreban_paket in vrste_paketa:
                             programi[id_programa]['potreban_paket'] = potreban_paket
                             break
-                        else:
-                            print('Paket sa ovim ID ne postoji. Pokusajte ponovo.')
+                        print('Paket sa ovim ID ne postoji. Pokusajte ponovo.')
                 case '6':
                     programi[id_programa]['opis'] = input("Unesite novi opis: ")
                 case 'b':
@@ -167,7 +167,10 @@ def brisi_program(programi):
 def pretrazi_program(programi, vrste_treninga, vrste_paketa):
     pretraga = programi
 
-    kriterijumi = input("Ponuđene opcije:\n1. Vrsta treninga\n2. Trajanje treninga (u minutama)\n3. Potreban paket\n4. Naziv programa\nUnesite jedan ili više kriterijuma za pretragu (odvojeni zarezom, npr. 1,3):").strip().split(',')
+    kriterijumi = (input("Ponuđene opcije:\n1. Vrsta treninga\n2. Trajanje treninga (u minutama)\n"
+                        "3. Potreban paket\n4. Naziv programa\nUnesite "
+                        "jedan ili više kriterijuma za pretragu (odvojeni zarezom, npr. 1,3):")
+                        .strip().split(','))
 
     for kriterijum in kriterijumi:
         kriterijum = kriterijum.strip()
@@ -181,8 +184,8 @@ def pretrazi_program(programi, vrste_treninga, vrste_paketa):
                     print(f"Vrsta treninga sa ID {id_vrste_treninga} ne postoji. Pokušajte ponovo.")
                     continue
                 pretraga = {
-                    id: podaci
-                    for id, podaci in pretraga.items()
+                    novi_id: podaci
+                    for novi_id, podaci in pretraga.items()
                     if str(podaci['id_vrste_treninga']) == id_vrste_treninga
                 }
                 break
@@ -213,8 +216,8 @@ def pretrazi_program(programi, vrste_treninga, vrste_paketa):
                     print(f"Paket sa ID {id_paketa} ne postoji. Pokušajte ponovo.")
                     continue
                 pretraga = {
-                    id: podaci
-                    for id, podaci in pretraga.items()
+                    novi_id: podaci
+                    for novi_id, podaci in pretraga.items()
                     if str(podaci['potreban_paket']) == id_paketa
                 }
                 break

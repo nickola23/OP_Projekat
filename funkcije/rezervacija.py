@@ -381,7 +381,8 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
         izabrane_rezervacije = {
             id_rezervacije: rezervacija
             for id_rezervacije, rezervacija in rezervacije.items()
-            if rezervacija['id_termina'] == id_termina and rezervacija['id_korisnika'] == korisnicko_ime_clana
+            if (rezervacija['id_termina'] == id_termina
+                and rezervacija['id_korisnika'] == korisnicko_ime_clana)
         }
 
         if izabrane_rezervacije:
@@ -408,7 +409,8 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
 
         print("Pronađena rezervacija: ")
         ispis_tabele({rezervacija_za_izmenu['id']: rezervacija_za_izmenu})
-        print("Opcije izmene:\n1. Promena termina\n2. Promena korisnika\n3. Promena mesta\nb. Nazad")
+        print("Opcije izmene:\n1. Promena termina\n"
+              "2. Promena korisnika\n3. Promena mesta\nb. Nazad")
 
         izbor = input("Unesite opciju za izmenu: ").strip()
         if izbor == "1":

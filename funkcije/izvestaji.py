@@ -41,9 +41,8 @@ def sacuvaj_izvestaj(podaci, naziv_fajla):
         if opcija == "ne":
             print("Podaci nisu sačuvani u fajl.")
             break
-        else:
-            print("Neispravan unos. Pokusajte ponovo.")
-            continue
+        print("Neispravan unos. Pokusajte ponovo.")
+        continue
 
 
 def izvestaj_a(rezervacije):

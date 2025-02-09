@@ -3,7 +3,7 @@ import re
 from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_korisnike(putanja):
-    kljucevi = ['korisnicko_ime', 'lozinka', 'ime', 'prezime', 'uloga', 
+    kljucevi = ['korisnicko_ime', 'lozinka', 'ime', 'prezime', 'uloga',
                 'status', 'uplaceni_paket', 'datum_registracije']
     podaci = ucitaj_podatke(putanja, kljucevi)
 
@@ -12,7 +12,7 @@ def ucitaj_korisnike(putanja):
         korisnik['uloga'] = int(korisnik['uloga'])
         korisnik['status'] = int(korisnik['status'])
         korisnik['uplaceni_paket'] = int(korisnik['uplaceni_paket'])
-        korisnik['datum_registracije'] = (datetime.strptime(korisnik['datum_registracije'], "%d.%m.%Y")
+        korisnik['datum_registracije']=(datetime.strptime(korisnik['datum_registracije'],"%d.%m.%Y")
                                                   .date().strftime('%d.%m.%Y'))
 
     return podaci
@@ -67,8 +67,8 @@ def registracija_instruktora(korisnici):
                         case _:
                             print('Pogrešan unos. Unesite broj 1 ili 2.')
                             continue
-                except ValueError as e:
-                    print(f"Greška prilikom unosa")
+                except ValueError:
+                    print("Greška prilikom unosa")
 
             korisnici[korisnicko_ime] = {
                 'korisnicko_ime': korisnicko_ime,
@@ -97,9 +97,8 @@ def prijava(korisnici, trenutni_korisnik):
                     return korisnici[korisnicko_ime]
                 print('Pogresna lozinka.')
                 continue
-            else:
-                print('Korisnicko ime ne postoji.')
-                continue
+            print('Korisnicko ime ne postoji.')
+            continue
     print("Već ste prijavljeni.")
     return trenutni_korisnik
 

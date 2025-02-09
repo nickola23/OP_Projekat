@@ -1,8 +1,28 @@
-from funkcije.rezervacija import ucitaj_rezervacije, pretrazi_rezervacije, pretrazi_rezervacije_korisnik, rezervacija_mesta, ponisti_rezervaciju, mesecna_nagrada_lojalnosti, rezervacija_mesta_instruktor, pretrazi_rezervacije_instruktor, ponisti_rezervaciju_instruktor, izmeni_rezervaciju_instruktor
-from funkcije.za_ispis import programi_za_ispis, trening_za_ispis, spojeni_termini_za_ispis, rezervacije_za_ispis
-from funkcije.program import ucitaj_programe, dodaj_program, izmeni_program, brisi_program, pretrazi_program
-from funkcije.korisnik import prijava, registracija, odjava, ucitaj_korisnike, registracija_instruktora
-from funkcije.trening import ucitaj_trening, dodaj_trening, izmeni_trening, brisi_trening
+from funkcije.rezervacija import (
+    ucitaj_rezervacije, pretrazi_rezervacije, pretrazi_rezervacije_korisnik, 
+    rezervacija_mesta, ponisti_rezervaciju, mesecna_nagrada_lojalnosti, 
+    rezervacija_mesta_instruktor, pretrazi_rezervacije_instruktor, 
+    ponisti_rezervaciju_instruktor, izmeni_rezervaciju_instruktor
+)
+from funkcije.za_ispis import (
+    programi_za_ispis, trening_za_ispis,
+    spojeni_termini_za_ispis, rezervacije_za_ispis
+)
+from funkcije.program import (
+    ucitaj_programe, dodaj_program, izmeni_program,
+    brisi_program, pretrazi_program
+)
+from funkcije.izvestaji import (
+    izvestaj_a, izvestaj_b, izvestaj_c,izvestaj_d, izvestaj_e,
+    izvestaj_f, izvestaj_g, izvestaj_h
+)
+from funkcije.korisnik import (
+    prijava, registracija, odjava, ucitaj_korisnike,
+    registracija_instruktora
+)
+from funkcije.trening import (
+    ucitaj_trening, dodaj_trening, izmeni_trening, brisi_trening
+)
 from funkcije.vrsta_paketa import ucitaj_vrste_paketa, aktivacija_premium_paketa
 from funkcije.termin import ucitaj_termin, pretrazi_termine, spoji_termine
 from funkcije.clanarina import ucitaj_clanarine, validacija_clanarina
@@ -11,7 +31,6 @@ from funkcije.vrsta_treninga import ucitaj_vrste_treninga
 from funkcije.tabela import ispis_tabele
 from funkcije.fajlovi import upis_fajl
 from funkcije.sala import ucitaj_sale
-from funkcije.izvestaji import izvestaj_a, izvestaj_b, izvestaj_c,izvestaj_d, izvestaj_e, izvestaj_f, izvestaj_g, izvestaj_h
 
 PUTANJA_VRSTE_TRENINGA = './data/vrsta_treninga.txt'
 PUTANJA_REZERVACIJE = './data/Rezervacija.txt'
@@ -33,24 +52,24 @@ treninzi = ucitaj_trening(PUTANJA_TRENING)
 termini =  ucitaj_termin(PUTANJA_TERMIN)
 sale = ucitaj_sale(PUTANJA_SALA)
 
-trenutni_korisnik = None
+TRENUTNI_KORISNIK = None
 menii = {}
 
 def prijava_korisnik(korisnici):
-    global trenutni_korisnik
-    trenutni_korisnik = prijava(korisnici, trenutni_korisnik)
+    global TRENUTNI_KORISNIK
+    TRENUTNI_KORISNIK = prijava(korisnici, TRENUTNI_KORISNIK)
     glavni_meni()
 
 
 def registracija_korisnik(korisnici):
-    global trenutni_korisnik
-    trenutni_korisnik = registracija(korisnici)
+    global TRENUTNI_KORISNIK
+    TRENUTNI_KORISNIK = registracija(korisnici)
     glavni_meni()
 
 
 def odjava_korisnik():
-    global trenutni_korisnik
-    trenutni_korisnik = odjava()
+    global TRENUTNI_KORISNIK
+    TRENUTNI_KORISNIK = odjava()
     glavni_meni()
 
 
@@ -133,9 +152,9 @@ def meni_registrovan():
         '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
         '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
         '5': lambda: pokreni_meni('meni_pretrazi_termin'),
-        '6': lambda: rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici, trenutni_korisnik['korisnicko_ime']),
-        '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_korisnik(rezervacije, trenutni_korisnik['korisnicko_ime']), termini, treninzi, programi)),
-        '8': lambda: ponisti_rezervaciju(rezervacije, termini),
+        '6': lambda: rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici, TRENUTNI_KORISNIK['korisnicko_ime']),
+        '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_korisnik(rezervacije, TRENUTNI_KORISNIK['korisnicko_ime']), termini, treninzi, programi)),
+        '8': lambda: ponisti_rezervaciju(rezervacije),
         '0': lambda: izlaz()
     }
 
@@ -159,13 +178,13 @@ def meni_instruktor():
         '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
         '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
         '5': lambda: pokreni_meni('meni_pretrazi_termin'),
-        '6': lambda: rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale, korisnici, trenutni_korisnik['korisnicko_ime']),
-        '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, trenutni_korisnik['korisnicko_ime']), termini, treninzi, programi)),
-        '8': lambda: ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, trenutni_korisnik['korisnicko_ime']),
+        '6': lambda: rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale, korisnici, TRENUTNI_KORISNIK['korisnicko_ime']),
+        '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, TRENUTNI_KORISNIK['korisnicko_ime']), termini, treninzi, programi)),
+        '8': lambda: ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, TRENUTNI_KORISNIK['korisnicko_ime']),
         '9': lambda: pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici),
         '10': lambda: aktivacija_clana(korisnici, clanarine),
         '11': lambda: aktivacija_premium_paketa(korisnici),
-        '12': lambda: izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, trenutni_korisnik['korisnicko_ime']),
+        '12': lambda: izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, TRENUTNI_KORISNIK['korisnicko_ime']),
         '0': lambda: izlaz()
     }
 
@@ -312,15 +331,15 @@ def definisi():
 
 
 def glavni_meni():
-    global trenutni_korisnik
+    global TRENUTNI_KORISNIK
     definisi()
     validacija_clanarina(korisnici, clanarine)   #azuriraj clanarine
 
-    if trenutni_korisnik is None:                #nije prijavljen
+    if TRENUTNI_KORISNIK is None:                #nije prijavljen
         pokreni_meni('meni_neregistrovan')
-    elif trenutni_korisnik['uloga'] == 0:        #registrovan
+    elif TRENUTNI_KORISNIK['uloga'] == 0:        #registrovan
         pokreni_meni('meni_registrovan')
-    elif trenutni_korisnik['uloga'] == 1:        #instruktor
+    elif TRENUTNI_KORISNIK['uloga'] == 1:        #instruktor
         pokreni_meni('meni_instruktor')
-    elif trenutni_korisnik['uloga'] == 2:        #admin
+    elif TRENUTNI_KORISNIK['uloga'] == 2:        #admin
         pokreni_meni('meni_admin')

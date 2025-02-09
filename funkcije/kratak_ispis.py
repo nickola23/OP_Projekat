@@ -39,6 +39,6 @@ def ispis_treninzi(treninzi):
 
 
 def ispis_mesta(rezervacije):
-    for id, podaci in rezervacije.items():
+    for _, podaci in rezervacije.items():
         print(f"ID: {podaci['oznaka_reda_kolone']} - {podaci['id_korisnika']} "
                                                  f"- {podaci['id_termina']} - {podaci['datum']}")

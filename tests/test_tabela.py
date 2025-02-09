@@ -34,10 +34,10 @@ def test_max_duzina(sample_podaci):
     assert max_duzina(sample_podaci) == expected_output
 
 def test_max_duzina_empty():
-    assert max_duzina({}) == {}
+    assert not max_duzina({})
 
 def test_max_duzina_invalid():
-    assert max_duzina([]) == {}
+    assert not max_duzina([])
 
 def test_kreiraj_tabelu(sample_podaci):
     duzine = max_duzina(sample_podaci)

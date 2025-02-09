@@ -26,4 +26,4 @@ jobs:
         run: pytest tests/test_program.py
 
       - name: Pokretanje testova za  tabele
-        run: pytest tests/test_tabele.py
+        run: pytest tests/test_tabela.py

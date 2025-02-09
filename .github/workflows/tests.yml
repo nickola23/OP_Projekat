@@ -19,5 +19,11 @@ jobs:
         run: |
           pip install pytest
 
-      - name: Pokretanje testova
-        run: pytest tests/
+      - name: Pokretanje testova za prijavu
+        run: pytest tests/test_prijava.py
+
+      - name: Pokretanje testova za programe
+        run: pytest tests/test_program.py
+
+      - name: Pokretanje testova za  tabele
+        run: pytest tests/test_tabele.py

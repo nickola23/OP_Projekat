@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje terminima.
+
+Sadrži funkcije za ucitavanje,
+dodavanje, izmenu, brisanje i pretragu termina. 
+"""
 from datetime import datetime
 from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele

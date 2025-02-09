@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje treninzima.
+
+Sadrži funkcije za ucitavanje,
+dodavanje i brisanje treninga.
+"""
 from datetime import datetime
 from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele

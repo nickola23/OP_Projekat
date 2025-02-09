@@ -30,7 +30,7 @@ def pretvori_u_tekst(podaci):
             tekst += '|'.join(linija) + '\n'
         return tekst
     print('Nema podataka za upis')
-    return None
+    return ""
 
 
 def citaj_fajl(putanja):

@@ -1,3 +1,8 @@
+"""
+Modul za testiranje ispisa tabela.
+
+Sadrži funkcije za testiranje programa.
+"""
 import sys
 import os
 

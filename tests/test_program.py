@@ -1,3 +1,8 @@
+"""
+Modul za testiranje unosa programa.
+
+Sadrži funkcije za testiranje programa.
+"""
 import sys
 import os
 

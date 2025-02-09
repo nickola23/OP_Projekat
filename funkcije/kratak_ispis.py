@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje kratkim ispisom podataka.
+
+Sadrži funkcije za kratak ispis:
+korisnika, programa, sale, treninga, mesta, vrste treninga, vrste paketa.
+"""
 def ispis_vrste_treninga(vrste_treninga):
     for _, podaci in vrste_treninga.items():
         print(f"ID: {podaci['id']} - {podaci['naziv']}")

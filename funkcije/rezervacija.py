@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje rezervacijama.
+
+Sadrži funkcije za pretragu, izmenu, ponistavanje rezervacija kao i
+ucitavanje, prikaz mesta u matrici, rezervisanje i dodelu mesecne nagrade lojalnosti
+"""
 from datetime import datetime, timedelta
 from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele

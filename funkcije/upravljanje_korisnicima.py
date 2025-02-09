@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje korisnicima.
+
+Sadrži funkcije za dodavanje instruktora,
+aktivaciju i promenu statusa clana.
+"""
 from datetime import datetime
 from funkcije.clanarina import dodaj_clanarinu
 

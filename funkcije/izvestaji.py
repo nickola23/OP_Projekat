@@ -1,3 +1,8 @@
+"""
+Modul za upravljanje izvestajima.
+
+Sadrži funkcije za obradu i cuvanje izvestaja.
+"""
 from datetime import datetime, timedelta
 from funkcije.tabela import max_duzina, kreiraj_tabelu
 from funkcije.tabela import ispis_tabele

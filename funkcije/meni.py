@@ -1,3 +1,8 @@
+"""
+Modul sa menijem za upravljanje aplikacijom.
+
+Sadrži sve funkcije glavnog menija programa.
+"""
 import sys
 from funkcije.rezervacija import (
     ucitaj_rezervacije, pretrazi_rezervacije, pretrazi_rezervacije_korisnik,
@@ -129,7 +134,7 @@ def meni_neregistrovan():
         '3': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
         '4': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
         '5': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
-        '6': pokreni_meni('meni_pretrazi_termin'),
+        '6': lambda: pokreni_meni('meni_pretrazi_termin'),
         '0': lambda: izlaz()
     }
 
@@ -149,7 +154,7 @@ def meni_neregistrovan():
 def meni_registrovan():
 
     meni_funkcije = {
-        '1': odjava_korisnik(),
+        '1': lambda: odjava_korisnik(),
         '2': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
         '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program(programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
         '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi, sale, programi), termini)),
@@ -157,7 +162,7 @@ def meni_registrovan():
         '6': lambda: rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici, TRENUTNI_KORISNIK['korisnicko_ime']),
         '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_korisnik(rezervacije, TRENUTNI_KORISNIK['korisnicko_ime']), termini, treninzi, programi)),
         '8': lambda: ponisti_rezervaciju(rezervacije),
-        '0': izlaz()
+        '0': lambda: izlaz()
     }
 
     meni_opcije = {
@@ -177,7 +182,7 @@ def meni_registrovan():
 def meni_instruktor():
 
     meni_funkcije = {
-        '1': odjava_korisnik(),
+        '1': lambda: odjava_korisnik(),
         '2': lambda: ispis_tabele(programi_za_ispis(programi, korisnici, vrste_treninga, vrste_paketa)),
         '3': lambda: ispis_tabele(programi_za_ispis(pretrazi_program
             (programi, vrste_treninga, vrste_paketa), korisnici, vrste_treninga, vrste_paketa)),
@@ -202,7 +207,7 @@ def meni_instruktor():
             (rezervacije, termini, treninzi, programi, korisnici,
              TRENUTNI_KORISNIK['korisnicko_ime']),
 
-        '0': izlaz()
+        '0': lambda: izlaz()
     }
 
     meni_opcije = {
@@ -224,7 +229,7 @@ def meni_instruktor():
 def meni_admin():
 
     submenu2_dict = {
-        '1': odjava_korisnik(),
+        '1': lambda: odjava_korisnik(),
         '2': lambda: ispis_tabele(programi_za_ispis
             (programi, korisnici, vrste_treninga, vrste_paketa)),
 
@@ -239,7 +244,7 @@ def meni_admin():
         '8': lambda: mesecna_nagrada_lojalnosti(rezervacije, korisnici),
         '9': lambda: pokreni_meni('meni_unos_izmena_brisanje_program'),
         '10': lambda: pokreni_meni('meni_unos_izmena_brisanje_trening'),
-        '0': izlaz()
+        '0': lambda: izlaz()
     }
 
     meni_opcije = {
@@ -275,7 +280,7 @@ def meni_pretrazi_termin():
         '5': lambda: ispis_tabele(spojeni_termini_za_ispis(pretrazi_termine
             (spoji_termine(treninzi, termini), sale, programi, 'vreme_kraja'), sale, programi)),
 
-        'b': nazad()
+        'b': lambda: nazad()
     }
 
     meni_opcije = {
@@ -297,7 +302,7 @@ def meni_unos_izmena_brisanje_program():
         '1': lambda: dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa),
         '2': lambda: izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa),
         '3': lambda: brisi_program(programi),
-        'b': nazad()
+        'b': lambda: nazad()
     }
 
     meni_opcije = {
@@ -319,7 +324,7 @@ def meni_unos_izmena_brisanje_trening():
         '1': lambda: dodaj_trening(treninzi, sale, programi),
         '2': lambda: izmeni_trening(treninzi, sale, programi),
         '3': lambda: brisi_trening(treninzi),
-        'b': nazad()
+        'b': lambda: nazad()
     }
 
     meni_opcije = {
@@ -345,7 +350,7 @@ def meni_izvestaji():
         '6': lambda: izvestaj_f(rezervacije, termini, treninzi, programi),
         '7': lambda: izvestaj_g(rezervacije, termini, treninzi, programi),
         '8': lambda: izvestaj_h(rezervacije, termini),
-        'b': nazad()
+        'b': lambda: nazad()
     }
 
     meni_opcije = {

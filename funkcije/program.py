@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje programima.
+
+Sadrži funkcije za ucitavanje, 
+dodavanje, izmenu i pretragu programa.
+"""
 from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
 from funkcije.kratak_ispis import (

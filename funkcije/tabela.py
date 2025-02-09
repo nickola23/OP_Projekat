@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje tabelama.
+
+Sadrži funkcije za odredjivanje
+maksimalne duzine, kreiranje i ispis tabela.
+"""
 from datetime import time
 
 def max_duzina(podaci):

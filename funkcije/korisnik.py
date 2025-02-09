@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje korisnicima.
+
+Sadrži funkcije za ucitavanje,
+dodavanje, prijavu, registraciju i odjavu korisnika. 
+"""
 from datetime import datetime
 import re
 from funkcije.fajlovi import ucitaj_podatke

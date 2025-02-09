@@ -1,3 +1,9 @@
+"""
+Modul za upravljanje vrstama paketa.
+
+Sadrži funkcije za ucitavanje
+promenu i aktivaciju paketa.
+"""
 from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_vrste_paketa(putanja):

@@ -9,13 +9,13 @@ from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_clanarine(putanja):
     """
-    Ucitava clanarine iz .txt fajla i vraca ih u obliku recnika.
+    Učitava podatke članarina iz fajla.
 
     Args:
-        putanja (string): putanja do .txt fajla
+        putanja (str): Putanja do .txt fajla.
 
     Returns:
-        dict: recnik sa svim clanarinama
+        dict: Rečnik sa podacima o članarinama.
     """
     kljucevi = ['id_clanarine', 'id_korisnika', 'datum_uplate']
     podaci = ucitaj_podatke(putanja, kljucevi)
@@ -30,12 +30,12 @@ def ucitaj_clanarine(putanja):
 
 def dodaj_clanarinu(korisnici, clanarine, korisnicko_ime):
     """
-    Dodaje clanarinu u recnik
+    Dodaje članarinu u rečnik sa članarinama.
 
     Args:
-        korisnici (dict): trenutni recnik korisnika,
-        clanarine (dict): trenutni recnik clanarina,
-        korisnicko_ime (string): ime korisnika kome se dodaje clanarina.
+        korisnici (dict): Trenutni recnik korisnika.
+        clanarine (dict): Trenutni recnik clanarina.
+        korisnicko_ime (string): Ime korisnika kome se dodaje clanarina.
 
     Returns:
         boolean: da li je uspesno izvrseno
@@ -63,14 +63,14 @@ def dodaj_clanarinu(korisnici, clanarine, korisnicko_ime):
 
 def validacija_clanarina(korisnici, clanarine):
     """
-    Proverava da li su clanarine istekle i ako jesu menja status i uplaceni_paket korisniku
+    Proverava da li su članarine istekle i ako jesu menja status i uplaćeni paket korisniku.
 
     Args:
-        korisnici (dict): trenutni recnik korisnika,
-        clanarine (dict): trenutni recnik clanarina.
+        korisnici (dict): Trenutni rečnik korisnika.
+        clanarine (dict): Trenutni rečnik članarina.
 
     Returns:
-        dict: novi recnik korisnika
+        dict: Novi rečnik korisnika
     """
     danasnji_datum = datetime.now().date()
 

@@ -8,13 +8,13 @@ from funkcije.fajlovi import citaj_fajl
 
 def ucitaj_vrste_treninga(putanja):
     """
-    Ucitava vrste treninga iz fajla.
+    Učitava vrste treninga iz fajla.
 
     Args:
-        putanja (string): putanja do .txt fajla
+        putanja (string): Putanja do .txt fajla.
 
     Returns:
-        dict: sve vrste treninga
+        dict: Rečnik sa svim vrstama treninga.
     """
     fajl = citaj_fajl(putanja)
     if fajl is None:

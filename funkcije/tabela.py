@@ -7,6 +7,15 @@ maksimalne duzine, kreiranje i ispis tabela.
 from datetime import time
 
 def max_duzina(podaci):
+    """
+    Računa maksimalne dužine vrednosti za svaki ključ u rečniku.
+
+    Args:
+        podaci (dict): Rečnik sa podacima.
+
+    Returns:
+        dict: Rečnik sa maksimalnim dužinama vrednosti za svaki ključ.
+    """
     if not podaci or not isinstance(podaci, dict):
         return {}
 
@@ -26,6 +35,16 @@ def max_duzina(podaci):
 
 
 def kreiraj_tabelu(podaci, duzine):
+    """
+    Kreira tabelu sa podacima.
+
+    Args:
+        podaci (dict): Rečnik sa podacima koji treba da se prikažu u tabeli.
+        duzine (dict): Rečnik sa maksimalnim dužinama za svaki ključ.
+
+    Returns:
+        str: Formirani string koji predstavlja tabelu sa podacima.
+    """
     vrednosti = ''
     for red in podaci.values():
         for kljuc in duzine.keys():
@@ -41,7 +60,15 @@ def kreiraj_tabelu(podaci, duzine):
 
 
 def ispis_tabele(podaci):
+    """
+    Funkcija za ispis podataka u formatu tabele sa zaglavljem i vrednostima.
 
+    Args:
+        podaci (dict): Rečnik sa podacima koji treba da se prikažu u tabeli.
+
+    Prints:
+        Ispisuje tabelu sa zaglavljem, linijama i vrednostima.
+    """
     zaglavlje = linija = vrednosti = ''
 
     if not podaci or not isinstance(podaci, dict):

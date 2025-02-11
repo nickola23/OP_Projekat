@@ -11,6 +11,15 @@ from funkcije.kratak_ispis import (
 )
 
 def ucitaj_programe(putanja):
+    """
+    Učitava podatke programa iz fajla.
+
+    Args:
+        putanja (str): Putanja do .txt fajla.
+
+    Returns:
+        dict: Rečnik sa podacima o programima.
+    """
     kljucevi=['id','naziv','id_vrste_treninga','trajanje','id_instruktora','potreban_paket','opis']
     podaci = ucitaj_podatke(putanja, kljucevi)
 
@@ -24,6 +33,18 @@ def ucitaj_programe(putanja):
 
 
 def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
+    """
+    Dodaje novi program u rečnik sa programima.
+
+    Args:
+        programi (dict): Rečnik koji sadrži sve programe.
+        vrste_treninga (dict): Rečnik koji sadrži dostupne vrste treninga.
+        korisnici (dict): Rečnik koji sadrži sve korisnike.
+        vrste_paketa (dict): Rečnik sa vrstama paketa.
+
+    Returns:
+        bool: True ako je program uspešno dodat, False ako je korisnik odustao.
+    """
     novi_id = str(max((int(id_programa) for id_programa in programi.keys()), default=0) + 1)
 
     while True:
@@ -85,6 +106,18 @@ def dodaj_program(programi, vrste_treninga, korisnici, vrste_paketa):
 
 
 def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
+    """
+    Menja postojeći program u rečniku sa programima.
+
+    Args:
+        programi (dict): Rečnik koji sadrži sve programe.
+        vrste_treninga (dict): Rečnik koji sadrži dostupne vrste treninga.
+        korisnici (dict): Rečnik koji sadrži sve korisnike.
+        vrste_paketa (dict): Rečnik sa vrstama paketa.
+
+    Returns:
+        bool: True ako je program uspešno izmenjen, False ako je korisnik odustao.
+    """
     while True:
         print('Opcije programa za izmenu:')
         ispis_programi(programi)
@@ -97,11 +130,12 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
             continue
 
         ispis_tabele({id_programa: programi[id_programa]})
-   
+
         while True:
             odgovor = input("Ponuđene opcije:\n1. Naziv\n2. ID vrste treninga\n"
-                            "3. Trajanje\n4. ID instruktora\n5. Potreban paket\n6. Opis\nb. Nazad\nUnesite zeljenu opciju: ")
-            
+                            "3. Trajanje\n4. ID instruktora\n5. Potreban paket\n"
+                            "6. Opis\nb. Nazad\nUnesite zeljenu opciju: ")
+
             match odgovor:
                 case '1':
                     programi[id_programa]['naziv'] = input("Unesite novi naziv: ")
@@ -114,7 +148,7 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
                         if id_vrste_treninga in vrste_treninga:
                             programi[id_programa]['id_vrste_treninga'] = id_vrste_treninga
                             break
-                        print(f'Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
+                        print('Vrsta treninga sa ovim ID ne postoji. Pokusajte ponovo.')
                 case '3':
                     while True:
                         try:
@@ -155,6 +189,15 @@ def izmeni_program(programi, vrste_treninga, korisnici, vrste_paketa):
 
 
 def brisi_program(programi):
+    """
+    Briše postojeći program iz rečnika sa programima.
+
+    Args:
+        programi (dict): Rečnik koji sadrži sve programe.
+
+    Returns:
+        bool: True ako je program uspešno obrisan, False ako je korisnik odustao.
+    """
     while True:
         print('Opcije postojecih programa za brisanje:')
         ispis_programi(programi)
@@ -171,6 +214,17 @@ def brisi_program(programi):
 
 
 def pretrazi_program(programi, vrste_treninga, vrste_paketa):
+    """
+    Traži programe na osnovu odabranih kriterijuma.
+
+    Args:
+        programi (dict): Rečnik koji sadrži sve programe.
+        vrste_treninga (dict): Rečnik koji sadrži dostupne vrste treninga.
+        vrste_paketa (dict): Rečnik sa vrstama paketa.
+
+    Returns:
+        dict: Rečnik sa programima koji odgovaraju zadatim kriterijumima pretrage.
+    """
     pretraga = programi
 
     kriterijumi = (input("Ponuđene opcije:\n1. Vrsta treninga\n2. Trajanje treninga (u minutama)\n"
@@ -203,9 +257,9 @@ def pretrazi_program(programi, vrste_treninga, vrste_paketa):
                     max_trajanje = int(input("Unesite maksimalno trajanje treninga u minutima: "))
                     if min_trajanje < 0 or max_trajanje < 0:
                         print('Trajanje mora biti vece od 0. Pokusajte ponovo.')
-                        continue 
-                    break 
-                except ValueError: 
+                        continue
+                    break
+                except ValueError:
                     print("Trajanje mora biti ceo broj. Pokusajte ponovo.")
             pretraga = {
             id_programa: podaci

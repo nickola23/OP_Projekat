@@ -11,10 +11,10 @@ def pretvori_u_tekst(podaci):
     Pretvara podatke u oblik koji se prikazuje u fajlu.
 
     Args:
-        podaci (dict): podaci za upis u fajl.
+        podaci (dict): Podaci za upis u fajl.
 
     Returns:
-        str: tekstualni podatak za upis u fajl.
+        str: Tekstualni podatak za upis u fajl.
     """
     if podaci:
         tekst = ''
@@ -35,13 +35,13 @@ def pretvori_u_tekst(podaci):
 
 def citaj_fajl(putanja):
     """
-    Cita podatke iz .txt fajla.
+    Čita podatke iz .txt fajla.
 
     Args:
-        putanja (str): putanja do fajla.
+        putanja (str): Putanja do fajla.
 
     Returns:
-        str: tekstualni podatak iz fajla ili None ako dođe do greške.
+        str: Tekstualni podatak iz fajla ili None ako dođe do greške.
     """
     try:
         with open(putanja, 'r', encoding='utf-8') as fajl:
@@ -60,8 +60,8 @@ def upis_fajl(putanja, podaci):
     Upis podataka u .txt fajl.
 
     Args:
-        putanja (str): putanja do .txt fajla.
-        podaci (dict): podaci za upis u fajl.
+        putanja (str): Putanja do .txt fajla.
+        podaci (dict): Podaci za upis u fajl.
     """
     try:
         with open(putanja, 'w', encoding='utf-8') as fajl:
@@ -76,15 +76,15 @@ def upis_fajl(putanja, podaci):
 
 def ucitaj_podatke(putanja, kljucevi, separator='|'):
     """
-    Ucitava podatke iz fajla i pretvara ih u recnik.
+    Učitava podatke iz fajla i pretvara ih u rečnik.
 
     Args:
         putanja (str): Putanja do fajla.
-        kljucevi (list): Lista kljuceva koji ce biti korisceni za recnik.
+        kljucevi (list): Lista ključeva koji će biti korišćeni za rečnik.
         separator (str): Separator koji razdvaja podatke u fajlu (podrazumevano '|').
 
     Returns:
-        dict: Recnik sa ucitanim podacima.
+        dict: Rečnik sa učitanim podacima.
     """
     fajl = citaj_fajl(putanja)
     if fajl is None:

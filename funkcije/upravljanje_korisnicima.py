@@ -8,6 +8,15 @@ from datetime import datetime
 from funkcije.clanarina import dodaj_clanarinu
 
 def dodaj_instruktora(korisnici):
+    """
+    Dodaje novog instruktora ili administratora.
+
+    Args:
+        korisnici (dict): Rečnik sa podacima o korisnicima.
+
+    Returns:
+        bool: True ako je instruktor uspešno dodat, False u suprotnom.
+    """
     while True:
         korisnicko_ime = input("Unesite korisnicko ime: ")
         if korisnicko_ime not in korisnici.keys():
@@ -32,6 +41,15 @@ def dodaj_instruktora(korisnici):
 
 
 def promeni_status_clana(korisnici, clanarine, korisnicko_ime, novi_status):
+    """
+    Menja status člana u sistemu.
+
+    Args:
+        korisnici (dict): Rečnik sa podacima o korisnicima.
+        clanarine (dict): Rečnik sa podacima o članarinama.
+        korisnicko_ime (str): Korisničko ime člana čiji se status menja.
+        novi_status (int): Novi status člana.
+    """
     if korisnicko_ime in korisnici:
         dodaj_clanarinu(korisnici, clanarine, korisnicko_ime)
         korisnici[korisnicko_ime]['status'] = novi_status
@@ -41,5 +59,12 @@ def promeni_status_clana(korisnici, clanarine, korisnicko_ime, novi_status):
 
 
 def aktivacija_clana(korisnici, clanarine):
-    korisnicko_ime = input('Unesite korisnicko ime clana za aktivaciju: ')
+    """
+    Aktivira člana u sistemu promenom njegovog statusa.
+
+    Args:
+        korisnici (dict): Rečnik sa podacima o korisnicima.
+        clanarine (dict): Rečnik sa podacima o članarinama.
+    """
+    korisnicko_ime = input('Unesite korisnicko ime člana za aktivaciju: ')
     promeni_status_clana(korisnici, clanarine, korisnicko_ime, 1)

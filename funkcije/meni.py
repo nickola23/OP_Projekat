@@ -62,24 +62,46 @@ TRENUTNI_KORISNIK = None
 menii = {}
 
 def prijava_korisnik():
+    """
+    Funkcija za prijavu korisnika.
+
+    Prijavljeni korisnik postaje 
+    aktivan korisnik u globalnoj promenljivoj TRENUTNI_KORISNIK.
+    """
     global TRENUTNI_KORISNIK
     TRENUTNI_KORISNIK = prijava(korisnici, TRENUTNI_KORISNIK)
     glavni_meni()
 
 
 def registracija_korisnik():
+    """
+    Funkcija za registraciju korisnika.
+
+    Novi korisnik se registruje i postaje aktivan korisnik 
+    u globalnoj promenljivoj TRENUTNI_KORISNIK.
+    """
     global TRENUTNI_KORISNIK
     TRENUTNI_KORISNIK = registracija(korisnici)
     glavni_meni()
 
 
 def odjava_korisnik():
+    """
+    Funkcija za odjavu korisnika.
+
+    Korisnik se odjavljuje, a globalna promenljiva TRENUTNI_KORISNIK se postavlja na None.
+    """
     global TRENUTNI_KORISNIK
     TRENUTNI_KORISNIK = odjava()
     glavni_meni()
 
 
 def upisi_fajlove():
+    """
+    Funkcija za upis podataka u fajlove.
+
+    Upisuje različite vrste podataka u odgovarajuće fajlove koristeći funkciju upis_fajl.
+    """
     upis_fajl(PUTANJA_VRSTE_TRENINGA, vrste_treninga)
     upis_fajl(PUTANJA_REZERVACIJE, rezervacije)
     upis_fajl(PUTANJA_VRSTE_PAKETA, vrste_paketa)
@@ -92,15 +114,29 @@ def upisi_fajlove():
 
 
 def izlaz():
+    """
+    Funkcija za izlaz iz programa.
+
+    Pre izlaska, podaci se upisuju u fajlove i ispisuje se poruka.
+    """
     upisi_fajlove()
     print('Izlaz iz programa.')
 
 
 def nazad():
+    """
+    Ispisuje poruku 'Povratak nazad' kao potvrdu akcije.
+    """
     print('Povratak nazad.')
 
 
 def pokreni_meni(trenutni_meni):
+    """
+    Funkcija za prikaz i navigaciju kroz trenutni meni.
+
+    Args:
+        trenutni_meni (str): Ključ trenutnog menija koji se prikazuje korisniku.
+    """
     meni = menii[trenutni_meni]
     while True:
         print("=" * 30)

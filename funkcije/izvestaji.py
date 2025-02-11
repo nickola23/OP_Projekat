@@ -9,6 +9,13 @@ from funkcije.tabela import ispis_tabele
 from funkcije.kratak_ispis import ispis_korisnika
 
 def sacuvaj_izvestaj(podaci, naziv_fajla):
+    """
+    Čuva izveštaj u fajl sa podacima.
+
+    Args:
+        podaci (dict): Rečnik sa podacima koji treba sačuvati.
+        naziv_fajla (str): Naziv fajla u koji će se sačuvati podaci.
+    """
     while True:
         opcija = input("Da li želite da sačuvate podatke u fajl? (da/ne): ").strip().lower()
 
@@ -51,6 +58,15 @@ def sacuvaj_izvestaj(podaci, naziv_fajla):
 
 
 def izvestaj_a(rezervacije):
+    """
+    Generiše izveštaj o rezervacijama za određeni datum.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+
+    Returns:
+        dict: Rečnik sa podacima o rezervacijama za uneti datum.
+    """
     while True:
         odabrani_datum = input("Unesite datum rezervacije: ").strip()
         pretraga = {}
@@ -74,6 +90,16 @@ def izvestaj_a(rezervacije):
 
 
 def izvestaj_b(rezervacije, termini):
+    """
+    Generiše izveštaj o rezervacijama za određeni datum termina treninga.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        termini (dict): Rečnik sa svim terminima treninga.
+
+    Returns:
+        dict: Rečnik sa podacima o rezervacijama za uneti datum termina.
+    """
     while True:
         odabrani_datum = input("Unesite datum termina treninga: ").strip()
         try:
@@ -107,6 +133,20 @@ def izvestaj_b(rezervacije, termini):
 
 
 def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
+    """
+    Generiše izveštaj o rezervacijama za određeni datum i instruktora.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        korisnici (dict): Rečnik sa svim korisnicima.
+        programi (dict): Rečnik sa svim programima.
+        termini (dict): Rečnik sa svim terminima.
+        treninzi (dict): Rečnik sa svim treninzima.
+
+    Returns:
+        dict: Rečnik sa podacima o rezervacijama za uneti datum i instruktora.
+    """
+
     while True:
         odabrani_datum = input("Unesite datum rezervacije: ").strip()
         try:
@@ -153,6 +193,15 @@ def izvestaj_c(rezervacije, korisnici, programi, termini, treninzi):
 
 
 def izvestaj_d(rezervacije):
+    """
+    Generiše izveštaj o rezervacijama za određeni dan u nedelji.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+
+    Returns:
+        dict: Rečnik sa podacima o rezervacijama za odabrani dan u nedelji.
+    """
     while True:
         validni_dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
         odabrani_dan = input("Unesite dan u nedelji (npr. ponedeljak): ").strip().lower()
@@ -194,6 +243,18 @@ def izvestaj_d(rezervacije):
 
 
 def izvestaj_e(rezervacije, termini, treninzi, programi):
+    """
+    Generiše izveštaj o broju rezervacija po instruktorima u poslednjih 30 dana.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        termini (dict): Rečnik sa svim terminima.
+        treninzi (dict): Rečnik sa svim treninzima.
+        programi (dict): Rečnik sa svim programima.
+
+    Returns:
+        dict: Rečnik sa instruktorima i brojem njihovih rezervacija u poslednjih 30 dana.
+    """
     danasnji_datum = datetime.now().date()
     poslednjih_30_dana = danasnji_datum - timedelta(days=30)
     broj_rezervacija_po_instruktoru = {}
@@ -230,6 +291,18 @@ def izvestaj_e(rezervacije, termini, treninzi, programi):
     return pretraga
 
 def izvestaj_f(rezervacije, termini, treninzi, programi):
+    """
+    Generiše izveštaj o broju rezervacija za premium i standard pakete u poslednjih 30 dana.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        termini (dict): Rečnik sa svim terminima.
+        treninzi (dict): Rečnik sa svim treninzima.
+        programi (dict): Rečnik sa svim programima.
+
+    Returns:
+        dict: Rečnik sa brojem rezervacija za premium i standard pakete u poslednjih 30 dana.
+    """
     danasnji_datum = datetime.now().date()
     poslednjih_30_dana = danasnji_datum - timedelta(days=30)
 
@@ -262,6 +335,18 @@ def izvestaj_f(rezervacije, termini, treninzi, programi):
 
 
 def izvestaj_g(rezervacije, termini, treninzi, programi):
+    """
+    Generiše izveštaj o tri najpopularnija programa u poslednjih godinu dana na osnovu broja rezervacija.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        termini (dict): Rečnik sa svim terminima.
+        treninzi (dict): Rečnik sa svim treninzima.
+        programi (dict): Rečnik sa svim programima.
+
+    Returns:
+        dict: Rečnik sa informacijama o tri najpopularnija programa u poslednjih godinu dana.
+    """
     danasnji_datum = datetime.now().date()
     poslednjih_godinu_dana = danasnji_datum - timedelta(days=365)
 
@@ -299,6 +384,16 @@ def izvestaj_g(rezervacije, termini, treninzi, programi):
 
 
 def izvestaj_h(rezervacije, termini):
+    """
+    Generiše izveštaj o najpopularnijem danu u nedelji na osnovu broja rezervacija za termine.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        termini (dict): Rečnik sa svim terminima.
+
+    Returns:
+        dict: Rečnik sa informacijama o najpopularnijem danu u nedelji.
+    """
     popularnost_dana = {}
 
     for rezervacija in rezervacije.values():

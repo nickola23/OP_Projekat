@@ -9,6 +9,15 @@ from funkcije.fajlovi import ucitaj_podatke
 from funkcije.tabela import ispis_tabele
 
 def ucitaj_termin(putanja):
+    """
+    Učitava podatke termina iz fajla.
+
+    Args:
+        putanja (str): Putanja do .txt fajla.
+
+    Returns:
+        dict: Rečnik sa podacima o terminima.
+    """
     kljucevi = ['id', 'datum', 'id_treninga']
     podaci = ucitaj_podatke(putanja, kljucevi)
 
@@ -21,6 +30,15 @@ def ucitaj_termin(putanja):
 
 
 def dodaj_termin(termini):
+    """
+    Dodaje novi termin za trening u sistem.
+
+    Args:
+        termini (dict): Rečnik sa podacima o terminima.
+
+    Returns:
+        bool: True ako je termin uspešno dodat.
+    """
     while True:
         id_termina = input("Unesite ID termina: ")
         if id_termina not in termini.keys():
@@ -37,6 +55,15 @@ def dodaj_termin(termini):
 
 
 def brisi_termin(termini):
+    """
+    Briše termin iz sistema na osnovu ID-a.
+
+    Args:
+        termini (dict): Rečnik sa podacima o terminima.
+
+    Returns:
+        bool: True ako je termin uspešno obrisan.
+    """
     while True:
         id_termina = input("Unesite ID termina za brisanje: ")
         if id_termina in termini.keys():
@@ -47,6 +74,15 @@ def brisi_termin(termini):
 
 
 def izmeni_termin(termini):
+    """
+    Menja podatke o postojećem terminu.
+
+    Args:
+        termini (dict): Rečnik sa podacima o terminima.
+
+    Returns:
+        bool: True ako je termin uspešno izmenjen.
+    """
     while True:
         id_termina = input("Unesite ID termina za izmenu: ")
         if id_termina in termini.keys():
@@ -70,6 +106,16 @@ def izmeni_termin(termini):
 
 
 def spoji_termine(treninzi, termini):
+    """
+    Spaja podatke o terminima i treninzima u jedan rečnik.
+
+    Args:
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        termini (dict): Rečnik sa podacima o terminima.
+
+    Returns:
+        dict: Novi rečnik koji sadrži spajane podatke o terminima i treninzima.
+    """
     spojeni_podaci = {}
 
     for termin in termini.values():
@@ -89,6 +135,18 @@ def spoji_termine(treninzi, termini):
 
 
 def pretrazi_termine(termini, sale, programi, kriterijum=''):
+    """
+    Pretražuje termine na osnovu različitih kriterijuma.
+
+    Args:
+        termini (dict): Rečnik sa podacima o terminima.
+        sale (dict): Rečnik sa podacima o salama.
+        programi (dict): Rečnik sa podacima o programima.
+        kriterijum (str, optional): Kriterijum za pretragu.
+
+    Returns:
+        dict: Rečnik sa rezultatima pretrage.
+    """
     pretraga = {}
     if kriterijum == 'id_sale':
         print("Dostupni ID sale:")

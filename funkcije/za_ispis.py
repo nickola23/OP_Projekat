@@ -11,13 +11,13 @@ def programi_za_ispis(programi, instruktori, vrste_treninga, vrste_paketa):
     Ispisuje podatke o programima sa instruktorima, vrstama treninga i paketa.
 
     Args:
-        programi (dict): recnik sa podacima o programima
-        instruktori (dict): recnik sa podacima o instruktorima
-        vrste_treninga (dict): recnik sa podacima o vrstama treninga
-        vrste_paketa (dict): recnik sa podacima o vrstama paketa
+        programi (dict): Rečnik sa podacima o programima.
+        instruktori (dict): Rečnik sa podacima o instruktorima.
+        vrste_treninga (dict): Rečnik sa podacima o vrstama treninga.
+        vrste_paketa (dict): Rečnik sa podacima o vrstama paketa.
 
     Returns:
-        dict: recnik sa podacima za ispis
+        dict: Rečnik sa podacima za ispis.
     """
     podaci = {}
     for id_programa, program in programi.items():
@@ -44,12 +44,12 @@ def trening_za_ispis(treninzi, sale, programi):
     Ispisuje podatke o treningima sa salama i programima.
 
     Args:
-        treninzi (dict): recnik sa podacima o treningima
-        sale (dict): recnik sa podacima o salama
-        programi (dict): recnik sa podacima o programima
+        treninzi (dict): Rečnik sa podacima o treningima.
+        sale (dict): Rečnik sa podacima o salama.
+        programi (dict): Rečnik sa podacima o programima.
 
     Returns:
-        dict: recnik sa podacima za ispis
+        dict: Rečnik sa podacima za ispis.
     """
     podaci = {}
     for id_treninga, trening in treninzi.items():
@@ -72,12 +72,12 @@ def spojeni_termini_za_ispis(termini, sale, programi):
     Ispisuje podatke o terminima sa salama, programima.
 
     Args:
-        termini (dict): recnik sa podacima o terminima
-        sale (dict): recnik sa podacima o salama
-        programi (dict): recnik sa podacima o programima
+        termini (dict): Rečnik sa podacima o terminima.
+        sale (dict): Rečnik sa podacima o salama.
+        programi (dict): Rečnik sa podacima o programima.
 
     Returns:
-        dict: recnik sa podacima za ispis
+        dict: Rečnik sa podacima za ispis.
     """
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
@@ -113,13 +113,13 @@ def rezervacije_za_ispis(rezervacije, termini, treninzi, programi):
     Ispisuje podatke o rezervacijama sa terminima, treninzima i programima.
 
     Args:
-        rezervacije (dict): recnik sa podacima o rezervacijama
-        termini (dict): recnik sa podacima o terminima
-        treninzi (dict): recnik sa podacima o treninzima
-        programi (dict): recnik sa podacima o programima
+        rezervacije (dict): Rečnik sa podacima o rezervacijama.
+        termini (dict): Rečnik sa podacima o terminima.
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        programi (dict): Rečnik sa podacima o programima.
 
     Returns:
-        dict: recnik sa podacima za ispis
+        dict: Rečnik sa podacima za ispis.
 
     """
     spojeni_podaci = {}

@@ -10,6 +10,15 @@ from funkcije.tabela import ispis_tabele
 from funkcije.kratak_ispis import ispis_sale, ispis_programi, ispis_treninzi
 
 def ucitaj_trening(putanja):
+    """
+    Učitava podatke treninga iz fajla.
+
+    Args:
+        putanja (str): Putanja do .txt fajla.
+
+    Returns:
+        dict: Rečnik sa podacima o teninzima.
+    """
     kljucevi = ['id', 'id_sale', 'vreme_pocetka', 'vreme_kraja', 'dani_nedelje', 'id_programa']
     podaci = ucitaj_podatke(putanja, kljucevi)
 
@@ -23,6 +32,17 @@ def ucitaj_trening(putanja):
 
 
 def dodaj_trening(treninzi, sale, programi):
+    """
+    Dodaje novi trening u sistem.
+
+    Args:
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        sale (dict): Rečnik sa podacima o salama.
+        programi (dict): Rečnik sa podacima o programima.
+
+    Returns:
+        bool: True ako je trening uspešno dodat, False ako je korisnik odustao.
+    """
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
     novi_id = str(max((int(id_treninga) for id_treninga in treninzi.keys()), default=0) + 1)
 
@@ -90,6 +110,18 @@ def dodaj_trening(treninzi, sale, programi):
 
 
 def izmeni_trening(treninzi, sale, programi):
+    """
+    Menja podatke o postojećem treningu.
+
+    Args:
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        sale (dict): Rečnik sa podacima o salama.
+        programi (dict): Rečnik sa podacima o programima.
+
+    Returns:
+        bool: True ako je trening uspešno izmenjen, False ako je korisnik odustao.
+    """
+
     dani = ['ponedeljak', 'utorak', 'sreda', 'cetvrtak', 'petak', 'subota', 'nedelja']
 
     while True:
@@ -164,6 +196,15 @@ def izmeni_trening(treninzi, sale, programi):
 
 
 def brisi_trening(treninzi):
+    """
+    Briše trening iz sistema na osnovu ID-a.
+
+    Args:
+        treninzi (dict): Rečnik sa podacima o treninzima.
+
+    Returns:
+        bool: True ako je trening uspešno izbrisan, False ako je korisnik odustao.
+    """
     while True:
         print('Opcije postojecih treninga za brisanje:')
         ispis_treninzi(treninzi)

@@ -11,6 +11,15 @@ from funkcije.termin import spoji_termine
 from funkcije.kratak_ispis import ispis_korisnika, ispis_treninzi, ispis_mesta
 
 def ucitaj_rezervacije(putanja):
+    """
+    Učitava podatke rezervacija iz fajla.
+
+    Args:
+        putanja (str): Putanja do .txt fajla.
+
+    Returns:
+        dict: Rečnik sa podacima o rezervacijama.
+    """
     kljucevi = ['id', 'id_korisnika', 'id_termina', 'oznaka_reda_kolone', 'datum']
     podaci = ucitaj_podatke(putanja, kljucevi)
 
@@ -23,6 +32,16 @@ def ucitaj_rezervacije(putanja):
 
 
 def pretrazi_rezervacije_korisnik(rezervacije, korisnicko_ime):
+    """
+    Pretražuje rezervacije na osnovu korisničkog imena.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o rezervacijama
+        korisnicko_ime (str): Korisničko ime za pretragu
+
+    Returns:
+        dict: Rečnik sa rezervacijama korisnika ili prazan rečnik ako nema rezultata
+    """
     pretraga = {}
 
     if korisnicko_ime:
@@ -37,6 +56,19 @@ def pretrazi_rezervacije_korisnik(rezervacije, korisnicko_ime):
 
 
 def pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, korisnicko_ime):
+    """
+    Pretražuje rezervacije na osnovu instruktora koji vodi program.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o rezervacijama
+        treninzi (dict): Rečnik sa podacima o treninzima
+        termini (dict): Rečnik sa podacima o terminima
+        programi (dict): Rečnik sa podacima o programima
+        korisnicko_ime (str): Korisničko ime instruktora za pretragu
+
+    Returns:
+        dict: Rečnik sa rezervacijama koje se odnose na datog instruktora ili prazan rečnik ako nema rezultata
+    """
     pretraga = {}
 
     for podaci in rezervacije.values():
@@ -54,6 +86,17 @@ def pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, ko
 
 
 def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
+    """
+    Pretražuje rezervacije na osnovu različitih kriterijuma.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o rezervacijama
+        termini (dict): Rečnik sa podacima o terminima
+        treninzi (dict): Rečnik sa podacima o treninzima
+        korisnici (dict): Rečnik sa podacima o korisnicima
+
+    Ispisuje rezultate pretrage.
+    """
     while True:
         print("Ponuđene opcije:\n1. ID treninga\n2. Ime člana\n3. Prezime člana\n4. Datumu rezervacije\n5. Vreme početka treninga\n6. Vreme kraja treninga\nb. Nazad")
 
@@ -142,6 +185,18 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
 
 
 def prikaz_mesta_u_matrici(id_termina, rezervacije, termini, treninzi, sale):
+    """
+    Prikazuje raspored mesta u sali za određeni termin.
+
+    Args:
+        id_termina (str): ID termina za koji se prikazuje raspored mesta
+        rezervacije (dict): Rečnik sa podacima o rezervacijama
+        termini (dict): Rečnik sa podacima o terminima
+        treninzi (dict): Rečnik sa podacima o treninzima
+        sale (dict): Rečnik sa podacima o salama
+
+    Prikazuje matricu zauzetih i slobodnih mesta u sali.
+    """
     id_treninga = termini[id_termina]['id_treninga']
     id_sale = treninzi[id_treninga]['id_sale']
     sala = sale[id_sale]
@@ -173,6 +228,20 @@ def prikaz_mesta_u_matrici(id_termina, rezervacije, termini, treninzi, sale):
 
 
 def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_ime):
+    """
+    Omogućava rezervaciju mesta za određeni termin treninga.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o svim rezervacijama.
+        termini (dict): Rečnik sa podacima o terminima treninga.
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        programi (dict): Rečnik sa podacima o programima treninga.
+        sale (dict): Rečnik sa podacima o salama.
+        korisnici (dict): Rečnik sa podacima o korisnicima.
+        korisnicko_ime (str): Korisničko ime korisnika koji rezerviše mesto.
+
+    Rezervacija se čuva u rečniku rezervacija ako je uspešna.
+    """
     korisnik = korisnici.get(korisnicko_ime)
     if korisnik['status'] != 1:
         print(f"{korisnik['korisnicko_ime']} status je 'neaktivan'. Ne možete rezervisati mesta.")
@@ -261,6 +330,18 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
 
 
 def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_ime_instruktora):
+    """
+    Omogućava instruktoru da izvrši rezervaciju mesta za člana u terminima koje on vodi.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o svim rezervacijama.
+        termini (dict): Rečnik sa podacima o terminima treninga.
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        programi (dict): Rečnik sa podacima o programima treninga.
+        sale (dict): Rečnik sa podacima o salama.
+        korisnici (dict): Rečnik sa podacima o korisnicima.
+        korisnicko_ime_instruktora (str): Korisničko ime instruktora koji vrši rezervaciju.
+    """
     while True:
         termini_instruktora = {
             id_termina: termin
@@ -282,6 +363,12 @@ def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale,
 
 
 def ponisti_rezervaciju(rezervacije):
+    """
+    Omogućava korisniku da poništi svoje aktivne rezervacije.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o svim rezervacijama.
+    """
     while True:
         print("Vaše trenutne rezervacije:")
 
@@ -313,6 +400,16 @@ def ponisti_rezervaciju(rezervacije):
 
 
 def ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnicko_ime):
+    """
+    Omogućava instruktoru da poništi rezervacije za svoje termine.
+
+    Args:
+        rezervacije (dict): Rečnik sa podacima o svim rezervacijama.
+        termini (dict): Rečnik sa podacima o terminima.
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        programi (dict): Rečnik sa podacima o programima.
+        korisnicko_ime (str): Korisničko ime instruktora.
+    """
     while True:
         termini_instruktora = {
                 id_termina: termin
@@ -334,11 +431,22 @@ def ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kor
             print("Nemate aktivnih rezervacija za poništavanje.")
             break
 
-        ponisti_rezervaciju(rezervacije, termini)
+        ponisti_rezervaciju(rezervacije)
         break
 
 
 def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, korisnicko_ime_instruktora):
+    """
+    Omogućava instruktoru da izmeni rezervacije za termine koje vodi.
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        termini (dict): Rečnik sa svim terminima treninga.
+        treninzi (dict): Rečnik sa svim treninzima.
+        programi (dict): Rečnik sa svim programima.
+        korisnici (dict): Rečnik sa svim korisnicima.
+        korisnicko_ime_instruktora (str): Korisničko ime instruktora.
+    """
     while True:
         termini_instruktora = {
             id_termina: termin
@@ -463,6 +571,14 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
 
 
 def mesecna_nagrada_lojalnosti(rezervacije, korisnici):
+    """
+    Dodeljuje mesečne nagrade lojalnosti korisnicima koji su
+    ostvarili više od 27 rezervacija u poslednjih 30 dana. 
+
+    Args:
+        rezervacije (dict): Rečnik sa svim rezervacijama.
+        korisnici (dict): Rečnik sa svim korisnicima.
+    """
     danas = datetime.now().date()
     prosli_mesec = danas - timedelta(days=30)
 

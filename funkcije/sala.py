@@ -7,13 +7,13 @@ from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_sale(putanja):
     """
-    Ucitava sale iz .txt fajla i vraca ih u obliku recnika.
+    Učitava podatke sala iz fajla.
 
     Args:
-        putanja (str): putanja do .txt fajla
+        putanja (str): Putanja do .txt fajla.
 
     Returns:
-        dict: recnik sa svim salama
+        dict: Rečnik sa podacima o salama.
     """
     kljucevi = ['id', 'naziv', 'broj_redova', 'oznaka_mesta']
     podaci = ucitaj_podatke(putanja, kljucevi)

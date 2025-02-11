@@ -9,6 +9,15 @@ import re
 from funkcije.fajlovi import ucitaj_podatke
 
 def ucitaj_korisnike(putanja):
+    """
+    Učitava podatke korisnika iz fajla.
+
+    Args:
+        putanja (str): Putanja do .txt fajla.
+
+    Returns:
+        dict: Rečnik sa podacima o korinicima.
+    """
     kljucevi = ['korisnicko_ime', 'lozinka', 'ime', 'prezime', 'uloga',
                 'status', 'uplaceni_paket', 'datum_registracije']
     podaci = ucitaj_podatke(putanja, kljucevi)
@@ -25,6 +34,15 @@ def ucitaj_korisnike(putanja):
 
 
 def dodaj_korisnika(korisnici):
+    """
+    Dodaje novog korisnika u sistem.
+
+    Args:
+        korisnici (dict): Rečnik sa korisnicima.
+
+    Returns:
+        bool: Vraća True ako je korisnik uspešno dodat.
+    """
     while True:
         korisnicko_ime = input('Unesite korisnicko ime: ')
         if korisnicko_ime not in korisnici.keys():
@@ -53,6 +71,15 @@ def dodaj_korisnika(korisnici):
 
 
 def registracija_instruktora(korisnici):
+    """
+    Dodaje novog instruktora u sistem.
+
+    Args:
+        korisnici (dict): Rečnik sa korisnicima.
+
+    Returns:
+        bool: Vraća True ako je instruktor uspešno registrovan.
+    """
     while True:
         korisnicko_ime = input('Unesite korisnicko ime instruktora: ')
         if korisnicko_ime not in korisnici.keys():
@@ -93,6 +120,16 @@ def registracija_instruktora(korisnici):
 
 
 def prijava(korisnici, trenutni_korisnik):
+    """
+    Funkcija za prijavu korisnika.
+
+    Args:
+        korisnici (dict): Rečnik sa korisnicima.
+        trenutni_korisnik (dict): Trenutno prijavljeni korisnik.
+
+    Returns:
+        dict: Podaci o korisniku koji je uspešno prijavljen.
+    """
     if not trenutni_korisnik:
         while True:
             korisnicko_ime = input('Unesite korisnicko ime: ')
@@ -110,6 +147,15 @@ def prijava(korisnici, trenutni_korisnik):
 
 
 def registracija(korisnici):
+    """
+    Funkcija za registraciju korisnika.
+
+    Args:
+        korisnici (dict): Rečnik sa postojećim korisnicima.
+
+    Returns:
+        dict: Podaci o korisniku koji se uspešno registrovao i prijavio.
+    """
     while True:
         if dodaj_korisnika(korisnici):
             print('Uspesna registracija. Sada se mozete prijaviti.')
@@ -119,4 +165,10 @@ def registracija(korisnici):
 
 
 def odjava():
+    """
+    Funkcija za odjavu korisnika. Ispisuje poruku o uspešnoj odjavi.
+
+    Returns:
+        None
+    """
     print('Odjava uspesna.')

@@ -226,7 +226,7 @@ def meni_instruktor():
         '4': lambda: ispis_tabele(spoji_termine(trening_za_ispis(treninzi,sale,programi),termini)),
         '5': lambda: pokreni_meni('meni_pretrazi_termin'),
         '6': lambda: rezervacija_mesta_instruktor
-            (rezervacije, termini, treninzi, programi, sale, 
+            (rezervacije, termini, treninzi, programi, sale,
              korisnici, TRENUTNI_KORISNIK['korisnicko_ime']),
 
         '7': lambda: ispis_tabele(rezervacije_za_ispis(pretrazi_rezervacije_instruktor

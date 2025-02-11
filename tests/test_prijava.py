@@ -54,12 +54,10 @@ def test_registracija_uspesna(mock_korisnici):
 
 
 def test_registracija_pogresna_sifra(mock_korisnici):
-    with patch("builtins.input",
-            side_effect=["nikola123", "Nikola", "Nik12", "Nikola123", "Nikola", "Nikolic"]):
+    with patch("builtins.input", side_effect=["nikola123", "Nikola", "Nik12", "Nikola123", "Nikola", "Nikolic"]):
         assert dodaj_korisnika(mock_korisnici) == True
 
 
 def test_registracija_vec_registrovan(mock_korisnici):
-    with patch("builtins.input",
-            side_effect=["marko123", "nikola123", "Nikola123", "Nikola", "Nikolic"]):
+    with patch("builtins.input", side_effect=["marko123", "nikola123", "Nikola123", "Nikola", "Nikolic"]):
         assert dodaj_korisnika(mock_korisnici) == True

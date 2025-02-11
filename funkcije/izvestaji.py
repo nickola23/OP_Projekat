@@ -336,7 +336,8 @@ def izvestaj_f(rezervacije, termini, treninzi, programi):
 
 def izvestaj_g(rezervacije, termini, treninzi, programi):
     """
-    Generiše izveštaj o tri najpopularnija programa u poslednjih godinu dana na osnovu broja rezervacija.
+    Generiše izveštaj o tri najpopularnija programa
+    u poslednjih godinu dana na osnovu broja rezervacija.
 
     Args:
         rezervacije (dict): Rečnik sa svim rezervacijama.

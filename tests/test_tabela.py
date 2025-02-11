@@ -3,6 +3,7 @@ Modul za testiranje ispisa tabela.
 
 Sadrži funkcije za testiranje programa.
 """
+# pylint: skip-file
 import sys
 import os
 

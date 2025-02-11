@@ -3,6 +3,7 @@ Modul za testiranje unosa programa.
 
 Sadrži funkcije za testiranje programa.
 """
+# pylint: skip-file
 import sys
 import os
 

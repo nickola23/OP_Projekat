@@ -15,3 +15,4 @@ dusan33|pass123|Dušan|Stanković|1|0|0|09.12.2024
 sofia21|sofia21|Sofija|Lukić|2|0|0|10.12.2024
 tax|sifra123|Tamra|DaDaDa|0|1|1|17.12.2024
 marko21|sifra123|Marko|Milanovic|2|0|0|23.12.2024
+niki|sifra123|nikola|nikolic|0|0|0|12.02.2025

@@ -24,7 +24,7 @@ def ucitaj_rezervacije(putanja):
     podaci = ucitaj_podatke(putanja, kljucevi)
 
     # Dodatna obrada za datum
-    for rezervacija in podaci.values():
+    for _, rezervacija in podaci.items():
         rezervacija['datum'] = (datetime.strptime(rezervacija['datum'].strip(), '%d.%m.%Y')
                                         .date().strftime('%d.%m.%Y'))
 
@@ -36,16 +36,16 @@ def pretrazi_rezervacije_korisnik(rezervacije, korisnicko_ime):
     Pretražuje rezervacije na osnovu korisničkog imena.
 
     Args:
-        rezervacije (dict): Rečnik sa podacima o rezervacijama
-        korisnicko_ime (str): Korisničko ime za pretragu
+        rezervacije (dict): Rečnik sa podacima o rezervacijama.
+        korisnicko_ime (str): Korisničko ime za pretragu.
 
     Returns:
-        dict: Rečnik sa rezervacijama korisnika ili prazan rečnik ako nema rezultata
+        dict: Rečnik sa rezervacijama korisnika ili prazan rečnik ako nema rezultata.
     """
     pretraga = {}
 
     if korisnicko_ime:
-        for podaci in rezervacije.values():
+        for _, podaci in rezervacije.items():
             if podaci['id_korisnika'] == korisnicko_ime:
                 pretraga[podaci['id']] = podaci
 
@@ -60,23 +60,24 @@ def pretrazi_rezervacije_instruktor(rezervacije, treninzi, termini, programi, ko
     Pretražuje rezervacije na osnovu instruktora koji vodi program.
 
     Args:
-        rezervacije (dict): Rečnik sa podacima o rezervacijama
-        treninzi (dict): Rečnik sa podacima o treninzima
-        termini (dict): Rečnik sa podacima o terminima
-        programi (dict): Rečnik sa podacima o programima
-        korisnicko_ime (str): Korisničko ime instruktora za pretragu
+        rezervacije (dict): Rečnik sa podacima o rezervacijama.
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        termini (dict): Rečnik sa podacima o terminima.
+        programi (dict): Rečnik sa podacima o programima.
+        korisnicko_ime (str): Korisničko ime instruktora za pretragu.
 
     Returns:
-        dict: Rečnik sa rezervacijama koje se odnose na datog instruktora ili prazan rečnik ako nema rezultata
+        dict: Rečnik sa rezervacijama koje se odnose na datog instruktora
+        ili prazan rečnik ako nema rezultata.
     """
     pretraga = {}
 
-    for podaci in rezervacije.values():
+    for _, podaci in rezervacije.items():
         id_termina = podaci['id_termina']
         trening = treninzi.get(termini.get(id_termina, {}).get('id_treninga', ''))
         if trening:
             id_programa = trening.get('id_programa')
-            if id_programa and programi.get(id_programa, {}).get('id_instruktora') == korisnicko_ime:
+            if id_programa and programi.get(id_programa, {}).get('id_instruktora')==korisnicko_ime:
                 pretraga[podaci['id']] = podaci
 
     if pretraga:
@@ -90,15 +91,22 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
     Pretražuje rezervacije na osnovu različitih kriterijuma.
 
     Args:
-        rezervacije (dict): Rečnik sa podacima o rezervacijama
-        termini (dict): Rečnik sa podacima o terminima
-        treninzi (dict): Rečnik sa podacima o treninzima
-        korisnici (dict): Rečnik sa podacima o korisnicima
+        rezervacije (dict): Rečnik sa podacima o rezervacijama.
+        termini (dict): Rečnik sa podacima o terminima.
+        treninzi (dict): Rečnik sa podacima o treninzima.
+        korisnici (dict): Rečnik sa podacima o korisnicima.
 
     Ispisuje rezultate pretrage.
     """
     while True:
-        print("Ponuđene opcije:\n1. ID treninga\n2. Ime člana\n3. Prezime člana\n4. Datumu rezervacije\n5. Vreme početka treninga\n6. Vreme kraja treninga\nb. Nazad")
+        print("Ponuđene opcije:\n"
+              "1. ID treninga\n"
+              "2. Ime člana\n"
+              "3. Prezime člana\n"
+              "4. Datumu rezervacije\n"
+              "5. Vreme početka treninga\n"
+              "6. Vreme kraja treninga\n"
+              "b. Nazad")
 
         izbor = input("Unesite zeljenu opciju: ")
 
@@ -108,63 +116,85 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
                 ispis_treninzi(treninzi)
 
                 id_treninga = input("Unesite ID treninga: ").strip()
-                pretraga = {
-                    id_rezervacije: rezervacija
-                    for id_rezervacije, rezervacija in rezervacije.items()
-                    if treninzi[termini[rezervacija['id_termina']]['id_treninga']]['id'] == id_treninga
-                }
+                pretraga = {}
+
+                for id_rezervacije, rezervacija in rezervacije.items():
+                    id_termina = rezervacija['id_termina']
+                    id_treninga_rezervacije = treninzi[termini[id_termina]['id_treninga']]['id']
+                    
+                    if id_treninga_rezervacije == id_treninga:
+                        pretraga[id_rezervacije] = rezervacija
 
             case "2":
                 ime = input("Unesite ime člana: ").strip().lower()
-                pretraga = {
-                    id_rezervacije: rezervacija
-                    for id_rezervacije, rezervacija in rezervacije.items()
-                    if any(korisnik['ime'].lower() == ime for korisnik in korisnici.values() if korisnik['korisnicko_ime'] == rezervacija['id_korisnika'])
-                }
+                pretraga = {}
+
+                for id_rezervacije, rezervacija in rezervacije.items():
+                    id_korisnika = rezervacija['id_korisnika']
+                    
+                    for _, korisnik in korisnici.items():
+                        if (korisnik['korisnicko_ime'] == id_korisnika and
+                            korisnik['ime'].lower() == ime):
+                            pretraga[id_rezervacije] = rezervacija
 
             case "3":
                 prezime = input("Unesite prezime člana: ").strip().lower()
-                pretraga = {
-                    id_rezervacije: rezervacija
-                    for id_rezervacije, rezervacija in rezervacije.items()
-                    if any(korisnik['prezime'].lower() == prezime for korisnik in korisnici.values() if korisnik['korisnicko_ime'] == rezervacija['id_korisnika'])
-                }
+                pretraga = {}
+
+                pretraga = {}
+
+                for id_rezervacije, rezervacija in rezervacije.items():
+                    id_korisnika = rezervacija['id_korisnika']
+                    
+                    for korisnik in korisnici.values():
+                        if (korisnik['korisnicko_ime'] == id_korisnika and
+                            korisnik['prezime'].lower() == prezime):
+                            pretraga[id_rezervacije] = rezervacija
 
             case "4":
                 datum = input("Unesite datum rezervacije: ").strip()
                 try:
-                    datetime.strptime(datum, '%d.%m.%Y')
-                    pretraga = {
-                        id_rezervacije: rezervacija
-                        for id_rezervacije, rezervacija in rezervacije.items()
-                        if rezervacija['datum'] == datum
-                    }
+                    datum_rezervacije = datetime.strptime(datum, '%d.%m.%Y').strftime("%d.%m.%Y")
+                    pretraga = {}
+
+                    for id_rezervacije, rezervacija in rezervacije.items():
+                        if rezervacija['datum'] == datum_rezervacije:
+                            pretraga[id_rezervacije] = rezervacija
+
                 except ValueError:
                     print("Uneli ste nevažeći datum. Pokušajte ponovo.")
                     continue
 
             case "5":
-                vreme_pocetka = input("Unesite vreme početka treninga (hh:mm): ").strip()
+                vreme = input("Unesite vreme početka treninga (hh:mm): ").strip()
                 try:
-                    pocetak = datetime.strptime(vreme_pocetka, '%H:%M').time()
-                    pretraga = {
-                        id_rezervacije: rezervacija
-                        for id_rezervacije, rezervacija in rezervacije.items()
-                        if treninzi[termini[rezervacija['id_termina']]['id_treninga']]['vreme_pocetka'] == pocetak
-                    }
+                    vreme_pocetka = datetime.strptime(vreme, '%H:%M').time()
+                    pretraga = {}
+
+                    for id_rezervacije, rezervacija in rezervacije.items():
+                        id_termina = rezervacija['id_termina']
+                        id_treninga = termini[id_termina]['id_treninga']
+                        
+                        if treninzi[id_treninga]['vreme_pocetka'] == vreme_pocetka:
+                            pretraga[id_rezervacije] = rezervacija
+
                 except ValueError:
                     print("Uneli ste nevažeće vreme. Pokušajte ponovo.")
                     continue
 
             case "6":
-                vreme_kraja = input("Unesite vreme kraja treninga (hh:mm): ").strip()
+                vreme = input("Unesite vreme kraja treninga (hh:mm): ").strip()
                 try:
-                    kraj = datetime.strptime(vreme_kraja, '%H:%M').time()
-                    pretraga = {
-                        id_rezervacije: rezervacija
-                        for id_rezervacije, rezervacija in rezervacije.items()
-                        if treninzi[termini[rezervacija['id_termina']]['id_treninga']]['vreme_kraja'] == kraj
-                    }
+                    vreme_kraja = datetime.strptime(vreme, '%H:%M').time()
+                    pretraga = {}
+
+                    for id_rezervacije, rezervacija in rezervacije.items():
+                        id_termina = rezervacija['id_termina']
+                        id_treninga = termini[id_termina]['id_treninga']
+                        
+                        if treninzi[id_treninga]['vreme_kraja'] == vreme_kraja:
+                            pretraga[id_rezervacije] = rezervacija
+
                 except ValueError:
                     print("Uneli ste nevažeće vreme. Pokušajte ponovo.")
                     continue
@@ -209,7 +239,12 @@ def prikaz_mesta_u_matrici(id_termina, rezervacije, termini, treninzi, sale):
 
     #sva_mesta = {f"{red}{kolona}" for kolona in range(1, broj_kolona + 1) for red in svi_redovi}
 
-    zauzeta_mesta = {rezervacija['oznaka_reda_kolone'] for rezervacija in rezervacije.values() if rezervacija['id_termina'] == id_termina}
+    zauzeta_mesta = []
+
+    for _, rezervacija in rezervacije.items():
+        if rezervacija['id_termina'] == id_termina:
+            zauzeta_mesta.append(rezervacija['oznaka_reda_kolone'])
+
 
     matrica = []
     for kolona in range(1, broj_kolona + 1):
@@ -271,7 +306,7 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
 
         dan_treninga = datetime.strptime(termin['datum'], '%d.%m.%Y').weekday()
 
-        if dan_treninga != 4 and program['potreban_paket'] == 1 and korisnik['uplaceni_paket'] != 1:
+        if dan_treninga != 4 and program['potreban_paket'] == 1 and korisnik['uplaceni_paket'] !=1:
             print("Ovaj program zahteva premium članstvo. Ne možete rezervisati mesto.")
             continue
 
@@ -299,8 +334,18 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
         indeks = svi_redovi.index(oznaka_mesta) + 1
         svi_redovi = svi_redovi[:indeks]
 
-        zauzeta_mesta = {rezervacija['oznaka_reda_kolone'] for rezervacija in rezervacije.values() if rezervacija['id_termina'] == id_termina}
-        slobodna_mesta = {f"{red}{kolona}" for kolona in range(1, broj_kolona + 1) for red in svi_redovi} - zauzeta_mesta
+        zauzeta_mesta = []
+        for rezervacija in rezervacije.values():
+            if (rezervacija['id_termina'] == id_termina and
+                rezervacija['oznaka_reda_kolone'] not in zauzeta_mesta):
+                zauzeta_mesta.append(rezervacija['oznaka_reda_kolone'])
+
+        slobodna_mesta = []
+        for red in svi_redovi:
+            for kolona in range(1, broj_kolona + 1):
+                mesto = f"{red}{kolona}"
+                if mesto not in zauzeta_mesta:
+                    slobodna_mesta.append(mesto)
 
         if not slobodna_mesta:
             print("Nema slobodnih mesta za izabrani termin.")
@@ -329,7 +374,8 @@ def rezervacija_mesta(rezervacije, termini, treninzi, programi, sale, korisnici,
             break
 
 
-def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale, korisnici, korisnicko_ime_instruktora):
+def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi,
+                                sale, korisnici, korisnicko_ime_instruktora):
     """
     Omogućava instruktoru da izvrši rezervaciju mesta za člana u terminima koje on vodi.
 
@@ -343,22 +389,24 @@ def rezervacija_mesta_instruktor(rezervacije, termini, treninzi, programi, sale,
         korisnicko_ime_instruktora (str): Korisničko ime instruktora koji vrši rezervaciju.
     """
     while True:
-        termini_instruktora = {
-            id_termina: termin
-            for id_termina, termin in termini.items()
-            if programi[treninzi[termin['id_treninga']]['id_programa']]['id_instruktora'] == korisnicko_ime_instruktora
-        }
+        termini_instruktora = {}
+        for id_termina, termin in termini.items():
+            if (programi[treninzi[termin['id_treninga']]
+                                 ['id_programa']]['id_instruktora']) == korisnicko_ime_instruktora:
+                termini_instruktora[id_termina] = termin
 
         if not termini_instruktora:
             print("Nemate termine za koje možete rezervisati mesta.")
             break
 
-        korisnicko_ime_clana = input("Unesite korisničko ime člana za kojeg rezervišete mesto: ").strip()
+        korisnicko_ime_clana = input("Unesite korisničko ime člana"
+                                     " za kojeg rezervišete mesto: ").strip()
         if korisnicko_ime_clana not in korisnici:
             print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
             continue
 
-        rezervacija_mesta(rezervacije, termini_instruktora, treninzi, programi, sale, korisnici, korisnicko_ime_clana)
+        rezervacija_mesta(rezervacije, termini_instruktora, treninzi,
+                          programi, sale, korisnici, korisnicko_ime_clana)
         break
 
 
@@ -372,22 +420,23 @@ def ponisti_rezervaciju(rezervacije):
     while True:
         print("Vaše trenutne rezervacije:")
 
-        aktivne_rezeracije = {
-            id_rezervacije: rezervacija
-            for id_rezervacije, rezervacija in rezervacije.items()
-            if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= datetime.now().date()
-        }
+        aktivne_rezervacije = {}
+        danas = datetime.now().date()
 
-        if not aktivne_rezeracije:
+        for id_rezervacije, rezervacija in rezervacije.items():
+            if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= danas:
+                aktivne_rezervacije[id_rezervacije] = rezervacija
+
+        if not aktivne_rezervacije:
             print("Nemate aktivnih rezervacija za poništavanje.")
             break
 
-        ispis_tabele(aktivne_rezeracije)
+        ispis_tabele(aktivne_rezervacije)
 
         id_rezervacije = input("Unesite ID rezervacije koju želite da poništite (b. za Nazad): ")
         if id_rezervacije == 'b':
             break
-        if id_rezervacije not in aktivne_rezeracije:
+        if id_rezervacije not in aktivne_rezervacije:
             print("Nevažeći ID rezervacije. Pokušajte ponovo.")
             continue
 
@@ -411,23 +460,25 @@ def ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kor
         korisnicko_ime (str): Korisničko ime instruktora.
     """
     while True:
-        termini_instruktora = {
-                id_termina: termin
-                for id_termina, termin in termini.items()
-                if programi[treninzi[termin['id_treninga']]['id_programa']]['id_instruktora'] == korisnicko_ime
-            }
+        termini_instruktora = {}
+
+        for id_termina, termin in termini.items():
+            if (programi[treninzi[termin['id_treninga']]['id_programa']]['id_instruktora']
+                    == korisnicko_ime):
+                termini_instruktora[id_termina] = termin
 
         if not termini_instruktora:
             print("Nemate termine za koje možete poništiti rezervaciju.")
             break
 
-        aktivne_rezeracije = {
-            id_rezervacije: rezervacija
-            for id_rezervacije, rezervacija in rezervacije.items()
-            if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= datetime.now().date()
-        }
+        aktivne_rezervacije = {}
+        danas = datetime.now().date()
 
-        if not aktivne_rezeracije:
+        for id_rezervacije, rezervacija in rezervacije.items():
+            if datetime.strptime(rezervacija['datum'], '%d.%m.%Y').date() >= danas:
+                aktivne_rezervacije[id_rezervacije] = rezervacija
+
+        if not aktivne_rezervacije:
             print("Nemate aktivnih rezervacija za poništavanje.")
             break
 
@@ -435,7 +486,8 @@ def ponisti_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kor
         break
 
 
-def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, korisnici, korisnicko_ime_instruktora):
+def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi,
+                                  korisnici, sale, korisnicko_ime_instruktora):
     """
     Omogućava instruktoru da izmeni rezervacije za termine koje vodi.
 
@@ -445,14 +497,16 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
         treninzi (dict): Rečnik sa svim treninzima.
         programi (dict): Rečnik sa svim programima.
         korisnici (dict): Rečnik sa svim korisnicima.
+        sale (dict): Rečnik sa svim salama.
         korisnicko_ime_instruktora (str): Korisničko ime instruktora.
     """
     while True:
-        termini_instruktora = {
-            id_termina: termin
-            for id_termina, termin in termini.items()
-            if programi[treninzi[termin['id_treninga']]['id_programa']]['id_instruktora'] == korisnicko_ime_instruktora
-        }
+        termini_instruktora = {}
+
+        for id_termina, termin in termini.items():
+            if (programi[treninzi[termin['id_treninga']]['id_programa']]['id_instruktora']
+                    == korisnicko_ime_instruktora):
+                termini_instruktora[id_termina] = termin
 
         if not termini_instruktora:
             print("Nemate termine za koje možete menjati rezervacije.")
@@ -468,17 +522,17 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
             print("Uneti termin nije vaš. Pokušajte ponovo.")
             continue
 
-        korisnici_sa_rezervacijama = {
-            rezervacija['id_korisnika']
-            for rezervacija in rezervacije.values()
-            if rezervacija['id_termina'] == id_termina
-        }
+        korisnici_sa_rezervacijama = []
 
-        filtrirani_korisnici = {
-            korisnicko_ime: korisnici[korisnicko_ime]
-            for korisnicko_ime in korisnici_sa_rezervacijama
-            if korisnicko_ime in korisnici
-        }
+        for rezervacija in rezervacije.values():
+            if rezervacija['id_termina'] == id_termina:
+                korisnici_sa_rezervacijama.append(rezervacija['id_korisnika'])
+
+        filtrirani_korisnici = {}
+
+        for korisnicko_ime in korisnici_sa_rezervacijama:
+            if korisnicko_ime in korisnici:
+                filtrirani_korisnici[korisnicko_ime] = korisnici[korisnicko_ime]
 
         if korisnici_sa_rezervacijama:
             print('Opcije korisnika sa rezervacijama:')
@@ -492,12 +546,12 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
             print("Uneto korisničko ime člana ne postoji. Pokušajte ponovo.")
             continue
 
-        izabrane_rezervacije = {
-            id_rezervacije: rezervacija
-            for id_rezervacije, rezervacija in rezervacije.items()
+        izabrane_rezervacije = {}
+
+        for id_rezervacije, rezervacija in rezervacije.items():
             if (rezervacija['id_termina'] == id_termina
-                and rezervacija['id_korisnika'] == korisnicko_ime_clana)
-        }
+                and rezervacija['id_korisnika'] == korisnicko_ime_clana):
+                izabrane_rezervacije[id_rezervacije] = rezervacija
 
         if izabrane_rezervacije:
             print('Opcije rezervisanih mesta korisnika:')
@@ -510,9 +564,9 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
         rezervacija_za_izmenu = None
         for rezervacija in rezervacije.values():
             if (
-                rezervacija['id_termina'] == id_termina
-                and rezervacija['id_korisnika'] == korisnicko_ime_clana
-                and rezervacija['oznaka_reda_kolone'] == oznaka_reda_kolone
+                rezervacija['id_termina'] == id_termina and
+                rezervacija['id_korisnika'] == korisnicko_ime_clana and
+                rezervacija['oznaka_reda_kolone'] == oznaka_reda_kolone
             ):
                 rezervacija_za_izmenu = rezervacija
                 break
@@ -546,14 +600,15 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
             print("Korisnik uspešno izmenjen.")
         elif izbor == "3":
             print("Dostupna mesta za dati termin:")
-            prikaz_mesta_u_matrici(id_termina, rezervacije)
+            prikaz_mesta_u_matrici(id_termina, rezervacije, termini, treninzi, sale)
 
             nova_oznaka = input("Unesite novu oznaku mesta: ").strip()
-            zauzeta_mesta = {
-                rezervacija['oznaka_reda_kolone']
-                for rezervacija in rezervacije.values()
-                if rezervacija['id_termina'] == id_termina
-            }
+            zauzeta_mesta = []
+
+            for rezervacija in rezervacije.values():
+                if rezervacija['id_termina'] == id_termina:
+                    zauzeta_mesta.append(rezervacija['oznaka_reda_kolone'])
+
             if nova_oznaka in zauzeta_mesta:
                 print("Novo mesto je već zauzeto. Pokušajte ponovo.")
                 continue
@@ -565,7 +620,7 @@ def izmeni_rezervaciju_instruktor(rezervacije, termini, treninzi, programi, kori
             print("Pogresan unos. Pokušajte ponovo.")
             continue
 
-        nastavak = input("Da li želite da izmenite još neku rezervaciju? (da/ne): ").strip().lower()
+        nastavak =input("Da li želite da izmenite još neku rezervaciju? (da/ne): ").strip().lower()
         if nastavak != "da":
             break
 

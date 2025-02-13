@@ -314,7 +314,7 @@ def meni_instruktor():
         '10': lambda: aktivacija_clana(korisnici, clanarine),
         '11': lambda: aktivacija_premium_paketa(korisnici),
         '12': lambda: izmeni_rezervaciju_instruktor
-            (rezervacije, termini, treninzi, programi, korisnici,
+            (rezervacije, termini, treninzi, programi, korisnici, sale,
              TRENUTNI_KORISNIK['korisnicko_ime']),
 
         '0': izlaz

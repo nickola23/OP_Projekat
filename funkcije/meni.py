@@ -47,6 +47,7 @@ PUTANJA_PROGRAMI = './data/Program.txt'
 PUTANJA_TRENING = './data/Trening.txt'
 PUTANJA_TERMIN = './data/Termin.txt'
 PUTANJA_SALA = './data/Sala.txt'
+TRENUTNI_KORISNIK = None
 
 vrste_treninga = ucitaj_vrste_treninga(PUTANJA_VRSTE_TRENINGA)
 rezervacije = ucitaj_rezervacije(PUTANJA_REZERVACIJE)
@@ -58,7 +59,6 @@ treninzi = ucitaj_trening(PUTANJA_TRENING)
 termini =  ucitaj_termin(PUTANJA_TERMIN)
 sale = ucitaj_sale(PUTANJA_SALA)
 
-TRENUTNI_KORISNIK = None
 menii = {}
 
 def prijava_korisnik():

@@ -121,7 +121,7 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
                 for id_rezervacije, rezervacija in rezervacije.items():
                     id_termina = rezervacija['id_termina']
                     id_treninga_rezervacije = treninzi[termini[id_termina]['id_treninga']]['id']
-                    
+
                     if id_treninga_rezervacije == id_treninga:
                         pretraga[id_rezervacije] = rezervacija
 
@@ -131,7 +131,7 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
 
                 for id_rezervacije, rezervacija in rezervacije.items():
                     id_korisnika = rezervacija['id_korisnika']
-                    
+
                     for _, korisnik in korisnici.items():
                         if (korisnik['korisnicko_ime'] == id_korisnika and
                             korisnik['ime'].lower() == ime):
@@ -145,7 +145,7 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
 
                 for id_rezervacije, rezervacija in rezervacije.items():
                     id_korisnika = rezervacija['id_korisnika']
-                    
+
                     for korisnik in korisnici.values():
                         if (korisnik['korisnicko_ime'] == id_korisnika and
                             korisnik['prezime'].lower() == prezime):
@@ -174,7 +174,7 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
                     for id_rezervacije, rezervacija in rezervacije.items():
                         id_termina = rezervacija['id_termina']
                         id_treninga = termini[id_termina]['id_treninga']
-                        
+
                         if treninzi[id_treninga]['vreme_pocetka'] == vreme_pocetka:
                             pretraga[id_rezervacije] = rezervacija
 
@@ -191,7 +191,7 @@ def pretrazi_rezervacije(rezervacije, termini, treninzi, korisnici):
                     for id_rezervacije, rezervacija in rezervacije.items():
                         id_termina = rezervacija['id_termina']
                         id_treninga = termini[id_termina]['id_treninga']
-                        
+
                         if treninzi[id_treninga]['vreme_kraja'] == vreme_kraja:
                             pretraga[id_rezervacije] = rezervacija
 
